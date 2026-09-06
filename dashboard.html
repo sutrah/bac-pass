@@ -1,413 +1,438 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<title>Dashboard Bac — Loïse</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
-<style>
-  :root{
-    --bg:#eef1f6;
-    --surface:#ffffff;
-    --surface-alt:#e3e9f2;
-    --ink:#1c2333;
-    --ink-soft:#57607a;
-    --ink-faint:#8790a6;
-    --line:#d6dee9;
-    --accent:#a9761f;
-    --accent-soft:#f3e3c4;
-    --accent2:#276b62;
-    --accent2-soft:#d9ece8;
-    --good:#25864f;
-    --warn:#a9761f;
-    --critical:#b2402f;
-    --shadow: 0 1px 2px rgba(28,35,51,0.06), 0 8px 24px -12px rgba(28,35,51,0.18);
-  }
-  @media (prefers-color-scheme: dark){
-    :root:not([data-theme="light"]){
-      --bg:#12151e;
-      --surface:#1a1e2a;
-      --surface-alt:#222738;
-      --ink:#eef1f7;
-      --ink-soft:#a7afc4;
-      --ink-faint:#6e7690;
-      --line:#2c3247;
-      --accent:#d9a13c;
-      --accent-soft:#3a3020;
-      --accent2:#5cab9d;
-      --accent2-soft:#1b332f;
-      --good:#4fbf7c;
-      --warn:#d9a13c;
-      --critical:#e07362;
-      --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px -12px rgba(0,0,0,0.5);
-    }
-  }
-  :root[data-theme="dark"]{
-    --bg:#12151e;
-    --surface:#1a1e2a;
-    --surface-alt:#222738;
-    --ink:#eef1f7;
-    --ink-soft:#a7afc4;
-    --ink-faint:#6e7690;
-    --line:#2c3247;
-    --accent:#d9a13c;
-    --accent-soft:#3a3020;
-    --accent2:#5cab9d;
-    --accent2-soft:#1b332f;
-    --good:#4fbf7c;
-    --warn:#d9a13c;
-    --critical:#e07362;
-    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px -12px rgba(0,0,0,0.5);
-  }
+  <meta charset="UTF-8">
+  <title>Dashboard Bac — Dr Loloï</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; }
+    body { background-color: #000000; color: #ffffff; padding: 25px; }
 
-  *{box-sizing:border-box;}
-  body{
-    background:var(--bg); color:var(--ink);
-    font-family:'IBM Plex Sans', system-ui, sans-serif;
-    padding:32px clamp(16px,4vw,48px) 64px;
-    font-variant-numeric: tabular-nums;
-  }
-  h1,h2,h3{font-family:'Source Serif 4', Georgia, serif; text-wrap:balance; margin:0;}
-  .mono{font-family:'IBM Plex Mono', monospace;}
+    /* En-tête profil */
+    .profile-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid #1e2c4a; padding-bottom: 15px; }
+    .profile-title { font-size: 1.4em; font-weight: bold; color: #ffffff; }
+    .profile-title span { color: #00d2ff; }
 
-  /* Masthead */
-  .masthead{
-    display:flex; justify-content:space-between; align-items:flex-end; gap:24px;
-    border-bottom:2px solid var(--ink); padding-bottom:18px; margin-bottom:24px;
-  }
-  .masthead .eyebrow{font-size:0.72rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:6px;}
-  .masthead h1{font-size:clamp(1.5rem,3vw,2.1rem); font-weight:600;}
-  .masthead h1 em{font-style:normal; color:var(--accent);}
-  .masthead .filiere{color:var(--ink-soft); font-size:0.95rem; margin-top:6px;}
-  .masthead .target{
-    text-align:right; font-size:0.85rem; color:var(--ink-soft);
-  }
-  .masthead .target b{display:block; font-family:'Source Serif 4',serif; font-size:1.15rem; color:var(--ink); font-weight:600;}
+    /* Navigation */
+    .nav { display: flex; gap: 10px; margin-bottom: 25px; }
+    .btn { background: #1a233a; border: 1px solid #2a3656; color: #8d9bb0; padding: 10px 24px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 1em; }
+    .btn.active { background: #132247; border-color: #00d2ff; color: #fff; }
+    .btn:focus-visible { outline: 2px solid #00d2ff; outline-offset: 2px; }
 
-  /* Tabs */
-  .tabs{display:flex; gap:8px; margin-bottom:28px; border-bottom:1px solid var(--line);}
-  .tab{
-    background:none; border:none; font-family:inherit; font-weight:600; font-size:0.85rem;
-    letter-spacing:0.03em; color:var(--ink-faint); padding:10px 4px; cursor:pointer;
-    border-bottom:2px solid transparent; margin-bottom:-1px;
-  }
-  .tab:hover{color:var(--ink-soft);}
-  .tab.active{color:var(--ink); border-bottom-color:var(--accent);}
-  .tab:focus-visible{outline:2px solid var(--accent); outline-offset:2px;}
+    .panel { display: none; }
+    .panel.active { display: block; }
 
-  .panel{display:none;}
-  .panel.active{display:block; animation:fade .25s ease;}
-  @media (prefers-reduced-motion: reduce){ .panel.active{animation:none;} }
-  @keyframes fade{from{opacity:0; transform:translateY(4px);} to{opacity:1; transform:none;}}
+    /* Grille du haut (Synthèse) */
+    .top-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 25px; }
+    .card { background: #111a2e; border: 1px solid #1e2c4a; border-radius: 12px; padding: 20px; }
+    .card-title { font-size: 0.8em; font-weight: bold; color: #8d9bb0; text-transform: uppercase; margin-bottom: 8px; }
+    .card-value-green { font-size: 1.8em; font-weight: bold; color: #00ff87; }
+    .card-value-blue { font-size: 1.8em; font-weight: bold; color: #00d2ff; }
+    .card-value-yellow { font-size: 1.8em; font-weight: bold; color: #ffb703; }
+    .card-value-pink { font-size: 1.8em; font-weight: bold; color: #ff007f; }
+    .card-subtext { font-size: 0.85em; color: #a0aec0; margin-top: 6px; line-height: 1.4; }
 
-  /* Summary tiles */
-  .tiles{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-bottom:20px;}
-  .tile{background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:18px 20px; box-shadow:var(--shadow);}
-  .tile .label{font-size:0.72rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--ink-faint); font-weight:600; margin-bottom:8px;}
-  .tile .value{font-family:'Source Serif 4',serif; font-size:1.9rem; font-weight:600; line-height:1;}
-  .tile .value small{font-size:1rem; color:var(--ink-faint); font-weight:500;}
-  .tile .note{font-size:0.82rem; color:var(--ink-soft); margin-top:8px; line-height:1.45;}
-  .tile.accent .value{color:var(--accent);}
-  .tile.accent2 .value{color:var(--accent2);}
+    /* Section centrale (Jauge Générale) */
+    .main-card { background: #111a2e; border: 1px solid #1e2c4a; border-radius: 12px; padding: 25px; margin-bottom: 25px; }
+    .main-title { font-size: 0.9em; font-weight: bold; color: #00d2ff; margin-bottom: 20px; text-transform: uppercase; }
 
-  /* Progress track */
-  .track-card{background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:24px; margin-bottom:20px; box-shadow:var(--shadow);}
-  .track-card h2{font-size:1rem; margin-bottom:4px;}
-  .track-sub{font-size:0.82rem; color:var(--ink-soft); margin-bottom:22px;}
-  .track{position:relative; height:34px; border-radius:6px; overflow:visible; display:flex; background:var(--surface-alt);}
-  .track .zone{height:100%; position:relative; border-right:1px solid var(--bg);}
-  .track .zone:last-child{border-right:none;}
-  .track .zone .zlabel{position:absolute; bottom:-22px; left:6px; font-size:0.68rem; color:var(--ink-faint); white-space:nowrap;}
-  .track .zone .zthresh{position:absolute; top:-18px; right:-1px; font-size:0.68rem; color:var(--ink-faint); font-family:'IBM Plex Mono',monospace;}
-  .track .fill{position:absolute; top:0; left:0; height:100%; background:var(--accent); border-radius:6px 0 0 6px; box-shadow: inset 0 0 0 1px rgba(0,0,0,0.05);}
-  .track .marker{position:absolute; top:-10px; width:2px; height:54px; background:var(--ink); }
-  .track .marker .mtag{position:absolute; top:-26px; left:50%; transform:translateX(-50%); font-family:'IBM Plex Mono',monospace; font-size:0.75rem; font-weight:600; background:var(--ink); color:var(--surface); padding:2px 6px; border-radius:4px; white-space:nowrap;}
-  .track-legend{display:flex; gap:18px; margin-top:34px; font-size:0.78rem; color:var(--ink-soft); flex-wrap:wrap;}
-  .track-legend .dot{display:inline-block; width:9px; height:9px; border-radius:2px; margin-right:5px;}
+    .gauge-container { position: relative; width: 220px; margin: 0 auto 20px auto; text-align: center; }
+    .gauge-svg { transform: rotate(-90deg); width: 100%; height: auto; }
+    .gauge-bg { fill: none; stroke: #1a233a; stroke-width: 12; }
+    .gauge-fill { fill: none; stroke: #00ff87; stroke-width: 12; stroke-linecap: round; stroke-dasharray: 565; stroke-dashoffset: 446; } /* 210/1000 */
 
-  /* Subject grid */
-  .section-head{display:flex; align-items:baseline; justify-content:space-between; margin:32px 0 14px;}
-  .section-head h2{font-size:1rem;}
-  .section-head .hint{font-size:0.78rem; color:var(--ink-faint);}
-  .subjects{display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:12px;}
-  .subj{background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:14px 12px 16px; text-align:center; position:relative; box-shadow:var(--shadow);}
-  .subj.done{border-color:var(--accent);}
-  .subj .coeff{position:absolute; top:8px; right:10px; font-family:'IBM Plex Mono',monospace; font-size:0.65rem; color:var(--ink-faint);}
-  .subj .coeff.high{color:var(--accent); font-weight:600;}
-  .subj-name{font-size:0.78rem; font-weight:600; min-height:2.2em; display:flex; align-items:center; justify-content:center; margin-bottom:10px; padding:0 6px;}
-  .ring{position:relative; width:64px; height:64px; margin:0 auto 8px;}
-  .ring svg{transform:rotate(-90deg); width:100%; height:100%;}
-  .ring .bg{fill:none; stroke:var(--surface-alt); stroke-width:7;}
-  .ring .fg{fill:none; stroke:var(--accent2); stroke-width:7; stroke-linecap:round; transition:stroke-dashoffset .4s ease;}
-  .subj.done .ring .fg{stroke:var(--accent);}
-  .ring .rnote{position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-family:'IBM Plex Mono',monospace; font-size:0.78rem; font-weight:600;}
-  .subj-pts{font-size:0.72rem; color:var(--ink-faint); font-family:'IBM Plex Mono',monospace;}
+    .gauge-data { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -55%); text-align: center; width: 100%; }
+    .gauge-points { font-size: 2.2em; font-weight: bold; color: #fff; line-height: 1; }
+    .gauge-total { font-size: 0.75em; color: #8d9bb0; margin-top: 4px; }
+    .gauge-badge { background: #00b4d8; color: #0b1326; font-weight: bold; font-size: 0.8em; padding: 4px 12px; border-radius: 12px; margin-top: 10px; display: inline-block; }
 
-  .foot-note{font-size:0.78rem; color:var(--ink-faint); border-top:1px dashed var(--line); margin-top:24px; padding-top:14px; line-height:1.6;}
+    .legend-bar { background: #0b1326; border-radius: 8px; padding: 12px 20px; display: flex; justify-content: space-between; font-size: 0.8em; font-weight: bold; margin-top: 20px; flex-wrap: wrap; gap: 8px; }
+    .dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; }
+    .dot-grey { background: #8d9bb0; }
+    .dot-blue { background: #00b4d8; }
+    .dot-yellow { background: #ffb703; }
+    .dot-pink { background: #ff007f; }
+    .dot-green { background: #00ff87; }
 
-  /* Stratégie panel */
-  .profile-grid{display:grid; grid-template-columns:1.1fr 1fr; gap:20px; align-items:start;}
-  @media (max-width:820px){ .profile-grid{grid-template-columns:1fr;} }
-  .card{background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:22px; box-shadow:var(--shadow);}
-  .card h3{font-size:0.95rem; margin-bottom:4px;}
-  .card .sub{font-size:0.78rem; color:var(--ink-faint); margin-bottom:18px;}
+    /* Section Avancement par matière (14 Cartes) */
+    .subjects-section { background: #111a2e; border: 1px solid #1e2c4a; border-radius: 12px; padding: 25px; }
+    .subjects-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 12px; margin-top: 15px; }
+    .sub-card { background: #162036; border: 1px solid #223152; border-radius: 10px; padding: 15px 10px; text-align: center; }
+    .sub-title { font-size: 0.8em; font-weight: bold; color: #ffffff; margin-bottom: 12px; min-height: 32px; display: flex; align-items: center; justify-content: center; }
 
-  .wisc-row{display:grid; grid-template-columns:120px 1fr 60px; align-items:center; gap:10px; margin-bottom:14px; font-size:0.82rem;}
-  .wisc-row .iname{font-weight:600;}
-  .wisc-row .ifull{display:block; font-weight:400; color:var(--ink-faint); font-size:0.72rem;}
-  .wisc-bar{position:relative; height:16px; background:var(--surface-alt); border-radius:4px;}
-  .wisc-bar .band{position:absolute; top:0; bottom:0; background:var(--line); opacity:0.6; border-radius:4px;}
-  .wisc-bar .dotv{position:absolute; top:-4px; width:4px; height:24px; border-radius:2px; background:var(--accent2);}
-  .wisc-bar .dotv.low{background:var(--warn);}
-  .wisc-row .ival{text-align:right; font-family:'IBM Plex Mono',monospace; font-weight:600;}
+    /* Cercles de note */
+    .sub-circle { position: relative; width: 75px; height: 75px; margin: 0 auto 10px auto; }
+    .sub-svg { transform: rotate(-90deg); width: 100%; height: 100%; }
+    .sub-circle-bg { fill: none; stroke: #000000; stroke-width: 8; }
+    .sub-circle-fill { fill: none; stroke: #00ff87; stroke-width: 8; stroke-dasharray: 213; stroke-linecap: round; }
+    .sub-note { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 0.85em; font-weight: bold; color: #ffffff; width: 100%; }
+    .sub-pts { font-size: 0.75em; color: #8d9bb0; }
 
-  .reco-list{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:14px;}
-  .reco-list li{display:flex; gap:12px; font-size:0.86rem; line-height:1.5;}
-  .reco-list .num{font-family:'Source Serif 4',serif; font-weight:600; color:var(--accent); font-size:1.1rem; flex:none; width:22px;}
-  .reco-list b{display:block; margin-bottom:2px;}
-  .reco-list .muted{color:var(--ink-soft);}
+    /* Stratégie & Objectif */
+    .strat-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 20px; }
+    .wisc-row { display: grid; grid-template-columns: 130px 1fr 50px; align-items: center; gap: 10px; margin-bottom: 14px; font-size: 0.85em; }
+    .wisc-row .iname { font-weight: bold; }
+    .wisc-row .ifull { display: block; font-weight: normal; color: #8d9bb0; font-size: 0.75em; }
+    .wisc-bar { position: relative; height: 14px; background: #0b1326; border-radius: 4px; }
+    .wisc-bar .band { position: absolute; top: 0; bottom: 0; background: #1e2c4a; border-radius: 4px; }
+    .wisc-bar .dotv { position: absolute; top: -4px; width: 4px; height: 22px; border-radius: 2px; background: #00d2ff; }
+    .wisc-bar .dotv.low { background: #ffb703; }
+    .wisc-row .ival { text-align: right; font-weight: bold; }
 
-  /* Objectif panel */
-  .goal-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-bottom:24px;}
-  .goal-card{background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:20px; text-align:center; box-shadow:var(--shadow);}
-  .goal-card .mention{font-family:'Source Serif 4',serif; font-weight:600; font-size:1.05rem; margin-bottom:2px;}
-  .goal-card .thresh{font-size:0.72rem; color:var(--ink-faint); margin-bottom:14px;}
-  .goal-card .need{font-size:1.7rem; font-weight:700; font-family:'IBM Plex Mono',monospace; color:var(--accent2);}
-  .goal-card .need small{font-size:0.85rem; color:var(--ink-faint); font-weight:500;}
-  .goal-card .status{font-size:0.76rem; margin-top:8px; padding:3px 10px; border-radius:20px; display:inline-block; font-weight:600;}
-  .status.ok{background:var(--accent2-soft); color:var(--accent2);}
-  .status.stretch{background:var(--accent-soft); color:var(--accent);}
+    .reco-list { list-style: none; }
+    .reco-list li { display: flex; gap: 12px; font-size: 0.9em; line-height: 1.5; margin-bottom: 14px; }
+    .reco-list .num { font-weight: bold; color: #00d2ff; font-size: 1.2em; flex: none; width: 22px; }
+    .reco-list b { display: block; margin-bottom: 2px; }
+    .reco-list .muted { color: #a0aec0; }
 
-  table.lever{width:100%; border-collapse:collapse; font-size:0.84rem;}
-  table.lever th{text-align:left; font-size:0.7rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--ink-faint); padding:6px 10px; border-bottom:1px solid var(--line);}
-  table.lever td{padding:9px 10px; border-bottom:1px solid var(--line);}
-  table.lever td.num, table.lever th.num{text-align:right; font-family:'IBM Plex Mono',monospace;}
-  table.lever tr:last-child td{border-bottom:none;}
-  .weight-bar{height:8px; background:var(--surface-alt); border-radius:4px; overflow:hidden; margin-top:4px;}
-  .weight-bar span{display:block; height:100%; background:var(--accent2);}
-</style>
+    .goal-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 20px; }
+    .goal-card { background: #162036; border: 1px solid #223152; border-radius: 10px; padding: 18px; text-align: center; }
+    .goal-card .mention { font-weight: bold; font-size: 1.05em; margin-bottom: 2px; }
+    .goal-card .thresh { font-size: 0.75em; color: #8d9bb0; margin-bottom: 12px; }
+    .goal-card .need { font-size: 1.6em; font-weight: bold; color: #00d2ff; }
+    .goal-card .need small { font-size: 0.6em; color: #8d9bb0; font-weight: normal; }
+
+    table.lever { width: 100%; border-collapse: collapse; font-size: 0.85em; }
+    table.lever th { text-align: left; font-size: 0.72em; text-transform: uppercase; letter-spacing: 0.04em; color: #8d9bb0; padding: 6px 10px; border-bottom: 1px solid #1e2c4a; }
+    table.lever td { padding: 9px 10px; border-bottom: 1px solid #1e2c4a; }
+    table.lever td.num, table.lever th.num { text-align: right; }
+    table.lever tr:last-child td { border-bottom: none; }
+
+    @media (max-width: 820px) { .strat-grid { grid-template-columns: 1fr; } .subjects-grid { grid-template-columns: repeat(3, 1fr); } .top-grid, .goal-grid { grid-template-columns: 1fr; } }
+  </style>
 </head>
 <body>
 
-<div class="masthead">
-  <div>
-    <div class="eyebrow">Suivi personnel — Première → Terminale</div>
-    <h1>Loïse — cap sur le <em>Bac</em> &amp; PASS</h1>
-    <div class="filiere">Première générale · spécialités conservées : SVT &amp; Physique-Chimie · objectif post-bac : PASS</div>
-  </div>
-  <div class="target">
-    Objectif de mention
-    <b>Bien / Très Bien</b>
-  </div>
-</div>
-
-<div class="tabs" role="tablist">
-  <button class="tab active" data-panel="accueil" role="tab" aria-selected="true">Accueil</button>
-  <button class="tab" data-panel="strategie" role="tab" aria-selected="false">Stratégie</button>
-  <button class="tab" data-panel="objectif" role="tab" aria-selected="false">Objectif</button>
-</div>
-
-<!-- ===================== ACCUEIL ===================== -->
-<section class="panel active" id="accueil">
-
-  <div class="tiles">
-    <div class="tile accent">
-      <div class="label">Points cumulés</div>
-      <div class="value">95 <small>/ 1000</small></div>
-      <div class="note"><strong>160 pts déjà engagés</strong> (Français écrit + oral, Maths 1ère) — +15 pts d'avance sur le rythme "obtention" à ce stade.</div>
-    </div>
-    <div class="tile accent2">
-      <div class="label">Moyenne des épreuves passées</div>
-      <div class="value">11,67 <small>/20</small></div>
-      <div class="note">Écrit Français <b>06/20</b> · Oral Français <b>14/20</b> · Maths (bulletin 1ère) <b>15/20</b>. L'oral compense largement l'écrit.</div>
-    </div>
-    <div class="tile">
-      <div class="label">Trajectoire actuelle</div>
-      <div class="value">59 <small>% de réussite</small></div>
-      <div class="note">Sur les points déjà engagés — projeté sur 1000, ça frôle le seuil <b>Assez Bien</b> avant même que les coeff. 16 de Terminale n'entrent en jeu.</div>
-    </div>
+  <!-- Titre & Profil -->
+  <div class="profile-header">
+    <div class="profile-title">DASHBOARD BAC — <span>Dr Loloï - Bac & PASS</span></div>
   </div>
 
-  <div class="track-card">
-    <h2>Indice général d'avancement — sur 1000 points</h2>
-    <div class="track-sub">Barème réel du bac : 60 points d'épreuves finales + 40 points de contrôle continu, ramenés sur 1000. Seuils de mention identiques à l'échelle officielle /20 (×50).</div>
-    <div class="track" id="track">
-      <div class="zone" style="width:50%; background:var(--surface-alt);"><span class="zlabel">Sous le seuil</span></div>
-      <div class="zone" style="width:10%; background:#c9d3e2;"><span class="zthresh mono">500</span><span class="zlabel">Obtention</span></div>
-      <div class="zone" style="width:10%; background:var(--accent2-soft);"><span class="zthresh mono">600</span><span class="zlabel">Assez Bien</span></div>
-      <div class="zone" style="width:10%; background:var(--accent-soft);"><span class="zthresh mono">700</span><span class="zlabel">Bien</span></div>
-      <div class="zone" style="width:20%; background:var(--accent-soft); filter:saturate(1.4);"><span class="zthresh mono">800</span><span class="zlabel">Très Bien</span></div>
-      <div class="fill" style="width:9.5%;"></div>
-      <div class="marker" style="left:9.5%;"><span class="mtag">95 pts</span></div>
-    </div>
-    <div class="track-legend">
-      <div><span class="dot" style="background:var(--accent);"></span>Points acquis (95)</div>
-      <div><span class="dot" style="background:var(--surface-alt); border:1px solid var(--line);"></span>Points restant à jouer (905), dont 320 pts rien que sur SVT + Physique-Chimie</div>
-    </div>
+  <!-- Navigation -->
+  <div class="nav">
+    <button class="btn active" data-panel="accueil">ACCUEIL</button>
+    <button class="btn" data-panel="strategie">STRATÉGIE</button>
+    <button class="btn" data-panel="objectif">OBJECTIF</button>
   </div>
 
-  <div class="section-head">
-    <h2>Détail par épreuve — pondéré par coefficient réel</h2>
-    <span class="hint">coeff. en haut à droite de chaque case · doré = épreuve à fort effet de levier</span>
-  </div>
+  <!-- ===================== ACCUEIL ===================== -->
+  <section class="panel active" id="accueil">
 
-  <div class="subjects" id="subjects"></div>
+    <!-- Synthèse du haut -->
+    <div class="top-grid">
+      <div class="card" style="border-color: #00ff87;">
+        <div class="card-title">Avance Bac Actuelle (Épreuves 1ère)</div>
+        <div class="card-value-green">210 pts</div>
+        <div class="card-subtext"><strong>Sur 360 points engagés (+40 pts d'avance)</strong><br>Capitalisé grâce aux épreuves anticipées et à la spé abandonnée.</div>
+      </div>
 
-  <div class="foot-note">
-    <strong>Note méthodologique —</strong> la spécialité Mathématiques, abandonnée en fin de Première, n'est <em>pas</em> comptée ici comme une épreuve finale à coefficient 16 : elle rejoint le contrôle continu (bulletins), pondérée à coefficient 6 sur les 40 points du livret scolaire, conformément au barème réel du bac général. C'est ce qui explique un total de départ plus modeste (95 pts) mais plus fiable que le pointage précédent.
-  </div>
-</section>
+      <div class="card">
+        <div class="card-title">Moyenne Épreuves (EAF + Spé 1ère)</div>
+        <div class="card-value-blue">11.66 /20</div>
+        <div class="card-subtext"><strong>Écrit Français (06/20) | Oral Français (14/20) | Raisonnement Logique (Balances) (16/20)</strong><br>Vitesse & Graphisme (IVT: 98). Excellente compensation grâce au pôle scientifique et à l'oral.</div>
+      </div>
 
-<!-- ===================== STRATÉGIE ===================== -->
-<section class="panel" id="strategie">
-  <div class="profile-grid">
-    <div class="card">
-      <h3>Profil cognitif (bilan WISC-V)</h3>
-      <div class="sub">Bilan réalisé à 10 ans 3 mois (CM2) par Julie Quéré, psychologue — les indices datent, mais l'écart de profil qu'ils révèlent reste la meilleure clé de lecture disponible.</div>
-
-      <div class="wisc-row">
-        <div class="iname">ICV <span class="ifull">Compréhension verbale</span></div>
-        <div class="wisc-bar"><div class="band" style="left:25%; width:50%;"></div><div class="dotv" style="left:99%;"></div></div>
-        <div class="ival">133</div>
-      </div>
-      <div class="wisc-row">
-        <div class="iname">IRF <span class="ifull">Raisonnement fluide</span></div>
-        <div class="wisc-bar"><div class="band" style="left:25%; width:50%;"></div><div class="dotv" style="left:88%;"></div></div>
-        <div class="ival">118</div>
-      </div>
-      <div class="wisc-row">
-        <div class="iname">IVS <span class="ifull">Visuo-spatial</span></div>
-        <div class="wisc-bar"><div class="band" style="left:25%; width:50%;"></div><div class="dotv" style="left:87%;"></div></div>
-        <div class="ival">117</div>
-      </div>
-      <div class="wisc-row">
-        <div class="iname">IMT <span class="ifull">Mémoire de travail</span></div>
-        <div class="wisc-bar"><div class="band" style="left:25%; width:50%;"></div><div class="dotv" style="left:91%;"></div></div>
-        <div class="ival">120</div>
-      </div>
-      <div class="wisc-row">
-        <div class="iname">IVT <span class="ifull">Vitesse de traitement</span></div>
-        <div class="wisc-bar"><div class="band" style="left:25%; width:50%;"></div><div class="dotv low" style="left:45%;"></div></div>
-        <div class="ival">98</div>
-      </div>
-      <div class="foot-note" style="margin-top:6px;">Zone grisée = moyenne (25ᵉ–75ᵉ percentile). Le QIT global n'est pas interprétable : l'écart entre indices dépasse 15 points — c'est l'hétérogénéité elle-même qui est le signal utile.</div>
-    </div>
-
-    <div class="card">
-      <h3>Ce que ça donne concrètement</h3>
-      <div class="sub">Le décalage entre un raisonnement très rapide (verbal, logique) et un geste graphique plus lent explique très directement le 06/20 à l'écrit face au 14/20 à l'oral.</div>
-      <ol class="reco-list">
-        <li><span class="num">1</span><div><b>Formaliser un aménagement d'examen</b><span class="muted">Tiers-temps ou ordinateur, à demander via le médecin scolaire / la MDPH, en s'appuyant sur l'écart IVT (98) vs. ICV/IMT (120–133) documenté dans ce bilan — c'est exactement le profil que ces dispositifs visent à compenser.</span></div></li>
-        <li><span class="num">2</span><div><b>Muscler le geste, pas le fond</b><span class="muted">Le raisonnement est déjà excellent. L'entraînement doit cibler la vitesse d'exécution à l'écrit : plans minutés, rédaction chronométrée par paliers progressifs, dictée à soi-même pour fluidifier le passage idée → phrase.</span></div></li>
-        <li><span class="num">3</span><div><b>Jouer la carte de l'oral et du raisonnement</b><span class="muted">Grand Oral (coeff 10) et les parties raisonnement de SVT / Physique-Chimie sont son terrain naturel — c'est là que la vitesse d'écriture cesse d'être un facteur limitant.</span></div></li>
-        <li><span class="num">4</span><div><b>Maintenir le suivi orthophonique / orthoptique</b><span class="muted">Le bilan de décembre 2020 évoquait une fragilité en fluence de lecture liée à une fatigue oculaire, sans dyslexie — à vérifier si les suivis sont toujours d'actualité en Terminale.</span></div></li>
-        <li><span class="num">5</span><div><b>Concentrer l'effort de révision, pas le diluer</b><span class="muted">Un point gagné en SVT ou Physique-Chimie (coeff 16) vaut 8× un point en EMC (coeff 2). Le temps de révision doit suivre cette hiérarchie, pas répartir également entre les 14 matières.</span></div></li>
-      </ol>
-    </div>
-  </div>
-</section>
-
-<!-- ===================== OBJECTIF ===================== -->
-<section class="panel" id="objectif">
-  <div class="card" style="margin-bottom:24px;">
-    <h3>Ce qu'il reste à faire pour chaque mention</h3>
-    <div class="sub">95 pts sont déjà acquis. Il reste 840 points en jeu (coefficient 84) : Philosophie, Grand Oral, SVT, Physique-Chimie, et le solde du contrôle continu.</div>
-    <div class="goal-grid">
-      <div class="goal-card">
-        <div class="mention">Assez Bien</div>
-        <div class="thresh">seuil 600 / 1000</div>
-        <div class="need">12,0<small>/20</small></div>
-        <span class="status ok">déjà dans l'épure</span>
-      </div>
-      <div class="goal-card">
-        <div class="mention">Bien</div>
-        <div class="thresh">seuil 700 / 1000</div>
-        <div class="need">14,4<small>/20</small></div>
-        <span class="status ok">atteignable</span>
-      </div>
-      <div class="goal-card">
-        <div class="mention">Très Bien</div>
-        <div class="thresh">seuil 800 / 1000</div>
-        <div class="need">16,8<small>/20</small></div>
-        <span class="status stretch">exigeant</span>
+      <div class="card">
+        <div class="card-title">Objectif Mention Terminale</div>
+        <div class="card-value-yellow">BIEN / TB</div>
+        <div class="card-subtext"><strong>Effort ciblé sur les coeff 16 (SVT & Physique) sans rien élever d'autre</strong><br>Optimisation du geste d'écriture et de la clarté sous pression de temps.</div>
       </div>
     </div>
-    <div class="foot-note">Moyenne pondérée à tenir sur l'ensemble des 840 points restants — épreuves finales et contrôle continu confondus.</div>
-  </div>
 
-  <div class="card">
-    <h3>Où porter l'effort : les leviers par poids réel</h3>
-    <div class="sub">Classé par coefficient — la même heure de révision ne "rapporte" pas la même chose partout.</div>
-    <div style="overflow-x:auto;">
-    <table class="lever">
-      <thead><tr><th>Épreuve</th><th class="num">Coeff.</th><th class="num">Pts en jeu</th><th style="width:140px;">Poids relatif</th></tr></thead>
-      <tbody id="lever-body"></tbody>
-    </table>
+    <!-- Jauge Principale -->
+    <div class="main-card">
+      <div class="main-title">📊 BAC & COEFFICIENTS — INDICE GÉNÉRAL D'AVANCEMENT</div>
+
+      <div class="gauge-container">
+        <svg class="gauge-svg" viewBox="0 0 200 200">
+          <circle class="gauge-bg" cx="100" cy="100" r="90" />
+          <circle class="gauge-fill" cx="100" cy="100" r="90" />
+        </svg>
+        <div class="gauge-data">
+          <div class="gauge-points">210</div>
+          <div class="gauge-total">/ 1 000 Points</div>
+          <div class="gauge-badge">Moyenne : 11,67 / 20</div>
+        </div>
+      </div>
+
+      <div class="legend-bar">
+        <div><span class="dot dot-grey"></span>Obtention (500 pts)</div>
+        <div><span class="dot dot-blue"></span>Assez Bien (600 pts)</div>
+        <div><span class="dot dot-yellow"></span>Mention Bien (700 pts)</div>
+        <div><span class="dot dot-pink"></span>Mention Très Bien (800 pts)</div>
+      </div>
     </div>
-  </div>
-</section>
 
-<script>
-const FINALES = [
-  {name:"Français écrit", coeff:5, note:6, done:true, note_of:20, when:"1ère"},
-  {name:"Français oral", coeff:5, note:14, done:true, note_of:20, when:"1ère"},
-  {name:"Philosophie", coeff:8, note:null, when:"Terminale"},
-  {name:"Grand Oral", coeff:10, note:null, when:"Terminale"},
-  {name:"SVT (spé.)", coeff:16, note:null, when:"Terminale"},
-  {name:"Physique-Chimie (spé.)", coeff:16, note:null, when:"Terminale"},
-];
-const CONTINU = [
-  {name:"Maths (bulletin 1ère)", coeff:6, note:15, done:true},
-  {name:"Histoire-Géo", coeff:6, note:null},
-  {name:"Anglais LV1", coeff:6, note:null},
-  {name:"Chinois LV2", coeff:4, note:null},
-  {name:"Ens. Scientifique", coeff:6, note:null},
-  {name:"EPS", coeff:6, note:null},
-  {name:"EMC", coeff:2, note:null},
-  {name:"Option Théâtre", coeff:4, note:null},
-];
-const ALL = [...FINALES, ...CONTINU];
-const CIRC = 2 * Math.PI * 27;
+    <!-- Section Avancement par Matière (14 Cartes) -->
+    <div class="subjects-section">
+      <div class="main-title">AVANCEMENT PAR MATIÈRE (NOTE / 20)</div>
+      <div class="subjects-grid">
 
-function subjectCard(s){
-  const max = s.coeff * 10;
-  const pts = s.done ? Math.round(s.note * s.coeff / 2) : 0;
-  const pct = s.done ? s.note/20 : 0;
-  const offset = CIRC * (1 - pct);
-  const highCoeff = s.coeff >= 10;
-  return `<div class="subj ${s.done?'done':''}">
-    <div class="coeff ${highCoeff?'high':''}">c.${s.coeff}</div>
-    <div class="subj-name">${s.name}</div>
-    <div class="ring">
-      <svg viewBox="0 0 64 64">
-        <circle class="bg" cx="32" cy="32" r="27"/>
-        <circle class="fg" cx="32" cy="32" r="27" stroke-dasharray="${CIRC}" stroke-dashoffset="${offset}"/>
-      </svg>
-      <div class="rnote">${s.done ? s.note+'/20' : '—'}</div>
+        <!-- Ligne 1 -->
+        <div class="sub-card">
+          <div class="sub-title">Français Écrit</div>
+          <div class="sub-circle">
+            <svg class="sub-svg" viewBox="0 0 80 80">
+              <circle class="sub-circle-bg" cx="40" cy="40" r="34"/>
+              <circle class="sub-circle-fill" cx="40" cy="40" r="34" style="stroke-dashoffset: 149;"/>
+            </svg>
+            <div class="sub-note">06/20</div>
+          </div>
+          <div class="sub-pts">30 / 100 pts</div>
+        </div>
+
+        <div class="sub-card">
+          <div class="sub-title">Français Oral</div>
+          <div class="sub-circle">
+            <svg class="sub-svg" viewBox="0 0 80 80">
+              <circle class="sub-circle-bg" cx="40" cy="40" r="34"/>
+              <circle class="sub-circle-fill" cx="40" cy="40" r="34" style="stroke-dashoffset: 64;"/>
+            </svg>
+            <div class="sub-note">14/20</div>
+          </div>
+          <div class="sub-pts">70 / 100 pts</div>
+        </div>
+
+        <div class="sub-card">
+          <div class="sub-title">Spé 1ère (Maths)</div>
+          <div class="sub-circle">
+            <svg class="sub-svg" viewBox="0 0 80 80">
+              <circle class="sub-circle-bg" cx="40" cy="40" r="34"/>
+              <circle class="sub-circle-fill" cx="40" cy="40" r="34" style="stroke-dashoffset: 53;"/>
+            </svg>
+            <div class="sub-note">15/20</div>
+          </div>
+          <div class="sub-pts">120 / 160 pts</div>
+        </div>
+
+        <div class="sub-card">
+          <div class="sub-title">Physique-Chimie</div>
+          <div class="sub-circle">
+            <svg class="sub-svg" viewBox="0 0 80 80">
+              <circle class="sub-circle-bg" cx="40" cy="40" r="34"/>
+            </svg>
+            <div class="sub-note">0/20</div>
+          </div>
+          <div class="sub-pts">0 / 320 pts</div>
+        </div>
+
+        <div class="sub-card">
+          <div class="sub-title">SVT</div>
+          <div class="sub-circle">
+            <svg class="sub-svg" viewBox="0 0 80 80">
+              <circle class="sub-circle-bg" cx="40" cy="40" r="34"/>
+            </svg>
+            <div class="sub-note">0/20</div>
+          </div>
+          <div class="sub-pts">0 / 320 pts</div>
+        </div>
+
+        <div class="sub-card">
+          <div class="sub-title">Grand Oral</div>
+          <div class="sub-circle">
+            <svg class="sub-svg" viewBox="0 0 80 80">
+              <circle class="sub-circle-bg" cx="40" cy="40" r="34"/>
+            </svg>
+            <div class="sub-note">0/20</div>
+          </div>
+          <div class="sub-pts">0 / 200 pts</div>
+        </div>
+
+        <div class="sub-card">
+          <div class="sub-title">Philosophie</div>
+          <div class="sub-circle">
+            <svg class="sub-svg" viewBox="0 0 80 80">
+              <circle class="sub-circle-bg" cx="40" cy="40" r="34"/>
+            </svg>
+            <div class="sub-note">0/20</div>
+          </div>
+          <div class="sub-pts">0 / 160 pts</div>
+        </div>
+
+        <!-- Ligne 2 -->
+        <div class="sub-card">
+          <div class="sub-title">Histoire-Géo</div>
+          <div class="sub-circle">
+            <svg class="sub-svg" viewBox="0 0 80 80">
+              <circle class="sub-circle-bg" cx="40" cy="40" r="34"/>
+            </svg>
+            <div class="sub-note">0/20</div>
+          </div>
+          <div class="sub-pts">0 / 120 pts</div>
+        </div>
+
+        <div class="sub-card">
+          <div class="sub-title">Anglais LV1</div>
+          <div class="sub-circle">
+            <svg class="sub-svg" viewBox="0 0 80 80">
+              <circle class="sub-circle-bg" cx="40" cy="40" r="34"/>
+            </svg>
+            <div class="sub-note">0/20</div>
+          </div>
+          <div class="sub-pts">0 / 120 pts</div>
+        </div>
+
+        <div class="sub-card">
+          <div class="sub-title">Chinois LV2</div>
+          <div class="sub-circle">
+            <svg class="sub-svg" viewBox="0 0 80 80">
+              <circle class="sub-circle-bg" cx="40" cy="40" r="34"/>
+            </svg>
+            <div class="sub-note">0/20</div>
+          </div>
+          <div class="sub-pts">0 / 120 pts</div>
+        </div>
+
+        <div class="sub-card">
+          <div class="sub-title">Ens. Scient.</div>
+          <div class="sub-circle">
+            <svg class="sub-svg" viewBox="0 0 80 80">
+              <circle class="sub-circle-bg" cx="40" cy="40" r="34"/>
+            </svg>
+            <div class="sub-note">0/20</div>
+          </div>
+          <div class="sub-pts">0 / 120 pts</div>
+        </div>
+
+        <div class="sub-card">
+          <div class="sub-title">EPS</div>
+          <div class="sub-circle">
+            <svg class="sub-svg" viewBox="0 0 80 80">
+              <circle class="sub-circle-bg" cx="40" cy="40" r="34"/>
+            </svg>
+            <div class="sub-note">0/20</div>
+          </div>
+          <div class="sub-pts">0 / 120 pts</div>
+        </div>
+
+        <div class="sub-card">
+          <div class="sub-title">EMC</div>
+          <div class="sub-circle">
+            <svg class="sub-svg" viewBox="0 0 80 80">
+              <circle class="sub-circle-bg" cx="40" cy="40" r="34"/>
+            </svg>
+            <div class="sub-note">0/20</div>
+          </div>
+          <div class="sub-pts">0 / 40 pts</div>
+        </div>
+
+        <div class="sub-card">
+          <div class="sub-title">Théâtre</div>
+          <div class="sub-circle">
+            <svg class="sub-svg" viewBox="0 0 80 80">
+              <circle class="sub-circle-bg" cx="40" cy="40" r="34"/>
+            </svg>
+            <div class="sub-note">0/20</div>
+          </div>
+          <div class="sub-pts">0 / 40 pts</div>
+        </div>
+
+      </div>
     </div>
-    <div class="subj-pts">${pts} / ${max} pts</div>
-  </div>`;
-}
-document.getElementById('subjects').innerHTML = ALL.map(subjectCard).join('');
+  </section>
 
-const maxCoeff = Math.max(...ALL.map(s=>s.coeff));
-document.getElementById('lever-body').innerHTML = ALL
-  .slice().sort((a,b)=>b.coeff-a.coeff)
-  .map(s=>`<tr>
-    <td>${s.name}</td>
-    <td class="num">${s.coeff}</td>
-    <td class="num">${s.coeff*10} pts</td>
-    <td><div class="weight-bar"><span style="width:${s.coeff/maxCoeff*100}%;"></span></div></td>
-  </tr>`).join('');
+  <!-- ===================== STRATÉGIE ===================== -->
+  <section class="panel" id="strategie">
+    <div class="strat-grid">
+      <div class="main-card" style="margin-bottom:0;">
+        <div class="main-title">🧠 Profil cognitif (bilan WISC-V)</div>
+        <div class="card-subtext" style="margin-bottom:18px;">Bilan réalisé à 10 ans 3 mois par Julie Quéré, psychologue. QIT non interprétable (indices trop hétérogènes) : chaque indice se lit séparément.</div>
 
-document.querySelectorAll('.tab').forEach(btn=>{
-  btn.addEventListener('click', ()=>{
-    document.querySelectorAll('.tab').forEach(b=>{b.classList.remove('active'); b.setAttribute('aria-selected','false');});
-    document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
-    btn.classList.add('active'); btn.setAttribute('aria-selected','true');
-    document.getElementById(btn.dataset.panel).classList.add('active');
-  });
-});
-</script>
+        <div class="wisc-row">
+          <div class="iname">ICV <span class="ifull">Compréhension verbale</span></div>
+          <div class="wisc-bar"><div class="band" style="left:25%; width:50%;"></div><div class="dotv" style="left:99%;"></div></div>
+          <div class="ival">133</div>
+        </div>
+        <div class="wisc-row">
+          <div class="iname">IRF <span class="ifull">Raisonnement fluide</span></div>
+          <div class="wisc-bar"><div class="band" style="left:25%; width:50%;"></div><div class="dotv" style="left:88%;"></div></div>
+          <div class="ival">118</div>
+        </div>
+        <div class="wisc-row">
+          <div class="iname">IVS <span class="ifull">Visuo-spatial</span></div>
+          <div class="wisc-bar"><div class="band" style="left:25%; width:50%;"></div><div class="dotv" style="left:87%;"></div></div>
+          <div class="ival">117</div>
+        </div>
+        <div class="wisc-row">
+          <div class="iname">IMT <span class="ifull">Mémoire de travail</span></div>
+          <div class="wisc-bar"><div class="band" style="left:25%; width:50%;"></div><div class="dotv" style="left:91%;"></div></div>
+          <div class="ival">120</div>
+        </div>
+        <div class="wisc-row">
+          <div class="iname">IVT <span class="ifull">Vitesse de traitement</span></div>
+          <div class="wisc-bar"><div class="band" style="left:25%; width:50%;"></div><div class="dotv low" style="left:45%;"></div></div>
+          <div class="ival">98</div>
+        </div>
+        <div class="card-subtext">Bande grise = zone moyenne (25ᵉ–75ᵉ percentile). L'écart ICV/IMT (élevés) vs IVT (moyen) est le signal clé : raisonnement très rapide, exécution graphique plus lente.</div>
+      </div>
+
+      <div class="main-card" style="margin-bottom:0;">
+        <div class="main-title">🎯 Ce que ça donne concrètement</div>
+        <ol class="reco-list">
+          <li><span class="num">1</span><div><b>Aménagement d'examen</b><span class="muted">Tiers-temps ou ordinateur, à demander via le médecin scolaire / la MDPH, en s'appuyant sur l'écart IVT (98) vs ICV/IMT (120-133).</span></div></li>
+          <li><span class="num">2</span><div><b>Muscler le geste, pas le fond</b><span class="muted">Le raisonnement est déjà excellent : entraînement ciblé sur la vitesse d'écriture (plans minutés, rédaction chronométrée par paliers).</span></div></li>
+          <li><span class="num">3</span><div><b>Jouer la carte de l'oral</b><span class="muted">Grand Oral et parties raisonnement de SVT/Physique-Chimie : la vitesse d'écriture n'y est pas le facteur limitant.</span></div></li>
+          <li><span class="num">4</span><div><b>Maintenir orthophonie / orthoptie</b><span class="muted">Fragilité en fluence de lecture liée à une fatigue oculaire relevée en 2020 — à vérifier si le suivi est toujours actif.</span></div></li>
+          <li><span class="num">5</span><div><b>Concentrer l'effort, pas le diluer</b><span class="muted">Un point gagné en SVT ou Physique-Chimie (coeff 16) pèse 8× plus qu'un point en EMC (coeff 2).</span></div></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== OBJECTIF ===================== -->
+  <section class="panel" id="objectif">
+    <div class="main-card">
+      <div class="main-title">🏁 Ce qu'il reste à décrocher pour chaque mention</div>
+      <div class="card-subtext" style="margin-bottom:18px;">210 pts déjà acquis. Écart restant jusqu'à chaque seuil, à jouer sur SVT, Physique-Chimie, Grand Oral, Philosophie et le reste du contrôle continu.</div>
+      <div class="goal-grid">
+        <div class="goal-card">
+          <div class="mention">Assez Bien</div>
+          <div class="thresh">seuil 600 / 1000</div>
+          <div class="need">+390 <small>pts</small></div>
+        </div>
+        <div class="goal-card">
+          <div class="mention">Bien</div>
+          <div class="thresh">seuil 700 / 1000</div>
+          <div class="need">+490 <small>pts</small></div>
+        </div>
+        <div class="goal-card">
+          <div class="mention">Très Bien</div>
+          <div class="thresh">seuil 800 / 1000</div>
+          <div class="need">+590 <small>pts</small></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="main-card">
+      <div class="main-title">⚖️ Où porter l'effort : les leviers par poids réel</div>
+      <div class="card-subtext" style="margin-bottom:14px;">Classé par points en jeu — la même heure de révision ne "rapporte" pas la même chose partout.</div>
+      <div style="overflow-x:auto;">
+      <table class="lever">
+        <thead><tr><th>Épreuve</th><th class="num">Pts en jeu</th><th>Statut</th></tr></thead>
+        <tbody>
+          <tr><td>SVT</td><td class="num">320</td><td>À venir — coeff 16</td></tr>
+          <tr><td>Physique-Chimie</td><td class="num">320</td><td>À venir — coeff 16</td></tr>
+          <tr><td>Grand Oral</td><td class="num">200</td><td>À venir — coeff 10, point fort naturel</td></tr>
+          <tr><td>Philosophie</td><td class="num">160</td><td>À venir — coeff 8</td></tr>
+          <tr><td>Spé 1ère (Maths)</td><td class="num">160</td><td>Acquis — 120/160</td></tr>
+          <tr><td>Histoire-Géo / Anglais / Chinois / Ens. Scient. / EPS</td><td class="num">120 chacune</td><td>À venir — contrôle continu</td></tr>
+          <tr><td>Français Écrit / Oral</td><td class="num">100 chacune</td><td>Acquis — 30/100 et 70/100</td></tr>
+          <tr><td>EMC / Théâtre</td><td class="num">40 chacune</td><td>À venir — faible levier</td></tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    document.querySelectorAll('.nav .btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        document.querySelectorAll('.nav .btn').forEach(function (b) { b.classList.remove('active'); });
+        document.querySelectorAll('.panel').forEach(function (p) { p.classList.remove('active'); });
+        btn.classList.add('active');
+        document.getElementById(btn.dataset.panel).classList.add('active');
+      });
+    });
+  </script>
+
 </body>
 </html>
