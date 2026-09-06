@@ -38,7 +38,7 @@
     .gauge-container { position: relative; width: 220px; margin: 0 auto 20px auto; text-align: center; }
     .gauge-svg { transform: rotate(-90deg); width: 100%; height: auto; }
     .gauge-bg { fill: none; stroke: #1a233a; stroke-width: 12; }
-    .gauge-fill { fill: none; stroke: #00ff87; stroke-width: 12; stroke-linecap: round; stroke-dasharray: 565; stroke-dashoffset: 385; } /* 319/1000 */
+    .gauge-fill { fill: none; stroke: #00ff87; stroke-width: 12; stroke-linecap: round; stroke-dasharray: 565; stroke-dashoffset: 436; } /* 229/1000 */
 
     .gauge-data { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -55%); text-align: center; width: 100%; }
     .gauge-points { font-size: 2.2em; font-weight: bold; color: #fff; line-height: 1; }
@@ -138,9 +138,9 @@
     <!-- Synthèse du haut -->
     <div class="top-grid">
       <div class="card" style="border-color: #00ff87;">
-        <div class="card-title">Avance Bac Actuelle (relevé officiel 1ère)</div>
-        <div class="card-value-green">319 pts</div>
-        <div class="card-subtext"><strong>Sur 440 points connus (+99 pts d'avance sur le rythme "obtention")</strong><br>Épreuves anticipées (Français, Maths) + contrôle continu 1ère (HG, EMC, LV1, LV2, Ens. Scient., LLCE Anglais abandonnée).</div>
+        <div class="card-title">Avance Bac Actuelle (barème vérifié)</div>
+        <div class="card-value-green">229 pts</div>
+        <div class="card-subtext"><strong>Sur 330 points connus (+64 pts d'avance sur le rythme "obtention")</strong><br>Verrouillé (Français, Maths, LLCE Anglais) + moitié 1ère du contrôle continu (HG, LV1, LV2, Ens. Scient., EMC).</div>
       </div>
 
       <div class="card">
@@ -166,7 +166,7 @@
           <circle class="gauge-fill" cx="100" cy="100" r="90" />
         </svg>
         <div class="gauge-data">
-          <div class="gauge-points">319</div>
+          <div class="gauge-points">229</div>
           <div class="gauge-total">/ 1 000 Points</div>
           <div class="gauge-badge">Moyenne épreuves : 11,67 / 20</div>
         </div>
@@ -186,8 +186,8 @@
           <div class="zone z600" style="width:10%;"><span class="zthresh">600</span><span class="zlabel">Assez Bien</span></div>
           <div class="zone z700" style="width:10%;"><span class="zthresh">700</span><span class="zlabel">Bien</span></div>
           <div class="zone z800" style="width:20%;"><span class="zthresh">800</span><span class="zlabel">Très Bien</span></div>
-          <div class="fill" style="width:31.9%;"></div>
-          <div class="marker" style="left:31.9%;"><span class="mtag">319 pts</span></div>
+          <div class="fill" style="width:22.9%;"></div>
+          <div class="marker" style="left:22.9%;"><span class="mtag">229 pts</span></div>
         </div>
       </div>
     </div>
@@ -207,7 +207,7 @@
             </svg>
             <div class="sub-note">06/20</div>
           </div>
-          <div class="sub-pts">30 / 100 pts</div>
+          <div class="sub-pts">15 / 50 pts</div>
         </div>
 
         <div class="sub-card">
@@ -219,7 +219,7 @@
             </svg>
             <div class="sub-note">14/20</div>
           </div>
-          <div class="sub-pts">70 / 100 pts</div>
+          <div class="sub-pts">35 / 50 pts</div>
         </div>
 
         <div class="sub-card">
@@ -254,7 +254,7 @@
             </svg>
             <div class="sub-note">0/20</div>
           </div>
-          <div class="sub-pts">0 / 320 pts</div>
+          <div class="sub-pts">0 / 160 pts</div>
         </div>
 
         <div class="sub-card">
@@ -265,7 +265,7 @@
             </svg>
             <div class="sub-note">0/20</div>
           </div>
-          <div class="sub-pts">0 / 320 pts</div>
+          <div class="sub-pts">0 / 160 pts</div>
         </div>
 
         <div class="sub-card">
@@ -276,7 +276,7 @@
             </svg>
             <div class="sub-note">0/20</div>
           </div>
-          <div class="sub-pts">0 / 200 pts</div>
+          <div class="sub-pts">0 / 80 pts</div>
         </div>
 
         <div class="sub-card">
@@ -287,7 +287,7 @@
             </svg>
             <div class="sub-note">0/20</div>
           </div>
-          <div class="sub-pts">0 / 160 pts</div>
+          <div class="sub-pts">0 / 80 pts</div>
         </div>
 
         <!-- Ligne 2 -->
@@ -300,7 +300,7 @@
             </svg>
             <div class="sub-note">13,9/20</div>
           </div>
-          <div class="sub-pts">42 / 60 pts (1ère)</div>
+          <div class="sub-pts">21 / 60 pts (moitié 1ère)</div>
         </div>
 
         <div class="sub-card">
@@ -312,7 +312,7 @@
             </svg>
             <div class="sub-note">18/20</div>
           </div>
-          <div class="sub-pts">54 / 60 pts (1ère)</div>
+          <div class="sub-pts">27 / 60 pts (moitié 1ère)</div>
         </div>
 
         <div class="sub-card">
@@ -324,7 +324,7 @@
             </svg>
             <div class="sub-note">17/20</div>
           </div>
-          <div class="sub-pts">51 / 60 pts (1ère)</div>
+          <div class="sub-pts">25,5 / 60 pts (moitié 1ère)</div>
         </div>
 
         <div class="sub-card">
@@ -336,7 +336,7 @@
             </svg>
             <div class="sub-note">13,2/20</div>
           </div>
-          <div class="sub-pts">26 / 40 pts (1ère)</div>
+          <div class="sub-pts">19,8 / 60 pts (moitié 1ère)</div>
         </div>
 
         <div class="sub-card">
@@ -347,7 +347,7 @@
             </svg>
             <div class="sub-note">0/20</div>
           </div>
-          <div class="sub-pts">0 / 120 pts</div>
+          <div class="sub-pts">0 / 60 pts (CCF à venir)</div>
         </div>
 
         <div class="sub-card">
@@ -359,7 +359,7 @@
             </svg>
             <div class="sub-note">19,5/20</div>
           </div>
-          <div class="sub-pts">19,5 / 20 pts</div>
+          <div class="sub-pts">9,8 / 20 pts (moitié 1ère)</div>
         </div>
 
         <div class="sub-card">
@@ -429,22 +429,22 @@
   <section class="panel" id="objectif">
     <div class="main-card">
       <div class="main-title">🏁 Ce qu'il reste à décrocher pour chaque mention</div>
-      <div class="card-subtext" style="margin-bottom:18px;">210 pts déjà acquis. Écart restant jusqu'à chaque seuil, à jouer sur SVT, Physique-Chimie, Grand Oral, Philosophie et le reste du contrôle continu.</div>
+      <div class="card-subtext" style="margin-bottom:18px;">229 pts déjà acquis (barème vérifié : 60 pts d'épreuves finales/anticipées + 40 pts de contrôle continu, arrêté du bac général). Écart restant jusqu'à chaque seuil, à jouer sur SVT, Physique-Chimie, Grand Oral, Philosophie, EPS et la moitié Terminale du contrôle continu.</div>
       <div class="goal-grid">
         <div class="goal-card">
           <div class="mention">Assez Bien</div>
           <div class="thresh">seuil 600 / 1000</div>
-          <div class="need">+390 <small>pts</small></div>
+          <div class="need">+371 <small>pts</small></div>
         </div>
         <div class="goal-card">
           <div class="mention">Bien</div>
           <div class="thresh">seuil 700 / 1000</div>
-          <div class="need">+490 <small>pts</small></div>
+          <div class="need">+471 <small>pts</small></div>
         </div>
         <div class="goal-card">
           <div class="mention">Très Bien</div>
           <div class="thresh">seuil 800 / 1000</div>
-          <div class="need">+590 <small>pts</small></div>
+          <div class="need">+571 <small>pts</small></div>
         </div>
       </div>
     </div>
@@ -456,14 +456,16 @@
       <table class="lever">
         <thead><tr><th>Épreuve</th><th class="num">Pts en jeu</th><th>Statut</th></tr></thead>
         <tbody>
-          <tr><td>SVT</td><td class="num">320</td><td>À venir — coeff 16</td></tr>
-          <tr><td>Physique-Chimie</td><td class="num">320</td><td>À venir — coeff 16</td></tr>
-          <tr><td>Grand Oral</td><td class="num">200</td><td>À venir — coeff 10, point fort naturel</td></tr>
-          <tr><td>Philosophie</td><td class="num">160</td><td>À venir — coeff 8</td></tr>
-          <tr><td>Spé 1ère (Maths)</td><td class="num">160</td><td>Acquis — 120/160</td></tr>
-          <tr><td>Histoire-Géo / Anglais / Chinois / Ens. Scient. / EPS</td><td class="num">120 chacune</td><td>À venir — contrôle continu</td></tr>
-          <tr><td>Français Écrit / Oral</td><td class="num">100 chacune</td><td>Acquis — 30/100 et 70/100</td></tr>
-          <tr><td>EMC / Théâtre</td><td class="num">40 chacune</td><td>À venir — faible levier</td></tr>
+          <tr><td>SVT (spé. conservée)</td><td class="num">160</td><td>À venir — coeff 16</td></tr>
+          <tr><td>Physique-Chimie (spé. conservée)</td><td class="num">160</td><td>À venir — coeff 16</td></tr>
+          <tr><td>LLCE Anglais (spé. abandonnée)</td><td class="num">80</td><td>Acquis — 61/80</td></tr>
+          <tr><td>Grand Oral</td><td class="num">80</td><td>À venir — coeff 8, point fort naturel</td></tr>
+          <tr><td>Philosophie</td><td class="num">80</td><td>À venir — coeff 8</td></tr>
+          <tr><td>Français Écrit / Oral</td><td class="num">50 chacune</td><td>Acquis — 15/50 et 35/50</td></tr>
+          <tr><td>Histoire-Géo / Anglais LV1 / Chinois LV2 / Ens. Scient. / EPS</td><td class="num">60 chacune</td><td>Moitié 1ère connue (sauf EPS) — moitié Terminale à venir</td></tr>
+          <tr><td>Maths (épreuve anticipée)</td><td class="num">20</td><td>Acquis — 15/20</td></tr>
+          <tr><td>EMC</td><td class="num">20</td><td>Moitié 1ère connue — 9,8/20</td></tr>
+          <tr><td>Théâtre (option)</td><td class="num">bonus</td><td>Hors barème principal — points bonus si &gt;10/20</td></tr>
         </tbody>
       </table>
       </div>
