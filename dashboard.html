@@ -38,7 +38,7 @@
     .gauge-container { position: relative; width: 220px; margin: 0 auto 20px auto; text-align: center; }
     .gauge-svg { transform: rotate(-90deg); width: 100%; height: auto; }
     .gauge-bg { fill: none; stroke: #1a233a; stroke-width: 12; }
-    .gauge-fill { fill: none; stroke: #00ff87; stroke-width: 12; stroke-linecap: round; stroke-dasharray: 565; stroke-dashoffset: 446; } /* 210/1000 */
+    .gauge-fill { fill: none; stroke: #00ff87; stroke-width: 12; stroke-linecap: round; stroke-dasharray: 565; stroke-dashoffset: 385; } /* 319/1000 */
 
     .gauge-data { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -55%); text-align: center; width: 100%; }
     .gauge-points { font-size: 2.2em; font-weight: bold; color: #fff; line-height: 1; }
@@ -138,15 +138,15 @@
     <!-- Synthèse du haut -->
     <div class="top-grid">
       <div class="card" style="border-color: #00ff87;">
-        <div class="card-title">Avance Bac Actuelle (Épreuves 1ère)</div>
-        <div class="card-value-green">210 pts</div>
-        <div class="card-subtext"><strong>Sur 360 points engagés (+40 pts d'avance)</strong><br>Capitalisé grâce aux épreuves anticipées et à la spé abandonnée.</div>
+        <div class="card-title">Avance Bac Actuelle (relevé officiel 1ère)</div>
+        <div class="card-value-green">319 pts</div>
+        <div class="card-subtext"><strong>Sur 440 points connus (+99 pts d'avance sur le rythme "obtention")</strong><br>Épreuves anticipées (Français, Maths) + contrôle continu 1ère (HG, EMC, LV1, LV2, Ens. Scient., LLCE Anglais abandonnée).</div>
       </div>
 
       <div class="card">
-        <div class="card-title">Moyenne Épreuves (EAF + Spé 1ère)</div>
+        <div class="card-title">Moyenne Épreuves Anticipées</div>
         <div class="card-value-blue">11.66 /20</div>
-        <div class="card-subtext"><strong>Écrit Français (06/20) | Oral Français (14/20) | Raisonnement Logique (Balances) (16/20)</strong><br>Vitesse & Graphisme (IVT: 98). Excellente compensation grâce au pôle scientifique et à l'oral.</div>
+        <div class="card-subtext"><strong>Écrit Français (06/20) | Oral Français (14/20) | Mathématiques (15/20)</strong><br>Vitesse & Graphisme (IVT: 98). Excellente compensation grâce au pôle scientifique et à l'oral.</div>
       </div>
 
       <div class="card">
@@ -166,9 +166,9 @@
           <circle class="gauge-fill" cx="100" cy="100" r="90" />
         </svg>
         <div class="gauge-data">
-          <div class="gauge-points">210</div>
+          <div class="gauge-points">319</div>
           <div class="gauge-total">/ 1 000 Points</div>
-          <div class="gauge-badge">Moyenne : 11,67 / 20</div>
+          <div class="gauge-badge">Moyenne épreuves : 11,67 / 20</div>
         </div>
       </div>
 
@@ -186,8 +186,8 @@
           <div class="zone z600" style="width:10%;"><span class="zthresh">600</span><span class="zlabel">Assez Bien</span></div>
           <div class="zone z700" style="width:10%;"><span class="zthresh">700</span><span class="zlabel">Bien</span></div>
           <div class="zone z800" style="width:20%;"><span class="zthresh">800</span><span class="zlabel">Très Bien</span></div>
-          <div class="fill" style="width:21%;"></div>
-          <div class="marker" style="left:21%;"><span class="mtag">210 pts</span></div>
+          <div class="fill" style="width:31.9%;"></div>
+          <div class="marker" style="left:31.9%;"><span class="mtag">319 pts</span></div>
         </div>
       </div>
     </div>
@@ -223,7 +223,7 @@
         </div>
 
         <div class="sub-card">
-          <div class="sub-title">Spé 1ère (Maths)</div>
+          <div class="sub-title">Maths (épreuve anticipée)</div>
           <div class="sub-circle">
             <svg class="sub-svg" viewBox="0 0 80 80">
               <circle class="sub-circle-bg" cx="40" cy="40" r="34"/>
@@ -231,7 +231,19 @@
             </svg>
             <div class="sub-note">15/20</div>
           </div>
-          <div class="sub-pts">120 / 160 pts</div>
+          <div class="sub-pts">15 / 20 pts</div>
+        </div>
+
+        <div class="sub-card">
+          <div class="sub-title">LLCE Anglais (spé. abandonnée)</div>
+          <div class="sub-circle">
+            <svg class="sub-svg" viewBox="0 0 80 80">
+              <circle class="sub-circle-bg" cx="40" cy="40" r="34"/>
+              <circle class="sub-circle-fill" cx="40" cy="40" r="34" style="stroke-dashoffset: 51;"/>
+            </svg>
+            <div class="sub-note">15,2/20</div>
+          </div>
+          <div class="sub-pts">61 / 80 pts</div>
         </div>
 
         <div class="sub-card">
@@ -284,10 +296,11 @@
           <div class="sub-circle">
             <svg class="sub-svg" viewBox="0 0 80 80">
               <circle class="sub-circle-bg" cx="40" cy="40" r="34"/>
+              <circle class="sub-circle-fill" cx="40" cy="40" r="34" style="stroke-dashoffset: 65;"/>
             </svg>
-            <div class="sub-note">0/20</div>
+            <div class="sub-note">13,9/20</div>
           </div>
-          <div class="sub-pts">0 / 120 pts</div>
+          <div class="sub-pts">42 / 60 pts (1ère)</div>
         </div>
 
         <div class="sub-card">
@@ -295,10 +308,11 @@
           <div class="sub-circle">
             <svg class="sub-svg" viewBox="0 0 80 80">
               <circle class="sub-circle-bg" cx="40" cy="40" r="34"/>
+              <circle class="sub-circle-fill" cx="40" cy="40" r="34" style="stroke-dashoffset: 21;"/>
             </svg>
-            <div class="sub-note">0/20</div>
+            <div class="sub-note">18/20</div>
           </div>
-          <div class="sub-pts">0 / 120 pts</div>
+          <div class="sub-pts">54 / 60 pts (1ère)</div>
         </div>
 
         <div class="sub-card">
@@ -306,10 +320,11 @@
           <div class="sub-circle">
             <svg class="sub-svg" viewBox="0 0 80 80">
               <circle class="sub-circle-bg" cx="40" cy="40" r="34"/>
+              <circle class="sub-circle-fill" cx="40" cy="40" r="34" style="stroke-dashoffset: 32;"/>
             </svg>
-            <div class="sub-note">0/20</div>
+            <div class="sub-note">17/20</div>
           </div>
-          <div class="sub-pts">0 / 120 pts</div>
+          <div class="sub-pts">51 / 60 pts (1ère)</div>
         </div>
 
         <div class="sub-card">
@@ -317,10 +332,11 @@
           <div class="sub-circle">
             <svg class="sub-svg" viewBox="0 0 80 80">
               <circle class="sub-circle-bg" cx="40" cy="40" r="34"/>
+              <circle class="sub-circle-fill" cx="40" cy="40" r="34" style="stroke-dashoffset: 72;"/>
             </svg>
-            <div class="sub-note">0/20</div>
+            <div class="sub-note">13,2/20</div>
           </div>
-          <div class="sub-pts">0 / 120 pts</div>
+          <div class="sub-pts">26 / 40 pts (1ère)</div>
         </div>
 
         <div class="sub-card">
@@ -339,10 +355,11 @@
           <div class="sub-circle">
             <svg class="sub-svg" viewBox="0 0 80 80">
               <circle class="sub-circle-bg" cx="40" cy="40" r="34"/>
+              <circle class="sub-circle-fill" cx="40" cy="40" r="34" style="stroke-dashoffset: 5;"/>
             </svg>
-            <div class="sub-note">0/20</div>
+            <div class="sub-note">19,5/20</div>
           </div>
-          <div class="sub-pts">0 / 40 pts</div>
+          <div class="sub-pts">19,5 / 20 pts</div>
         </div>
 
         <div class="sub-card">
