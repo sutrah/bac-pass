@@ -53,6 +53,24 @@
     .dot-pink { background: #ff007f; }
     .dot-green { background: #00ff87; }
 
+    /* Barre de progression des mentions */
+    .track-wrap { margin-top: 30px; padding-top: 26px; border-top: 1px solid #1e2c4a; }
+    .track { position: relative; height: 30px; border-radius: 6px; display: flex; overflow: visible; }
+    .track .zone { height: 100%; position: relative; border-right: 2px solid #000000; }
+    .track .zone:last-child { border-right: none; }
+    .track .zone:first-child { border-radius: 6px 0 0 6px; }
+    .track .zone:last-child { border-radius: 0 6px 6px 0; }
+    .track .zone.z0 { background: #162036; }
+    .track .zone.z500 { background: rgba(141,155,176,0.35); }
+    .track .zone.z600 { background: rgba(0,180,216,0.35); }
+    .track .zone.z700 { background: rgba(255,183,3,0.35); }
+    .track .zone.z800 { background: rgba(255,0,127,0.35); }
+    .track .zone .zthresh { position: absolute; top: -20px; right: -8px; font-size: 0.7em; color: #8d9bb0; font-weight: bold; }
+    .track .zone .zlabel { position: absolute; bottom: -22px; left: 6px; font-size: 0.68em; color: #8d9bb0; white-space: nowrap; }
+    .track .fill { position: absolute; top: 0; left: 0; height: 100%; background: #00ff87; border-radius: 6px 0 0 6px; }
+    .track .marker { position: absolute; top: -8px; width: 3px; height: 46px; background: #ffffff; border-radius: 2px; }
+    .track .marker .mtag { position: absolute; top: -24px; left: 50%; transform: translateX(-50%); font-size: 0.75em; font-weight: bold; background: #ffffff; color: #0b1326; padding: 2px 8px; border-radius: 10px; white-space: nowrap; }
+
     /* Section Avancement par matière (14 Cartes) */
     .subjects-section { background: #111a2e; border: 1px solid #1e2c4a; border-radius: 12px; padding: 25px; }
     .subjects-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 12px; margin-top: 15px; }
@@ -159,6 +177,18 @@
         <div><span class="dot dot-blue"></span>Assez Bien (600 pts)</div>
         <div><span class="dot dot-yellow"></span>Mention Bien (700 pts)</div>
         <div><span class="dot dot-pink"></span>Mention Très Bien (800 pts)</div>
+      </div>
+
+      <div class="track-wrap">
+        <div class="track">
+          <div class="zone z0" style="width:50%;"><span class="zlabel">Sous le seuil</span></div>
+          <div class="zone z500" style="width:10%;"><span class="zthresh">500</span><span class="zlabel">Obtention</span></div>
+          <div class="zone z600" style="width:10%;"><span class="zthresh">600</span><span class="zlabel">Assez Bien</span></div>
+          <div class="zone z700" style="width:10%;"><span class="zthresh">700</span><span class="zlabel">Bien</span></div>
+          <div class="zone z800" style="width:20%;"><span class="zthresh">800</span><span class="zlabel">Très Bien</span></div>
+          <div class="fill" style="width:21%;"></div>
+          <div class="marker" style="left:21%;"><span class="mtag">210 pts</span></div>
+        </div>
       </div>
     </div>
 
