@@ -95,8 +95,15 @@ def main() -> int:
         print(f"Variable d'environnement manquante : {exc}", file=sys.stderr)
         return 1
 
+    # Compte parent (parent.html) : il faut ParentClient, pas Client, et sélectionner
+    # explicitement l'enfant avant de pouvoir lire ses notes -- sinon pronotepy lève un
+    # KeyError('listeOngletsPourPeriodes') en essayant de lire une période inexistante
+    # à ce niveau.
+    is_parent = url.rstrip("/").endswith("parent.html")
+    client_cls = pronotepy.ParentClient if is_parent else pronotepy.Client
+
     try:
-        client = pronotepy.Client(url, username=username, password=password)
+        client = client_cls(url, username=username, password=password)
     except Exception as exc:  # noqa: BLE001 -- on veut le diagnostic complet dans les logs CI
         print(f"Erreur pendant la connexion à Pronote ({type(exc).__name__}): {exc}", file=sys.stderr)
         return 1
@@ -110,6 +117,21 @@ def main() -> int:
             file=sys.stderr,
         )
         return 1
+
+    if is_parent:
+        children = client.children
+        if not children:
+            print("Compte parent connecté, mais aucun enfant trouvé.", file=sys.stderr)
+            return 1
+        child_name = os.environ.get("PRONOTE_CHILD_NAME", "").strip().lower()
+        chosen = children[0]
+        if child_name:
+            for c in children:
+                if child_name in c.name.lower():
+                    chosen = c
+                    break
+        client.set_child(chosen)
+        print(f"Enfant sélectionné : {chosen.name}")
 
     averages = fetch_averages(client)
     if not averages:
