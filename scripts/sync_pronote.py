@@ -95,9 +95,20 @@ def main() -> int:
         print(f"Variable d'environnement manquante : {exc}", file=sys.stderr)
         return 1
 
-    client = pronotepy.Client(url, username=username, password=password)
+    try:
+        client = pronotepy.Client(url, username=username, password=password)
+    except Exception as exc:  # noqa: BLE001 -- on veut le diagnostic complet dans les logs CI
+        print(f"Erreur pendant la connexion à Pronote ({type(exc).__name__}): {exc}", file=sys.stderr)
+        return 1
+
     if not client.logged_in:
-        print("Échec de connexion à Pronote.", file=sys.stderr)
+        print(
+            "Échec de connexion à Pronote : identifiants refusés par le serveur, ou "
+            "PRONOTE_URL ne pointe pas sur la bonne page de connexion "
+            "(vérifier qu'elle se termine bien par eleve.html ou parent.html, "
+            "copiée depuis la barre d'adresse du navigateur sur la page de login Pronote).",
+            file=sys.stderr,
+        )
         return 1
 
     averages = fetch_averages(client)
