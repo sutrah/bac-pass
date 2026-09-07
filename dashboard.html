@@ -8,9 +8,10 @@
     body { background-color: #000000; color: #ffffff; padding: 25px; }
 
     /* En-tête profil */
-    .profile-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid #1e2c4a; padding-bottom: 15px; }
+    .profile-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid #1e2c4a; padding-bottom: 15px; flex-wrap: wrap; gap: 10px; }
     .profile-title { font-size: 1.4em; font-weight: bold; color: #ffffff; }
     .profile-title span { color: #00d2ff; }
+    .sync-info { font-size: 0.75em; color: #8d9bb0; }
 
     /* Navigation */
     .nav { display: flex; gap: 10px; margin-bottom: 25px; }
@@ -38,7 +39,7 @@
     .gauge-container { position: relative; width: 220px; margin: 0 auto 20px auto; text-align: center; }
     .gauge-svg { transform: rotate(-90deg); width: 100%; height: auto; }
     .gauge-bg { fill: none; stroke: #1a233a; stroke-width: 12; }
-    .gauge-fill { fill: none; stroke: #00ff87; stroke-width: 12; stroke-linecap: round; stroke-dasharray: 565; stroke-dashoffset: 436; } /* 229/1000 */
+    .gauge-fill { fill: none; stroke: #00ff87; stroke-width: 12; stroke-linecap: round; stroke-dasharray: 565; }
 
     .gauge-data { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -55%); text-align: center; width: 100%; }
     .gauge-points { font-size: 2.2em; font-weight: bold; color: #fff; line-height: 1; }
@@ -71,17 +72,20 @@
     .track .marker { position: absolute; top: -8px; width: 3px; height: 46px; background: #ffffff; border-radius: 2px; }
     .track .marker .mtag { position: absolute; top: -24px; left: 50%; transform: translateX(-50%); font-size: 0.75em; font-weight: bold; background: #ffffff; color: #0b1326; padding: 2px 8px; border-radius: 10px; white-space: nowrap; }
 
-    /* Section Avancement par matière (14 Cartes) */
+    /* Section Avancement par matière */
     .subjects-section { background: #111a2e; border: 1px solid #1e2c4a; border-radius: 12px; padding: 25px; }
     .subjects-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 12px; margin-top: 15px; }
-    .sub-card { background: #162036; border: 1px solid #223152; border-radius: 10px; padding: 15px 10px; text-align: center; }
+    .sub-card { background: #162036; border: 1px solid #223152; border-radius: 10px; padding: 15px 10px; text-align: center; position: relative; }
+    .sub-card.is-indicative { border-style: dashed; }
     .sub-title { font-size: 0.8em; font-weight: bold; color: #ffffff; margin-bottom: 12px; min-height: 32px; display: flex; align-items: center; justify-content: center; }
+    .sub-badge { position: absolute; top: 6px; right: 8px; font-size: 0.62em; color: #8d9bb0; }
 
     /* Cercles de note */
     .sub-circle { position: relative; width: 75px; height: 75px; margin: 0 auto 10px auto; }
     .sub-svg { transform: rotate(-90deg); width: 100%; height: 100%; }
     .sub-circle-bg { fill: none; stroke: #000000; stroke-width: 8; }
     .sub-circle-fill { fill: none; stroke: #00ff87; stroke-width: 8; stroke-dasharray: 213; stroke-linecap: round; }
+    .sub-circle-fill.indicative { stroke: #8d9bb0; }
     .sub-note { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 0.85em; font-weight: bold; color: #ffffff; width: 100%; }
     .sub-pts { font-size: 0.75em; color: #8d9bb0; }
 
@@ -123,6 +127,7 @@
   <!-- Titre & Profil -->
   <div class="profile-header">
     <div class="profile-title">DASHBOARD BAC — <span>Dr Loloï - Bac & PASS</span></div>
+    <div class="sync-info" id="sync-info">Dernière synchronisation Pronote : données saisies manuellement (relevé officiel + bulletins)</div>
   </div>
 
   <!-- Navigation -->
@@ -139,8 +144,8 @@
     <div class="top-grid">
       <div class="card" style="border-color: #00ff87;">
         <div class="card-title">Avance Bac Actuelle (barème vérifié)</div>
-        <div class="card-value-green">229 pts</div>
-        <div class="card-subtext"><strong>Sur 330 points connus (+64 pts d'avance sur le rythme "obtention")</strong><br>Verrouillé (Français, Maths, LLCE Anglais) + moitié 1ère du contrôle continu (HG, LV1, LV2, Ens. Scient., EMC).</div>
+        <div class="card-value-green" id="kpi-points">— pts</div>
+        <div class="card-subtext" id="kpi-sub"></div>
       </div>
 
       <div class="card">
@@ -163,10 +168,10 @@
       <div class="gauge-container">
         <svg class="gauge-svg" viewBox="0 0 200 200">
           <circle class="gauge-bg" cx="100" cy="100" r="90" />
-          <circle class="gauge-fill" cx="100" cy="100" r="90" />
+          <circle class="gauge-fill" id="gauge-fill" cx="100" cy="100" r="90" />
         </svg>
         <div class="gauge-data">
-          <div class="gauge-points">229</div>
+          <div class="gauge-points" id="gauge-points">—</div>
           <div class="gauge-total">/ 1 000 Points</div>
           <div class="gauge-badge">Moyenne épreuves : 11,67 / 20</div>
         </div>
@@ -180,200 +185,23 @@
       </div>
 
       <div class="track-wrap">
-        <div class="track">
+        <div class="track" id="track">
           <div class="zone z0" style="width:50%;"><span class="zlabel">Sous le seuil</span></div>
           <div class="zone z500" style="width:10%;"><span class="zthresh">500</span><span class="zlabel">Obtention</span></div>
           <div class="zone z600" style="width:10%;"><span class="zthresh">600</span><span class="zlabel">Assez Bien</span></div>
           <div class="zone z700" style="width:10%;"><span class="zthresh">700</span><span class="zlabel">Bien</span></div>
           <div class="zone z800" style="width:20%;"><span class="zthresh">800</span><span class="zlabel">Très Bien</span></div>
-          <div class="fill" style="width:22.9%;"></div>
-          <div class="marker" style="left:22.9%;"><span class="mtag">229 pts</span></div>
+          <div class="fill" id="track-fill" style="width:0%;"></div>
+          <div class="marker" id="track-marker" style="left:0%;"><span class="mtag" id="track-tag"></span></div>
         </div>
       </div>
     </div>
 
-    <!-- Section Avancement par Matière (14 Cartes) -->
+    <!-- Section Avancement par Matière -->
     <div class="subjects-section">
       <div class="main-title">AVANCEMENT PAR MATIÈRE (NOTE / 20)</div>
-      <div class="subjects-grid">
-
-        <!-- Ligne 1 -->
-        <div class="sub-card">
-          <div class="sub-title">Français Écrit</div>
-          <div class="sub-circle">
-            <svg class="sub-svg" viewBox="0 0 80 80">
-              <circle class="sub-circle-bg" cx="40" cy="40" r="34"/>
-              <circle class="sub-circle-fill" cx="40" cy="40" r="34" style="stroke-dashoffset: 149;"/>
-            </svg>
-            <div class="sub-note">06/20</div>
-          </div>
-          <div class="sub-pts">15 / 50 pts</div>
-        </div>
-
-        <div class="sub-card">
-          <div class="sub-title">Français Oral</div>
-          <div class="sub-circle">
-            <svg class="sub-svg" viewBox="0 0 80 80">
-              <circle class="sub-circle-bg" cx="40" cy="40" r="34"/>
-              <circle class="sub-circle-fill" cx="40" cy="40" r="34" style="stroke-dashoffset: 64;"/>
-            </svg>
-            <div class="sub-note">14/20</div>
-          </div>
-          <div class="sub-pts">35 / 50 pts</div>
-        </div>
-
-        <div class="sub-card">
-          <div class="sub-title">Maths (épreuve anticipée)</div>
-          <div class="sub-circle">
-            <svg class="sub-svg" viewBox="0 0 80 80">
-              <circle class="sub-circle-bg" cx="40" cy="40" r="34"/>
-              <circle class="sub-circle-fill" cx="40" cy="40" r="34" style="stroke-dashoffset: 53;"/>
-            </svg>
-            <div class="sub-note">15/20</div>
-          </div>
-          <div class="sub-pts">15 / 20 pts</div>
-        </div>
-
-        <div class="sub-card">
-          <div class="sub-title">LLCE Anglais (spé. abandonnée)</div>
-          <div class="sub-circle">
-            <svg class="sub-svg" viewBox="0 0 80 80">
-              <circle class="sub-circle-bg" cx="40" cy="40" r="34"/>
-              <circle class="sub-circle-fill" cx="40" cy="40" r="34" style="stroke-dashoffset: 51;"/>
-            </svg>
-            <div class="sub-note">15,2/20</div>
-          </div>
-          <div class="sub-pts">61 / 80 pts</div>
-        </div>
-
-        <div class="sub-card">
-          <div class="sub-title">Physique-Chimie</div>
-          <div class="sub-circle">
-            <svg class="sub-svg" viewBox="0 0 80 80">
-              <circle class="sub-circle-bg" cx="40" cy="40" r="34"/>
-            </svg>
-            <div class="sub-note">0/20</div>
-          </div>
-          <div class="sub-pts">0 / 160 pts</div>
-        </div>
-
-        <div class="sub-card">
-          <div class="sub-title">SVT</div>
-          <div class="sub-circle">
-            <svg class="sub-svg" viewBox="0 0 80 80">
-              <circle class="sub-circle-bg" cx="40" cy="40" r="34"/>
-            </svg>
-            <div class="sub-note">0/20</div>
-          </div>
-          <div class="sub-pts">0 / 160 pts</div>
-        </div>
-
-        <div class="sub-card">
-          <div class="sub-title">Grand Oral</div>
-          <div class="sub-circle">
-            <svg class="sub-svg" viewBox="0 0 80 80">
-              <circle class="sub-circle-bg" cx="40" cy="40" r="34"/>
-            </svg>
-            <div class="sub-note">0/20</div>
-          </div>
-          <div class="sub-pts">0 / 80 pts</div>
-        </div>
-
-        <div class="sub-card">
-          <div class="sub-title">Philosophie</div>
-          <div class="sub-circle">
-            <svg class="sub-svg" viewBox="0 0 80 80">
-              <circle class="sub-circle-bg" cx="40" cy="40" r="34"/>
-            </svg>
-            <div class="sub-note">0/20</div>
-          </div>
-          <div class="sub-pts">0 / 80 pts</div>
-        </div>
-
-        <!-- Ligne 2 -->
-        <div class="sub-card">
-          <div class="sub-title">Histoire-Géo</div>
-          <div class="sub-circle">
-            <svg class="sub-svg" viewBox="0 0 80 80">
-              <circle class="sub-circle-bg" cx="40" cy="40" r="34"/>
-              <circle class="sub-circle-fill" cx="40" cy="40" r="34" style="stroke-dashoffset: 65;"/>
-            </svg>
-            <div class="sub-note">13,9/20</div>
-          </div>
-          <div class="sub-pts">21 / 60 pts (moitié 1ère)</div>
-        </div>
-
-        <div class="sub-card">
-          <div class="sub-title">Anglais LV1</div>
-          <div class="sub-circle">
-            <svg class="sub-svg" viewBox="0 0 80 80">
-              <circle class="sub-circle-bg" cx="40" cy="40" r="34"/>
-              <circle class="sub-circle-fill" cx="40" cy="40" r="34" style="stroke-dashoffset: 21;"/>
-            </svg>
-            <div class="sub-note">18/20</div>
-          </div>
-          <div class="sub-pts">27 / 60 pts (moitié 1ère)</div>
-        </div>
-
-        <div class="sub-card">
-          <div class="sub-title">Chinois LV2</div>
-          <div class="sub-circle">
-            <svg class="sub-svg" viewBox="0 0 80 80">
-              <circle class="sub-circle-bg" cx="40" cy="40" r="34"/>
-              <circle class="sub-circle-fill" cx="40" cy="40" r="34" style="stroke-dashoffset: 32;"/>
-            </svg>
-            <div class="sub-note">17/20</div>
-          </div>
-          <div class="sub-pts">25,5 / 60 pts (moitié 1ère)</div>
-        </div>
-
-        <div class="sub-card">
-          <div class="sub-title">Ens. Scient.</div>
-          <div class="sub-circle">
-            <svg class="sub-svg" viewBox="0 0 80 80">
-              <circle class="sub-circle-bg" cx="40" cy="40" r="34"/>
-              <circle class="sub-circle-fill" cx="40" cy="40" r="34" style="stroke-dashoffset: 72;"/>
-            </svg>
-            <div class="sub-note">13,2/20</div>
-          </div>
-          <div class="sub-pts">19,8 / 60 pts (moitié 1ère)</div>
-        </div>
-
-        <div class="sub-card">
-          <div class="sub-title">EPS</div>
-          <div class="sub-circle">
-            <svg class="sub-svg" viewBox="0 0 80 80">
-              <circle class="sub-circle-bg" cx="40" cy="40" r="34"/>
-            </svg>
-            <div class="sub-note">0/20</div>
-          </div>
-          <div class="sub-pts">0 / 60 pts (CCF à venir)</div>
-        </div>
-
-        <div class="sub-card">
-          <div class="sub-title">EMC</div>
-          <div class="sub-circle">
-            <svg class="sub-svg" viewBox="0 0 80 80">
-              <circle class="sub-circle-bg" cx="40" cy="40" r="34"/>
-              <circle class="sub-circle-fill" cx="40" cy="40" r="34" style="stroke-dashoffset: 5;"/>
-            </svg>
-            <div class="sub-note">19,5/20</div>
-          </div>
-          <div class="sub-pts">9,8 / 20 pts (moitié 1ère)</div>
-        </div>
-
-        <div class="sub-card">
-          <div class="sub-title">Théâtre</div>
-          <div class="sub-circle">
-            <svg class="sub-svg" viewBox="0 0 80 80">
-              <circle class="sub-circle-bg" cx="40" cy="40" r="34"/>
-            </svg>
-            <div class="sub-note">0/20</div>
-          </div>
-          <div class="sub-pts">0 / 40 pts</div>
-        </div>
-
-      </div>
+      <div class="card-subtext" style="margin-bottom:4px;">Bordure pleine = compte dans le barème du bac. Bordure pointillée = note de bulletin indicative (n'entre pas dans le calcul : seul l'examen final de Terminale compte pour cette matière).</div>
+      <div class="subjects-grid" id="subjects-grid"></div>
     </div>
   </section>
 
@@ -429,50 +257,134 @@
   <section class="panel" id="objectif">
     <div class="main-card">
       <div class="main-title">🏁 Ce qu'il reste à décrocher pour chaque mention</div>
-      <div class="card-subtext" style="margin-bottom:18px;">229 pts déjà acquis (barème vérifié : 60 pts d'épreuves finales/anticipées + 40 pts de contrôle continu, arrêté du bac général). Écart restant jusqu'à chaque seuil, à jouer sur SVT, Physique-Chimie, Grand Oral, Philosophie, EPS et la moitié Terminale du contrôle continu.</div>
-      <div class="goal-grid">
-        <div class="goal-card">
-          <div class="mention">Assez Bien</div>
-          <div class="thresh">seuil 600 / 1000</div>
-          <div class="need">+371 <small>pts</small></div>
-        </div>
-        <div class="goal-card">
-          <div class="mention">Bien</div>
-          <div class="thresh">seuil 700 / 1000</div>
-          <div class="need">+471 <small>pts</small></div>
-        </div>
-        <div class="goal-card">
-          <div class="mention">Très Bien</div>
-          <div class="thresh">seuil 800 / 1000</div>
-          <div class="need">+571 <small>pts</small></div>
-        </div>
-      </div>
+      <div class="card-subtext" style="margin-bottom:18px;" id="objectif-sub"></div>
+      <div class="goal-grid" id="goal-grid"></div>
     </div>
 
     <div class="main-card">
       <div class="main-title">⚖️ Où porter l'effort : les leviers par poids réel</div>
-      <div class="card-subtext" style="margin-bottom:14px;">Classé par points en jeu — la même heure de révision ne "rapporte" pas la même chose partout.</div>
+      <div class="card-subtext" style="margin-bottom:14px;">Classé par points en jeu sur l'ensemble du parcours — la même heure de révision ne "rapporte" pas la même chose partout.</div>
       <div style="overflow-x:auto;">
       <table class="lever">
         <thead><tr><th>Épreuve</th><th class="num">Pts en jeu</th><th>Statut</th></tr></thead>
-        <tbody>
-          <tr><td>SVT (spé. conservée)</td><td class="num">160</td><td>À venir — coeff 16</td></tr>
-          <tr><td>Physique-Chimie (spé. conservée)</td><td class="num">160</td><td>À venir — coeff 16</td></tr>
-          <tr><td>LLCE Anglais (spé. abandonnée)</td><td class="num">80</td><td>Acquis — 61/80</td></tr>
-          <tr><td>Grand Oral</td><td class="num">80</td><td>À venir — coeff 8, point fort naturel</td></tr>
-          <tr><td>Philosophie</td><td class="num">80</td><td>À venir — coeff 8</td></tr>
-          <tr><td>Français Écrit / Oral</td><td class="num">50 chacune</td><td>Acquis — 15/50 et 35/50</td></tr>
-          <tr><td>Histoire-Géo / Anglais LV1 / Chinois LV2 / Ens. Scient. / EPS</td><td class="num">60 chacune</td><td>Moitié 1ère connue (sauf EPS) — moitié Terminale à venir</td></tr>
-          <tr><td>Maths (épreuve anticipée)</td><td class="num">20</td><td>Acquis — 15/20</td></tr>
-          <tr><td>EMC</td><td class="num">20</td><td>Moitié 1ère connue — 9,8/20</td></tr>
-          <tr><td>Théâtre (option)</td><td class="num">bonus</td><td>Hors barème principal — points bonus si &gt;10/20</td></tr>
-        </tbody>
+        <tbody id="lever-body"></tbody>
       </table>
       </div>
     </div>
   </section>
 
   <script>
+    // ---- Données sources : à synchroniser (voir scripts/sync_pronote.py) ----
+    // mode 'locked' : épreuve anticipée / spécialité abandonnée. Coefficient plein, figé pour toujours
+    //   (vient du relevé officiel du Rectorat, ne se resynchronise pas depuis Pronote).
+    // mode 'cc'     : contrôle continu, coefficient coupé en 2 entre 1ère et Terminale.
+    //   La moyenne Pronote alimente la moitié "en cours" ; l'autre moitié viendra des bulletins de Terminale.
+    // mode 'final'  : spécialité conservée ou épreuve 100% Terminale (Philosophie). Seul l'examen final
+    //   compte pour le bac -- la moyenne de bulletin Pronote est affichée à titre indicatif seulement.
+    // mode 'bonus'  : option facultative, hors des 100 coefficients du barème principal.
+    const SUBJECTS = [
+      { key:'fr_ecrit', name:'Français Écrit',                 note:6,    coeff:5,  mode:'locked', pronote:null },
+      { key:'fr_oral',  name:'Français Oral',                  note:14,   coeff:5,  mode:'locked', pronote:null },
+      { key:'maths',    name:'Maths (épreuve anticipée)',      note:15,   coeff:2,  mode:'locked', pronote:null },
+      { key:'llce',     name:'LLCE Anglais (spé. abandonnée)', note:15.2, coeff:8,  mode:'locked', pronote:'LLC ANGL.MOND.CONT.' },
+      { key:'hg',       name:'Histoire-Géo',                   note:13.9, coeff:6,  mode:'cc',     pronote:'HISTOIRE-GEOGRAPHIE' },
+      { key:'lva',      name:'Anglais LV1',                    note:18,   coeff:6,  mode:'cc',     pronote:'ANGLAIS LV1' },
+      { key:'lvb',      name:'Chinois LV2',                    note:17,   coeff:6,  mode:'cc',     pronote:'CHINOIS LV2' },
+      { key:'enssci',   name:'Ens. Scientifique',               note:13.2, coeff:6,  mode:'cc',     pronote:'ENSEIGNEMENT SCIENTIFIQUE' },
+      { key:'emc',      name:'EMC',                             note:19.5, coeff:2,  mode:'cc',     pronote:'ENS. MORAL & CIVIQUE' },
+      { key:'phys',     name:'Physique-Chimie',                 note:null, coeff:16, mode:'final',  pronote:'PHYSIQUE-CHIMIE' },
+      { key:'svt',      name:'SVT',                             note:null, coeff:16, mode:'final',  pronote:'SCIENCES VIE & TERRE' },
+      { key:'philo',    name:'Philosophie',                     note:null, coeff:8,  mode:'final',  pronote:'PHILOSOPHIE' },
+      { key:'go',       name:'Grand Oral',                      note:null, coeff:8,  mode:'final',  pronote:null },
+      { key:'eps',      name:'EPS',                             note:null, coeff:6,  mode:'cc',     pronote:null },
+      { key:'theatre',  name:'Théâtre (option)',                note:null, coeff:0,  mode:'bonus',  pronote:'THEATRE' },
+    ];
+    // Rempli par le workflow GitHub Actions (scripts/sync_pronote.py) à chaque synchronisation.
+    const LAST_SYNC = null; // ex: "2026-09-08T07:03:00+02:00"
+
+    const CIRC = 213; // 2*pi*34 (rayon des anneaux), déjà utilisé par le CSS existant
+
+    function computeSubject(s){
+      const fullMax = s.coeff * 10;
+      const knownCoeff = s.mode === 'locked' ? s.coeff : s.mode === 'cc' ? s.coeff / 2 : 0;
+      const knownMax = knownCoeff * 10;
+      const counts = s.mode === 'locked' || s.mode === 'cc';
+      const pts = (counts && s.note != null) ? s.note * knownCoeff * 0.5 : 0;
+      return Object.assign({}, s, { fullMax, knownMax, counts, pts });
+    }
+    const computed = SUBJECTS.map(computeSubject);
+    const totalPts = computed.filter(s => s.counts).reduce((a, s) => a + s.pts, 0);
+    const totalKnownMax = computed.filter(s => s.counts).reduce((a, s) => a + s.knownMax, 0);
+    const round1 = n => Math.round(n * 10) / 10;
+
+    function fmtNote(n){ return n == null ? '—' : String(n).replace('.', ',') + '/20'; }
+    function fmtPts(n){ return round1(n) % 1 === 0 ? round1(n).toFixed(0) : round1(n).toFixed(1).replace('.', ','); }
+
+    function subjectCard(s){
+      const isIndicative = s.mode === 'final';
+      const dashoffset = s.note != null ? CIRC * (1 - s.note / 20) : CIRC;
+      const ptsLabel = s.mode === 'bonus'
+        ? 'Option — hors barème'
+        : s.mode === 'final'
+          ? (s.note != null ? `Indicatif — ${fmtNote(s.note)} (seul l'examen final compte)` : `0 / ${s.fullMax} pts`)
+          : s.mode === 'cc'
+            ? `${fmtPts(s.pts)} / ${s.knownMax} pts (moitié 1ère)`
+            : `${fmtPts(s.pts)} / ${s.knownMax} pts`;
+      return `<div class="sub-card ${isIndicative ? 'is-indicative' : ''}">
+        ${s.mode !== 'bonus' ? `<div class="sub-badge">c.${s.coeff}</div>` : ''}
+        <div class="sub-title">${s.name}</div>
+        <div class="sub-circle">
+          <svg class="sub-svg" viewBox="0 0 80 80">
+            <circle class="sub-circle-bg" cx="40" cy="40" r="34"/>
+            <circle class="sub-circle-fill ${isIndicative ? 'indicative' : ''}" cx="40" cy="40" r="34" style="stroke-dashoffset:${dashoffset};"/>
+          </svg>
+          <div class="sub-note">${fmtNote(s.note)}</div>
+        </div>
+        <div class="sub-pts">${ptsLabel}</div>
+      </div>`;
+    }
+    document.getElementById('subjects-grid').innerHTML = computed.map(subjectCard).join('');
+
+    // Jauge + tuile principale
+    const pct = totalPts / 1000;
+    document.getElementById('kpi-points').textContent = fmtPts(totalPts) + ' pts';
+    document.getElementById('kpi-sub').innerHTML =
+      `<strong>Sur ${fmtPts(totalKnownMax)} points connus (${totalPts >= totalKnownMax/2 ? '+' : ''}${fmtPts(totalPts - totalKnownMax/2)} pts d'avance sur le rythme "obtention")</strong><br>` +
+      `Verrouillé (Français, Maths, LLCE Anglais) + moitié 1ère du contrôle continu (HG, LV1, LV2, Ens. Scient., EMC).`;
+    document.getElementById('gauge-points').textContent = fmtPts(totalPts);
+    document.getElementById('gauge-fill').style.strokeDashoffset = String(565 * (1 - pct));
+    document.getElementById('track-fill').style.width = (pct * 100) + '%';
+    document.getElementById('track-marker').style.left = (pct * 100) + '%';
+    document.getElementById('track-tag').textContent = fmtPts(totalPts) + ' pts';
+    document.getElementById('sync-info').textContent = LAST_SYNC
+      ? 'Dernière synchronisation Pronote : ' + new Date(LAST_SYNC).toLocaleString('fr-FR')
+      : 'Dernière synchronisation Pronote : données saisies manuellement (relevé officiel + bulletins)';
+
+    // Onglet Objectif
+    document.getElementById('objectif-sub').textContent =
+      `${fmtPts(totalPts)} pts déjà acquis (barème vérifié : 60 pts d'épreuves finales/anticipées + 40 pts de contrôle continu). ` +
+      `Écart restant jusqu'à chaque seuil, à jouer sur SVT, Physique-Chimie, Grand Oral, Philosophie, EPS et la moitié Terminale du contrôle continu.`;
+    const mentions = [['Assez Bien', 600], ['Bien', 700], ['Très Bien', 800]];
+    document.getElementById('goal-grid').innerHTML = mentions.map(([name, thresh]) => `
+      <div class="goal-card">
+        <div class="mention">${name}</div>
+        <div class="thresh">seuil ${thresh} / 1000</div>
+        <div class="need">+${fmtPts(Math.max(0, thresh - totalPts))} <small>pts</small></div>
+      </div>`).join('');
+
+    const leverRows = computed
+      .filter(s => s.mode !== 'bonus')
+      .sort((a, b) => b.fullMax - a.fullMax)
+      .map(s => {
+        let status;
+        if (s.mode === 'locked') status = `Acquis — ${fmtPts(s.pts)}/${s.knownMax}`;
+        else if (s.mode === 'cc') status = `Moitié 1ère connue — ${fmtPts(s.pts)}/${s.knownMax}`;
+        else status = s.note != null ? `À venir — bulletin indicatif ${fmtNote(s.note)}` : 'À venir';
+        return `<tr><td>${s.name}</td><td class="num">${s.fullMax}</td><td>${status}</td></tr>`;
+      }).join('');
+    document.getElementById('lever-body').innerHTML = leverRows;
+
+    // Onglets
     document.querySelectorAll('.nav .btn').forEach(function (btn) {
       btn.addEventListener('click', function () {
         document.querySelectorAll('.nav .btn').forEach(function (b) { b.classList.remove('active'); });
