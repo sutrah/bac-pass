@@ -6,13 +6,17 @@ Usage :
     PRONOTE_USERNAME=... PRONOTE_PASSWORD=... \
     python3 scripts/sync_pronote.py
 
-Ne modifie que le champ `note:` des matières qui déclarent un `pronote:'...'`
-dans le tableau SUBJECTS de dashboard.html -- c'est-à-dire les matières de
-contrôle continu ("mode:'cc'") et les spécialités conservées ("mode:'final'",
-mise à jour à titre indicatif uniquement, ces notes de bulletin ne comptant
-pas pour le bac). Les matières "mode:'locked'" (épreuves anticipées,
-spécialité abandonnée) ne sont jamais touchées : elles viennent du relevé
-officiel du Rectorat, pas de Pronote.
+Ne modifie que les matières qui déclarent un `pronote:'...'` dans le tableau
+SUBJECTS de dashboard.html, et seulement selon leur `mode` :
+  - "cc"     (contrôle continu) : écrit dans `note2` (la moyenne de Terminale
+    en cours). `note1`, la moyenne officielle de 1ère venant du relevé du
+    Rectorat, n'est jamais touchée -- les deux se combinent à l'affichage.
+  - "final"  (spécialité conservée, Philosophie) : écrit dans `note`, à titre
+    indicatif seulement (cette moyenne de bulletin ne compte pas pour le bac,
+    seul l'examen final de Terminale compte).
+  - "locked" (épreuves anticipées, spécialité abandonnée) : jamais touché,
+    quel que soit le libellé Pronote -- ces notes viennent du relevé officiel
+    du Rectorat et sont figées pour toujours.
 
 Avertissement : ce script s'appuie sur pronotepy (bibliothèque communautaire,
 non officielle -- Pronote n'a pas d'API publique). L'attribut exact des
@@ -59,19 +63,24 @@ def sync_dashboard(averages: dict) -> list[str]:
 
     def replace_line(match: "re.Match") -> str:
         line = match.group(0)
+        mode_match = re.search(r"mode:\s*'([^']+)'", line)
         pronote_match = re.search(r"pronote:\s*'([^']+)'", line)
-        if not pronote_match:
+        if not mode_match or not pronote_match:
             return line
+        mode = mode_match.group(1)
+        if mode == "locked":
+            return line  # figé pour toujours -- vient du relevé officiel, jamais de Pronote
         label = normalize(pronote_match.group(1))
         if label not in averages:
             return line
         key = re.search(r"key:\s*'([^']+)'", line).group(1)
         new_note = round(averages[label], 2)
+        field = "note2" if mode == "cc" else "note"
         new_line, count = re.subn(
-            r"note:\s*(null|-?\d+(?:\.\d+)?)", f"note:{new_note}", line, count=1
+            rf"{field}:\s*(null|-?\d+(?:\.\d+)?)", f"{field}:{new_note}", line, count=1
         )
         if count and new_line != line:
-            updated.append(f"{key} -> {new_note}/20")
+            updated.append(f"{key} -> {field}={new_note}/20")
             return new_line
         return line
 
