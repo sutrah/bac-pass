@@ -88,6 +88,7 @@
     .sub-circle-fill.indicative { stroke: #8d9bb0; }
     .sub-note { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 0.85em; font-weight: bold; color: #ffffff; width: 100%; }
     .sub-pts { font-size: 0.75em; color: #8d9bb0; }
+    .sub-detail { font-size: 0.66em; color: #6b7690; margin-bottom: 4px; }
 
     /* Stratégie & Objectif */
     .strat-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 20px; }
@@ -278,25 +279,27 @@
     // mode 'locked' : épreuve anticipée / spécialité abandonnée. Coefficient plein, figé pour toujours
     //   (vient du relevé officiel du Rectorat, ne se resynchronise pas depuis Pronote).
     // mode 'cc'     : contrôle continu, coefficient coupé en 2 entre 1ère et Terminale.
-    //   La moyenne Pronote alimente la moitié "en cours" ; l'autre moitié viendra des bulletins de Terminale.
+    //   note1 = moyenne officielle de 1ère (relevé du Rectorat, figée pour toujours -- jamais synchronisée).
+    //   note2 = moyenne de Terminale, alimentée par Pronote au fil de l'année (null tant qu'inconnue).
+    //   Chaque moitié pèse la moitié du coefficient ; les deux s'additionnent quand note2 est connue.
     // mode 'final'  : spécialité conservée ou épreuve 100% Terminale (Philosophie). Seul l'examen final
-    //   compte pour le bac -- la moyenne de bulletin Pronote est affichée à titre indicatif seulement.
+    //   compte pour le bac -- la moyenne de bulletin Pronote (`note`) est affichée à titre indicatif seulement.
     // mode 'bonus'  : option facultative, hors des 100 coefficients du barème principal.
     const SUBJECTS = [
       { key:'fr_ecrit', name:'Français Écrit',                 note:6,    coeff:5,  mode:'locked', pronote:null },
       { key:'fr_oral',  name:'Français Oral',                  note:14,   coeff:5,  mode:'locked', pronote:null },
       { key:'maths',    name:'Maths (épreuve anticipée)',      note:15,   coeff:2,  mode:'locked', pronote:null },
       { key:'llce',     name:'LLCE Anglais (spé. abandonnée)', note:15.2, coeff:8,  mode:'locked', pronote:'LLC ANGL.MOND.CONT.' },
-      { key:'hg',       name:'Histoire-Géo',                   note:13.9, coeff:6,  mode:'cc',     pronote:'HISTOIRE-GEOGRAPHIE' },
-      { key:'lva',      name:'Anglais LV1',                    note:18,   coeff:6,  mode:'cc',     pronote:'ANGLAIS LV1' },
-      { key:'lvb',      name:'Chinois LV2',                    note:17,   coeff:6,  mode:'cc',     pronote:'CHINOIS LV2' },
-      { key:'enssci',   name:'Ens. Scientifique',               note:13.2, coeff:6,  mode:'cc',     pronote:'ENSEIGNEMENT SCIENTIFIQUE' },
-      { key:'emc',      name:'EMC',                             note:19.5, coeff:2,  mode:'cc',     pronote:'ENS. MORAL & CIVIQUE' },
+      { key:'hg',       name:'Histoire-Géo',                   note1:13.9, note2:null, coeff:6, mode:'cc', pronote:'HISTOIRE-GEOGRAPHIE' },
+      { key:'lva',      name:'Anglais LV1',                    note1:18,   note2:null, coeff:6, mode:'cc', pronote:'ANGLAIS LV1' },
+      { key:'lvb',      name:'Chinois LV2',                    note1:17,   note2:null, coeff:6, mode:'cc', pronote:'CHINOIS LV2' },
+      { key:'enssci',   name:'Ens. Scientifique',              note1:13.2, note2:null, coeff:6, mode:'cc', pronote:'ENSEIGNEMENT SCIENTIFIQUE' },
+      { key:'emc',      name:'EMC',                            note1:19.5, note2:null, coeff:2, mode:'cc', pronote:'ENS. MORAL & CIVIQUE' },
       { key:'phys',     name:'Physique-Chimie',                 note:null, coeff:16, mode:'final',  pronote:'PHYSIQUE-CHIMIE' },
       { key:'svt',      name:'SVT',                             note:null, coeff:16, mode:'final',  pronote:'SCIENCES VIE & TERRE' },
       { key:'philo',    name:'Philosophie',                     note:null, coeff:8,  mode:'final',  pronote:'PHILOSOPHIE' },
       { key:'go',       name:'Grand Oral',                      note:null, coeff:8,  mode:'final',  pronote:null },
-      { key:'eps',      name:'EPS',                             note:null, coeff:6,  mode:'cc',     pronote:null },
+      { key:'eps',      name:'EPS',                            note1:null, note2:null, coeff:6, mode:'cc', pronote:null },
       { key:'theatre',  name:'Théâtre (option)',                note:null, coeff:0,  mode:'bonus',  pronote:'THEATRE' },
     ];
     // Rempli par le workflow GitHub Actions (scripts/sync_pronote.py) à chaque synchronisation.
@@ -306,9 +309,16 @@
 
     function computeSubject(s){
       const fullMax = s.coeff * 10;
-      const knownCoeff = s.mode === 'locked' ? s.coeff : s.mode === 'cc' ? s.coeff / 2 : 0;
+      if (s.mode === 'cc') {
+        const half = s.coeff / 2;
+        const pts1 = s.note1 != null ? s.note1 * half * 0.5 : 0;
+        const pts2 = s.note2 != null ? s.note2 * half * 0.5 : 0;
+        const knownMax = (s.note1 != null ? half * 10 : 0) + (s.note2 != null ? half * 10 : 0);
+        return Object.assign({}, s, { fullMax, knownMax, counts: true, pts: pts1 + pts2 });
+      }
+      const knownCoeff = s.mode === 'locked' ? s.coeff : 0;
       const knownMax = knownCoeff * 10;
-      const counts = s.mode === 'locked' || s.mode === 'cc';
+      const counts = s.mode === 'locked';
       const pts = (counts && s.note != null) ? s.note * knownCoeff * 0.5 : 0;
       return Object.assign({}, s, { fullMax, knownMax, counts, pts });
     }
@@ -322,14 +332,25 @@
 
     function subjectCard(s){
       const isIndicative = s.mode === 'final';
-      const dashoffset = s.note != null ? CIRC * (1 - s.note / 20) : CIRC;
-      const ptsLabel = s.mode === 'bonus'
-        ? 'Option — hors barème'
-        : s.mode === 'final'
-          ? (s.note != null ? `Indicatif — ${fmtNote(s.note)} (seul l'examen final compte)` : `0 / ${s.fullMax} pts`)
-          : s.mode === 'cc'
-            ? `${fmtPts(s.pts)} / ${s.knownMax} pts (moitié 1ère)`
-            : `${fmtPts(s.pts)} / ${s.knownMax} pts`;
+      let shownNote, dashoffset, ptsLabel, detail = '';
+      if (s.mode === 'cc') {
+        shownNote = s.note2 != null ? s.note2 : s.note1;
+        dashoffset = shownNote != null ? CIRC * (1 - shownNote / 20) : CIRC;
+        ptsLabel = `${fmtPts(s.pts)} / ${s.fullMax} pts`;
+        detail = `1ère : ${fmtNote(s.note1)} · Term. : ${fmtNote(s.note2)}`;
+      } else if (s.mode === 'final') {
+        shownNote = s.note;
+        dashoffset = shownNote != null ? CIRC * (1 - shownNote / 20) : CIRC;
+        ptsLabel = shownNote != null ? `Indicatif — seul l'examen final compte` : `0 / ${s.fullMax} pts`;
+      } else if (s.mode === 'bonus') {
+        shownNote = s.note;
+        dashoffset = shownNote != null ? CIRC * (1 - shownNote / 20) : CIRC;
+        ptsLabel = 'Option — hors barème';
+      } else {
+        shownNote = s.note;
+        dashoffset = shownNote != null ? CIRC * (1 - shownNote / 20) : CIRC;
+        ptsLabel = `${fmtPts(s.pts)} / ${s.knownMax} pts`;
+      }
       return `<div class="sub-card ${isIndicative ? 'is-indicative' : ''}">
         ${s.mode !== 'bonus' ? `<div class="sub-badge">c.${s.coeff}</div>` : ''}
         <div class="sub-title">${s.name}</div>
@@ -338,8 +359,9 @@
             <circle class="sub-circle-bg" cx="40" cy="40" r="34"/>
             <circle class="sub-circle-fill ${isIndicative ? 'indicative' : ''}" cx="40" cy="40" r="34" style="stroke-dashoffset:${dashoffset};"/>
           </svg>
-          <div class="sub-note">${fmtNote(s.note)}</div>
+          <div class="sub-note">${fmtNote(shownNote)}</div>
         </div>
+        ${detail ? `<div class="sub-detail">${detail}</div>` : ''}
         <div class="sub-pts">${ptsLabel}</div>
       </div>`;
     }
@@ -350,7 +372,7 @@
     document.getElementById('kpi-points').textContent = fmtPts(totalPts) + ' pts';
     document.getElementById('kpi-sub').innerHTML =
       `<strong>Sur ${fmtPts(totalKnownMax)} points connus (${totalPts >= totalKnownMax/2 ? '+' : ''}${fmtPts(totalPts - totalKnownMax/2)} pts d'avance sur le rythme "obtention")</strong><br>` +
-      `Verrouillé (Français, Maths, LLCE Anglais) + moitié 1ère du contrôle continu (HG, LV1, LV2, Ens. Scient., EMC).`;
+      `Verrouillé (Français, Maths, LLCE Anglais) + contrôle continu connu à ce jour (HG, LV1, LV2, Ens. Scient., EMC — 1ère, puis Terminale au fil de l'année).`;
     document.getElementById('gauge-points').textContent = fmtPts(totalPts);
     document.getElementById('gauge-fill').style.strokeDashoffset = String(565 * (1 - pct));
     document.getElementById('track-fill').style.width = (pct * 100) + '%';
@@ -378,7 +400,11 @@
       .map(s => {
         let status;
         if (s.mode === 'locked') status = `Acquis — ${fmtPts(s.pts)}/${s.knownMax}`;
-        else if (s.mode === 'cc') status = `Moitié 1ère connue — ${fmtPts(s.pts)}/${s.knownMax}`;
+        else if (s.mode === 'cc') {
+          status = s.note2 != null
+            ? `1ère + Terminale connues — ${fmtPts(s.pts)}/${s.fullMax}`
+            : `1ère connue (${fmtNote(s.note1)}) — Terminale à venir`;
+        }
         else status = s.note != null ? `À venir — bulletin indicatif ${fmtNote(s.note)}` : 'À venir';
         return `<tr><td>${s.name}</td><td class="num">${s.fullMax}</td><td>${status}</td></tr>`;
       }).join('');
