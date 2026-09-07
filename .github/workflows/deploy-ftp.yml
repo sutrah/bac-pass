@@ -1,0 +1,33 @@
+name: Deploy FTP
+
+# Se déclenche à chaque push sur main -- donc après la fusion de cette branche.
+# Peut aussi être lancé manuellement (bouton "Run workflow" dans l'onglet Actions).
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'dashboard.html'
+  workflow_dispatch: {}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Déployer dashboard.html sur le FTP OVH
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ftp.cluster026.hosting.ovh.net
+          protocol: ftps
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          server-dir: /games/bac-pass/
+          local-dir: ./
+          # N'envoie que ce qui compose le site -- pas le dépôt Git entier.
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.github/**
+            **/scripts/**
+            **/*.md
