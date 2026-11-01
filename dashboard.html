@@ -151,8 +151,8 @@
 
       <div class="card">
         <div class="card-title">Moyenne Épreuves Anticipées</div>
-        <div class="card-value-blue">11.66 /20</div>
-        <div class="card-subtext"><strong>Écrit Français (06/20) | Oral Français (14/20) | Mathématiques (15/20)</strong><br>Vitesse & Graphisme (IVT: 98). Excellente compensation grâce au pôle scientifique et à l'oral.</div>
+        <div class="card-value-blue" id="kpi-ea">— /20</div>
+        <div class="card-subtext"><strong id="kpi-ea-detail"></strong><br>Vitesse & Graphisme (IVT: 98). Excellente compensation grâce au pôle scientifique et à l'oral.</div>
       </div>
 
       <div class="card">
@@ -200,7 +200,7 @@
     <!-- Section Avancement par Matière -->
     <div class="subjects-section">
       <div class="main-title">AVANCEMENT PAR MATIÈRE (NOTE / 20)</div>
-      <div class="card-subtext" style="margin-bottom:4px;">Bordure pleine = compte dans le barème du bac. Bordure pointillée = note de bulletin indicative (n'entre pas dans le calcul : seul l'examen final de Terminale compte pour cette matière).</div>
+      <div class="card-subtext" style="margin-bottom:4px;">Bordure pleine = compte dans le barème du bac. Bordure pointillée = note de bulletin indicative (n'entre pas dans le calcul : seul l'examen final de Terminale compte pour cette matière). Une moyenne de Terminale est provisoire tant que l'année n'est pas finie.</div>
       <div class="subjects-grid" id="subjects-grid"></div>
     </div>
   </section>
@@ -281,9 +281,12 @@
     //   note1 = moyenne officielle de 1ère (relevé du Rectorat, figée pour toujours -- jamais synchronisée).
     //   note2 = moyenne de Terminale, alimentée par Pronote au fil de l'année (null tant qu'inconnue).
     //   Chaque moitié pèse la moitié du coefficient ; les deux s'additionnent quand note2 est connue.
+    //   Les options facultatives (Théâtre) sont du contrôle continu comme les autres : coeff 2 par année
+    //   suivie, ajouté au total des coefficients (100 -> 102 ou 104). Elles comptent même si elles font baisser.
+    // mode 'term'   : contrôle continu de Terminale uniquement (EPS, option suivie en Terminale seulement)
+    //   -- coefficient plein sur `note` (moyenne annuelle de Terminale, provisoire en cours d'année).
     // mode 'final'  : spécialité conservée ou épreuve 100% Terminale (Philosophie). Seul l'examen final
     //   compte pour le bac -- la moyenne de bulletin Pronote (`note`) est affichée à titre indicatif seulement.
-    // mode 'bonus'  : option facultative, hors des 100 coefficients du barème principal.
     const SUBJECTS = [
       { key:'fr_ecrit', name:'Français Écrit',                 note:6,    coeff:5,  mode:'locked', pronote:null },
       { key:'fr_oral',  name:'Français Oral',                  note:14,   coeff:5,  mode:'locked', pronote:null },
@@ -298,32 +301,42 @@
       { key:'svt',      name:'SVT',                             note:10.0, coeff:16, mode:'final',  pronote:'SCIENCES VIE & TERRE' },
       { key:'philo',    name:'Philosophie',                     note:null, coeff:8,  mode:'final',  pronote:'PHILOSOPHIE' },
       { key:'go',       name:'Grand Oral',                      note:null, coeff:8,  mode:'final',  pronote:null },
-      { key:'eps',      name:'EPS',                            note1:null, note2:null, coeff:6, mode:'cc', pronote:null },
-      { key:'theatre',  name:'Théâtre (option)',                note:null, coeff:0,  mode:'bonus',  pronote:'THEATRE' },
+      { key:'eps',      name:'EPS (Terminale seule)',          note:null, coeff:6,  mode:'term',   pronote:null },
+      // Théâtre : suivi aussi en 1ère ? -> remplacer par note1:<moyenne 1ère>, note2:null, coeff:4, mode:'cc'
+      { key:'theatre',  name:'Théâtre (option)',               note:null, coeff:2,  mode:'term',   pronote:'THEATRE' },
     ];
     // Rempli par le workflow GitHub Actions (scripts/sync_pronote.py) à chaque synchronisation.
     const LAST_SYNC = "2026-11-01T12:29:36.942271+00:00"; // ex: "2026-09-08T07:03:00+02:00"
 
     const CIRC = 213; // 2*pi*34 (rayon des anneaux), déjà utilisé par le CSS existant
 
+    // Barème : chaque matière rapporte note × coeff, ramené sur 1000 pts. Avec 100 coefficients,
+    // 1 pt de note × 1 coeff = 0,5 pt ; avec une option (102/104 coeffs) l'échelle s'ajuste pour que
+    // 500/600/700/800 restent exactement 10/12/14/16 de moyenne générale.
+    const TOTAL_COEFF = SUBJECTS.reduce((a, s) => a + s.coeff, 0);
+    const W = 50 / TOTAL_COEFF;
+
     function computeSubject(s){
-      const fullMax = s.coeff * 10;
+      const fullMax = s.coeff * 20 * W;
       if (s.mode === 'cc') {
         const half = s.coeff / 2;
-        const pts1 = s.note1 != null ? s.note1 * half * 0.5 : 0;
-        const pts2 = s.note2 != null ? s.note2 * half * 0.5 : 0;
-        const knownMax = (s.note1 != null ? half * 10 : 0) + (s.note2 != null ? half * 10 : 0);
+        const pts1 = s.note1 != null ? s.note1 * half * W : 0;
+        const pts2 = s.note2 != null ? s.note2 * half * W : 0;
+        const knownMax = ((s.note1 != null ? half : 0) + (s.note2 != null ? half : 0)) * 20 * W;
         return Object.assign({}, s, { fullMax, knownMax, counts: true, pts: pts1 + pts2 });
       }
-      const knownCoeff = s.mode === 'locked' ? s.coeff : 0;
-      const knownMax = knownCoeff * 10;
-      const counts = s.mode === 'locked';
-      const pts = (counts && s.note != null) ? s.note * knownCoeff * 0.5 : 0;
+      // 'locked' (acquis) et 'term' (EPS, dès que la note de Terminale est connue) comptent ;
+      // 'final' est indicatif seulement.
+      const counts = s.mode === 'locked' || s.mode === 'term';
+      const known = counts && s.note != null;
+      const knownMax = known ? fullMax : 0;
+      const pts = known ? s.note * s.coeff * W : 0;
       return Object.assign({}, s, { fullMax, knownMax, counts, pts });
     }
     const computed = SUBJECTS.map(computeSubject);
     const totalPts = computed.filter(s => s.counts).reduce((a, s) => a + s.pts, 0);
     const totalKnownMax = computed.filter(s => s.counts).reduce((a, s) => a + s.knownMax, 0);
+    const remainingMax = 1000 - totalKnownMax;
     const round1 = n => Math.round(n * 10) / 10;
 
     function fmtNote(n){ return n == null ? '—' : String(n).replace('.', ',') + '/20'; }
@@ -335,23 +348,24 @@
       if (s.mode === 'cc') {
         shownNote = s.note2 != null ? s.note2 : s.note1;
         dashoffset = shownNote != null ? CIRC * (1 - shownNote / 20) : CIRC;
-        ptsLabel = `${fmtPts(s.pts)} / ${s.fullMax} pts`;
-        detail = `1ère : ${fmtNote(s.note1)} · Term. : ${fmtNote(s.note2)}`;
+        ptsLabel = `${fmtPts(s.pts)} / ${fmtPts(s.fullMax)} pts`;
+        detail = `1ère : ${fmtNote(s.note1)} · Term. : ${fmtNote(s.note2)}${s.note2 != null ? ' (provisoire)' : ''}`;
       } else if (s.mode === 'final') {
         shownNote = s.note;
         dashoffset = shownNote != null ? CIRC * (1 - shownNote / 20) : CIRC;
-        ptsLabel = shownNote != null ? `Indicatif — seul l'examen final compte` : `0 / ${s.fullMax} pts`;
-      } else if (s.mode === 'bonus') {
+        ptsLabel = shownNote != null ? `Indicatif — seul l'examen final compte` : `0 / ${fmtPts(s.fullMax)} pts`;
+      } else if (s.mode === 'term') {
         shownNote = s.note;
         dashoffset = shownNote != null ? CIRC * (1 - shownNote / 20) : CIRC;
-        ptsLabel = 'Option — hors barème';
+        ptsLabel = `${fmtPts(s.pts)} / ${fmtPts(s.fullMax)} pts`;
+        detail = 'Compte en Terminale seulement';
       } else {
         shownNote = s.note;
         dashoffset = shownNote != null ? CIRC * (1 - shownNote / 20) : CIRC;
-        ptsLabel = `${fmtPts(s.pts)} / ${s.knownMax} pts`;
+        ptsLabel = `${fmtPts(s.pts)} / ${fmtPts(s.knownMax)} pts`;
       }
       return `<div class="sub-card ${isIndicative ? 'is-indicative' : ''}">
-        ${s.mode !== 'bonus' ? `<div class="sub-badge">c.${s.coeff}</div>` : ''}
+        <div class="sub-badge">c.${s.coeff}</div>
         <div class="sub-title">${s.name}</div>
         <div class="sub-circle">
           <svg class="sub-svg" viewBox="0 0 80 80">
@@ -366,12 +380,20 @@
     }
     document.getElementById('subjects-grid').innerHTML = computed.map(subjectCard).join('');
 
+    // Moyenne des épreuves anticipées, pondérée par les vrais coefficients (5/5/2)
+    const ea = computed.filter(s => ['fr_ecrit', 'fr_oral', 'maths'].includes(s.key));
+    const eaAvg = ea.reduce((a, s) => a + s.note * s.coeff, 0) / ea.reduce((a, s) => a + s.coeff, 0);
+    document.getElementById('kpi-ea').textContent = eaAvg.toFixed(2).replace('.', ',') + ' /20';
+    document.getElementById('kpi-ea-detail').textContent =
+      ea.map(s => `${s.name.replace(' (épreuve anticipée)', '')} ${fmtNote(s.note)} (c.${s.coeff})`).join(' | ');
+
     // Jauge + tuile principale
     const pct = totalPts / 1000;
     document.getElementById('kpi-points').textContent = fmtPts(totalPts) + ' pts';
     document.getElementById('kpi-sub').innerHTML =
       `<strong>Sur ${fmtPts(totalKnownMax)} points connus (${totalPts >= totalKnownMax/2 ? '+' : ''}${fmtPts(totalPts - totalKnownMax/2)} pts d'avance sur le rythme "obtention")</strong><br>` +
-      `Verrouillé (Français, Maths, LLCE Anglais) + contrôle continu connu à ce jour (HG, LV1, LV2, Ens. Scient., EMC — 1ère, puis Terminale au fil de l'année).`;
+      `Moyenne sur ce qui est déjà joué : ${(totalPts / totalKnownMax * 20).toFixed(2).replace('.', ',')}/20. ` +
+      `Verrouillé (Français, Maths, LLCE Anglais) + contrôle continu connu à ce jour (1ère, puis Terminale provisoire au fil de l'année). Barème sur ${TOTAL_COEFF} coefficients.`;
     document.getElementById('gauge-points').textContent = fmtPts(totalPts);
     document.getElementById('gauge-fill').style.strokeDashoffset = String(565 * (1 - pct));
     document.getElementById('track-fill').style.width = (pct * 100) + '%';
@@ -383,29 +405,39 @@
 
     // Onglet Objectif
     document.getElementById('objectif-sub').textContent =
-      `${fmtPts(totalPts)} pts déjà acquis (barème vérifié : 60 pts d'épreuves finales/anticipées + 40 pts de contrôle continu). ` +
-      `Écart restant jusqu'à chaque seuil, à jouer sur SVT, Physique-Chimie, Grand Oral, Philosophie, EPS et la moitié Terminale du contrôle continu.`;
+      `${fmtPts(totalPts)} pts acquis sur ${fmtPts(totalKnownMax)} déjà joués ; il reste ${fmtPts(remainingMax)} pts en jeu ` +
+      `(SVT, Physique-Chimie, Philosophie, Grand Oral, EPS, Théâtre et la Terminale du contrôle continu). ` +
+      `Le grand chiffre = moyenne à tenir sur tout ce qui reste pour atteindre la mention.`;
     const mentions = [['Assez Bien', 600], ['Bien', 700], ['Très Bien', 800]];
-    document.getElementById('goal-grid').innerHTML = mentions.map(([name, thresh]) => `
+    document.getElementById('goal-grid').innerHTML = mentions.map(([name, thresh]) => {
+      const gap = thresh - totalPts;
+      const need = remainingMax > 0 ? gap / remainingMax * 20 : Infinity;
+      let main;
+      if (gap <= 0) main = 'Acquis';
+      else if (need > 20) main = 'Hors d\'atteinte';
+      else main = `${need.toFixed(1).replace('.', ',')} <small>/20</small>`;
+      return `
       <div class="goal-card">
         <div class="mention">${name}</div>
         <div class="thresh">seuil ${thresh} / 1000</div>
-        <div class="need">+${fmtPts(Math.max(0, thresh - totalPts))} <small>pts</small></div>
-      </div>`).join('');
+        <div class="need">${main}</div>
+        <div class="thresh" style="margin:8px 0 0;">${gap > 0 ? '+' + fmtPts(gap) + ' pts à décrocher' : ''}</div>
+      </div>`;
+    }).join('');
 
     const leverRows = computed
-      .filter(s => s.mode !== 'bonus')
       .sort((a, b) => b.fullMax - a.fullMax)
       .map(s => {
         let status;
-        if (s.mode === 'locked') status = `Acquis — ${fmtPts(s.pts)}/${s.knownMax}`;
+        if (s.mode === 'locked') status = `Acquis — ${fmtPts(s.pts)}/${fmtPts(s.knownMax)}`;
+        else if (s.mode === 'term') status = s.note != null ? `Terminale connue — ${fmtPts(s.pts)}/${fmtPts(s.fullMax)}` : 'À venir (Terminale)';
         else if (s.mode === 'cc') {
           status = s.note2 != null
-            ? `1ère + Terminale connues — ${fmtPts(s.pts)}/${s.fullMax}`
-            : `1ère connue (${fmtNote(s.note1)}) — Terminale à venir`;
+            ? `1ère + Terminale (provisoire) — ${fmtPts(s.pts)}/${fmtPts(s.fullMax)}`
+            : s.note1 != null ? `1ère connue (${fmtNote(s.note1)}) — Terminale à venir` : 'À venir';
         }
         else status = s.note != null ? `À venir — bulletin indicatif ${fmtNote(s.note)}` : 'À venir';
-        return `<tr><td>${s.name}</td><td class="num">${s.fullMax}</td><td>${status}</td></tr>`;
+        return `<tr><td>${s.name}</td><td class="num">${fmtPts(s.fullMax)}</td><td>${status}</td></tr>`;
       }).join('');
     document.getElementById('lever-body').innerHTML = leverRows;
 
