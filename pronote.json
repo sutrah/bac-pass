@@ -1,0 +1,223 @@
+{
+ "mis_a_jour": "2026-11-01T15:40:52+00:00",
+ "decoupage": "Semestre",
+ "periode_en_cours": "Semestre 1",
+ "periodes": [
+  "Semestre 1",
+  "Semestre 2"
+ ],
+ "matieres": {
+  "HISTOIRE-GEOGRAPHIE": {
+   "periodes": {
+    "Semestre 1": {
+     "eleve": 15.0,
+     "classe": 14.25,
+     "min": 8.0,
+     "max": 20.0
+    }
+   },
+   "nb_notes": 1,
+   "annuelle": 15.0
+  },
+  "PHYSIQUE-CHIMIE": {
+   "periodes": {
+    "Semestre 1": {
+     "eleve": 8.1,
+     "classe": 13.74,
+     "min": 8.1,
+     "max": 19.6
+    }
+   },
+   "nb_notes": 3,
+   "annuelle": 8.1
+  },
+  "SCIENCES VIE & TERRE": {
+   "periodes": {
+    "Semestre 1": {
+     "eleve": 10.0,
+     "classe": 11.07,
+     "min": 3.0,
+     "max": 15.0
+    }
+   },
+   "nb_notes": 1,
+   "annuelle": 10.0
+  }
+ },
+ "matieres_suivies": [
+  "ANGLAIS LV1",
+  "CHINOIS LV2",
+  "ED.PHYSIQUE & SPORT.",
+  "ENS. MORAL & CIVIQUE",
+  "ENSEIGN.SCIENTIFIQUE",
+  "HISTOIRE-GEOGRAPHIE",
+  "PHILOSOPHIE",
+  "PHYSIQUE-CHIMIE",
+  "SCIENCES VIE & TERRE",
+  "THEATRE",
+  "intervention extéreiure"
+ ],
+ "moyenne_generale": {
+  "Semestre 1": {
+   "eleve": 11.03,
+   "classe": 14.24
+  }
+ },
+ "notes_recentes": [
+  {
+   "date": "2026-10-02",
+   "matiere": "PHYSIQUE-CHIMIE",
+   "note": 4.75,
+   "brut": null,
+   "sur": 15.0,
+   "coeff": 1.0,
+   "classe": 8.95,
+   "min": 4.75,
+   "max": 15.0
+  },
+  {
+   "date": "2026-10-01",
+   "matiere": "HISTOIRE-GEOGRAPHIE",
+   "note": 15.0,
+   "brut": null,
+   "sur": 20.0,
+   "coeff": 2.0,
+   "classe": 14.25,
+   "min": 8.0,
+   "max": 20.0
+  },
+  {
+   "date": "2026-09-29",
+   "matiere": "SCIENCES VIE & TERRE",
+   "note": 5.0,
+   "brut": null,
+   "sur": 10.0,
+   "coeff": 1.0,
+   "classe": 5.54,
+   "min": 1.5,
+   "max": 7.5
+  },
+  {
+   "date": "2026-09-23",
+   "matiere": "PHYSIQUE-CHIMIE",
+   "note": 4.0,
+   "brut": null,
+   "sur": 10.0,
+   "coeff": 0.5,
+   "classe": 7.42,
+   "min": 4.0,
+   "max": 10.0
+  },
+  {
+   "date": "2026-09-11",
+   "matiere": "PHYSIQUE-CHIMIE",
+   "note": 6.75,
+   "brut": null,
+   "sur": 10.0,
+   "coeff": 0.5,
+   "classe": 8.9,
+   "min": 6.5,
+   "max": 10.0
+  }
+ ],
+ "bac_blanc": {},
+ "devoirs": [
+  {
+   "date": "2026-11-02",
+   "matiere": "ENSEIGN.SCIENTIFIQUE",
+   "texte": "DS prévu le 14/10 reporté au 02/11 (après les vacances) pour cause de grève",
+   "fait": false
+  },
+  {
+   "date": "2026-11-02",
+   "matiere": "PHILOSOPHIE",
+   "texte": "Pour la rentrée : - Lire la méthodologie de la dissertation (document en PJ et sur Pearltrees) - Lire les exemples 1 et 2 du travail qui sera demandé en classe : introduction rédigée + plan expliqué (",
+   "fait": false
+  },
+  {
+   "date": "2026-11-02",
+   "matiere": "SCIENCES VIE & TERRE",
+   "texte": "Exercice sur les exceptions de la loi Hardy weinberg pour ceux qui ne l'ont pas encore rendu",
+   "fait": false
+  },
+  {
+   "date": "2026-11-02",
+   "matiere": "THEATRE",
+   "texte": "M'envoyer une analyse de spectacle au choix (entre les trois spectacles qui auront été vus: DUB, Ivanov et 1, 2, 3 Poquelin) au plus tard le vendredi 20 novembre ou me la rendre en cours.",
+   "fait": false
+  },
+  {
+   "date": "2026-11-02",
+   "matiere": "THEATRE",
+   "texte": "M'envoyer une analyse de spectacle au choix (entre les trois spectacles qui auront été vus: DUB, Ivanov et 1, 2, 3 Poquelin) au plus tard le vendredi 20 novembre ou me la rendre en cours.",
+   "fait": false
+  },
+  {
+   "date": "2026-11-03",
+   "matiere": "CHINOIS LV2",
+   "texte": "correction HSK les 2 feuilles",
+   "fait": false
+  },
+  {
+   "date": "2026-11-03",
+   "matiere": "CHINOIS LV2",
+   "texte": "apprendre les 2 feuilles de vocabulaires HSK, si possible savoir les écrire pour ceux qu'ils peuvent",
+   "fait": false
+  },
+  {
+   "date": "2026-11-03",
+   "matiere": "PHYSIQUE-CHIMIE",
+   "texte": "à l'aide des documents placés sur ELEA .. -1- se mettre à jour sur les trois chapitres étudiés (vérifier en particulier que l'on sait résoudre un exercice sur un titrage pHmétrique ou conductimétrique",
+   "fait": true
+  },
+  {
+   "date": "2026-11-03",
+   "matiere": "SCIENCES VIE & TERRE",
+   "texte": "Analyse des documents ci-joints",
+   "fait": false
+  },
+  {
+   "date": "2026-11-03",
+   "matiere": "THEATRE",
+   "texte": "Bonjour à toutes et à tous. J'espère que vous avez passé de bonnes vacances et que celles-ci vous auront permis de vous reposer un peu. Si à cette date-là le blocus est levé, j'aurai besoin de vous vo",
+   "fait": false
+  },
+  {
+   "date": "2026-11-03",
+   "matiere": "THEATRE",
+   "texte": "Bonjour à toutes et à tous. J'espère que vous avez passé de bonnes vacances et que celles-ci vous auront permis de vous reposer un peu. Si à cette date-là le blocus est levé, j'aurai besoin de vous vo",
+   "fait": false
+  },
+  {
+   "date": "2026-11-03",
+   "matiere": "THEATRE",
+   "texte": "M'envoyer une analyse de spectacle au choix (entre les trois spectacles qui auront été vus: DUB, Ivanov et 1, 2, 3 Poquelin) au plus tard le vendredi 20 novembre ou me la rendre en cours.",
+   "fait": false
+  },
+  {
+   "date": "2026-11-05",
+   "matiere": "THEATRE",
+   "texte": "Troisième spectacle le jeudi 5 novembre à 19 h au Grand Théâtre du Quartz: 1, 2, 3 Poquelin (Molière / TG Stan). Durée annoncée: 2 h. Etre sur place à 18 h 20: rendez-vous dans le hall, à l'intérieur ",
+   "fait": false
+  },
+  {
+   "date": "2026-11-06",
+   "matiere": "THEATRE",
+   "texte": "Commencer à apprendre le texte, comme Clarence vous l'a montré, et si possible, bien avancer dans cet apprentissage pour le vendredi 6 novembre.",
+   "fait": false
+  }
+ ],
+ "controles": [],
+ "cours_annules": [
+  {
+   "date": "2026-11-05T14:00",
+   "matiere": "HISTOIRE-GEOGRAPHIE"
+  }
+ ],
+ "vie_scolaire": {
+  "absences": 6,
+  "absences_non_justifiees": 0,
+  "heures_absence": 36.0,
+  "retards": 1
+ }
+}

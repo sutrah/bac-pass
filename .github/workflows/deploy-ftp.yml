@@ -1,21 +1,31 @@
 name: Deploy FTP
 
-# Se déclenche à chaque push sur main -- donc après la fusion de cette branche.
-# Peut aussi être lancé manuellement (bouton "Run workflow" dans l'onglet Actions).
+# Se déclenche à chaque push sur main, et après chaque sync Pronote réussi sur main.
+# Le second déclencheur est indispensable : un push fait par le bot de sync (GITHUB_TOKEN)
+# ne déclenche PAS les autres workflows, donc sans lui le site en ligne ne recevait jamais
+# les nouvelles moyennes. Peut aussi être lancé à la main (bouton "Run workflow").
 on:
   push:
     branches: [main]
     paths:
       - 'dashboard.html'
+      - 'pronote.json'
+  workflow_run:
+    workflows: ['Sync Pronote']
+    types: [completed]
+    branches: [main]
   workflow_dispatch: {}
 
 jobs:
   deploy:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: main  # après un sync : la version que le bot vient de pousser
 
-      - name: Déployer dashboard.html sur le FTP OVH
+      - name: Déployer dashboard.html et pronote.json sur le FTP OVH
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ftp.cluster026.hosting.ovh.net
