@@ -164,6 +164,46 @@ def print_diagnostic(client: "pronotepy.Client") -> None:
     print("Matières de l'année (bulletins + emploi du temps sur 3 semaines) :")
     for name in sorted(subjects):
         print(f"  - {name}")
+    # Ce que chaque période expose (compteurs et champs remplis -- jamais de valeurs).
+    for period in client.periods:
+        row = []
+        for attr in ("grades", "averages", "evaluations", "absences", "delays", "punishments"):
+            try:
+                items = getattr(period, attr)
+                extra = ""
+                if attr == "grades" and items:
+                    g = items[0]
+                    filled = [f for f in ("coefficient", "average", "min", "max", "out_of", "comment", "date")
+                              if getattr(g, f, None) not in (None, "")]
+                    extra = "{" + ",".join(filled) + "}"
+                if attr == "averages" and items:
+                    a = items[0]
+                    filled = [f for f in ("student", "class_average", "min", "max", "out_of")
+                              if getattr(a, f, None) not in (None, "")]
+                    extra = "{" + ",".join(filled) + "}"
+                row.append(f"{attr}={len(items)}{extra}")
+            except Exception as exc:  # noqa: BLE001
+                row.append(f"{attr}=ERR({type(exc).__name__})")
+        for attr in ("overall_average", "class_overall_average"):
+            try:
+                row.append(f"{attr}={'oui' if getattr(period, attr) not in (None, '') else 'vide'}")
+            except Exception as exc:  # noqa: BLE001
+                row.append(f"{attr}=ERR({type(exc).__name__})")
+        try:
+            rep = period.report
+            row.append(f"report={'oui' if rep and (rep.subjects or rep.comments) else 'vide'}")
+        except Exception as exc:  # noqa: BLE001
+            row.append(f"report=ERR({type(exc).__name__})")
+        print(f"[{period.name}] " + " ".join(row))
+    try:
+        today = date.today()
+        hw = client.homework(today, today + timedelta(days=14))
+        print(f"Devoirs à faire (14 j) : {len(hw)}")
+        lessons = client.lessons(today, today + timedelta(days=21))
+        print(f"Cours (21 j) : {len(lessons)}, dont contrôles (test=True) : {sum(1 for l in lessons if l.test)}, "
+              f"annulés : {sum(1 for l in lessons if l.canceled)}")
+    except Exception as exc:  # noqa: BLE001
+        print(f"Devoirs/cours illisibles ({type(exc).__name__}: {exc})")
     print("=== Fin du diagnostic ===")
 
 
