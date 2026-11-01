@@ -8,15 +8,21 @@ Usage :
 
 Ne modifie que les matières qui déclarent un `pronote:'...'` dans le tableau
 SUBJECTS de dashboard.html, et seulement selon leur `mode` :
-  - "cc"     (contrôle continu) : écrit dans `note2` (la moyenne de Terminale
-    en cours). `note1`, la moyenne officielle de 1ère venant du relevé du
+  - "cc"     (contrôle continu) : écrit dans `note2` (la moyenne annuelle de
+    Terminale en cours). `note1`, la moyenne officielle de 1ère venant du relevé du
     Rectorat, n'est jamais touchée -- les deux se combinent à l'affichage.
+  - "term"   (contrôle continu de Terminale seulement : EPS, option suivie
+    uniquement en Terminale) : écrit dans `note`, qui compte avec le coefficient plein.
   - "final"  (spécialité conservée, Philosophie) : écrit dans `note`, à titre
     indicatif seulement (cette moyenne de bulletin ne compte pas pour le bac,
     seul l'examen final de Terminale compte).
   - "locked" (épreuves anticipées, spécialité abandonnée) : jamais touché,
     quel que soit le libellé Pronote -- ces notes viennent du relevé officiel
     du Rectorat et sont figées pour toujours.
+
+La moyenne écrite est la moyenne ANNUELLE de Terminale : moyenne des périodes
+(trimestres ou semestres) déjà notées, pas seulement la période en cours. Sinon,
+au passage au trimestre 2, la note sauterait sur la seule moyenne du T2.
 
 Avertissement : ce script s'appuie sur pronotepy (bibliothèque communautaire,
 non officielle -- Pronote n'a pas d'API publique). L'attribut exact des
@@ -45,21 +51,50 @@ def normalize(label: str) -> str:
     return re.sub(r"[^A-Z0-9]", "", label.upper())
 
 
-def fetch_averages(client: "pronotepy.Client") -> dict:
-    """{libellé de matière normalisé: moyenne (float)} pour la période Pronote en cours."""
-    averages = {}
-    for avg in client.current_period.averages:
+def _period_averages(period) -> dict:
+    """{libellé normalisé: (libellé brut, moyenne)} pour une période Pronote."""
+    out = {}
+    for avg in period.averages:
         try:
             value = float(str(avg.student).replace(",", "."))
         except (TypeError, ValueError):
+            continue  # "Abs", "Disp", "NonNote"...
+        out[normalize(avg.subject.name)] = (avg.subject.name, value)
+    return out
+
+
+def fetch_averages(client: "pronotepy.Client") -> dict:
+    """{libellé de matière normalisé: moyenne annuelle (float)}.
+
+    Moyenne simple des moyennes de chaque période déjà notée, dans le même découpage
+    que la période en cours (trimestres OU semestres -- jamais les deux mélangés, ni
+    une éventuelle période "Année"). Repli sur la seule période en cours si le
+    découpage n'est pas reconnu.
+    """
+    current = client.current_period
+    kind = next((k for k in ("TRIMESTRE", "SEMESTRE") if k in normalize(current.name)), None)
+    periods = [p for p in client.periods if kind and kind in normalize(p.name)] or [current]
+
+    values: dict[str, list[float]] = {}
+    raw_names: dict[str, str] = {}
+    for period in periods:
+        try:
+            per = _period_averages(period)
+        except Exception as exc:  # noqa: BLE001 -- une période future peut ne rien renvoyer
+            print(f"Période ignorée ({period.name}) : {type(exc).__name__}: {exc}")
             continue
-        averages[normalize(avg.subject.name)] = value
-    return averages
+        for key, (raw, value) in per.items():
+            values.setdefault(key, []).append(value)
+            raw_names[key] = raw
+    print("Périodes prises en compte : " + ", ".join(p.name for p in periods))
+    fetch_averages.raw_names = raw_names  # pour le diagnostic des libellés non reconnus
+    return {k: sum(v) / len(v) for k, v in values.items()}
 
 
 def sync_dashboard(averages: dict) -> list[str]:
     html = DASHBOARD.read_text(encoding="utf-8")
     updated = []
+    matched = set()
 
     def replace_line(match: "re.Match") -> str:
         line = match.group(0)
@@ -68,14 +103,15 @@ def sync_dashboard(averages: dict) -> list[str]:
         if not mode_match or not pronote_match:
             return line
         mode = mode_match.group(1)
+        label = normalize(pronote_match.group(1))
+        matched.add(label)
         if mode == "locked":
             return line  # figé pour toujours -- vient du relevé officiel, jamais de Pronote
-        label = normalize(pronote_match.group(1))
         if label not in averages:
             return line
         key = re.search(r"key:\s*'([^']+)'", line).group(1)
         new_note = round(averages[label], 2)
-        field = "note2" if mode == "cc" else "note"
+        field = "note2" if mode == "cc" else "note"  # "term" et "final" -> note
         new_line, count = re.subn(
             rf"{field}:\s*(null|-?\d+(?:\.\d+)?)", f"{field}:{new_note}", line, count=1
         )
@@ -92,6 +128,16 @@ def sync_dashboard(averages: dict) -> list[str]:
         count=1,
     )
     DASHBOARD.write_text(html, encoding="utf-8")
+
+    # Diagnostic : les matières Pronote qui ne correspondent à aucune ligne du dashboard.
+    # Si une matière attendue (LV1, LV2...) reste vide, recopier ici son libellé exact
+    # dans le champ `pronote:'...'` de dashboard.html.
+    raw = getattr(fetch_averages, "raw_names", {})
+    unmatched = sorted(raw[k] for k in averages if k not in matched and k in raw)
+    if unmatched:
+        print("Libellés Pronote sans correspondance dans le dashboard :")
+        for name in unmatched:
+            print(f"  - {name!r} ({averages[normalize(name)]:.2f}/20)")
     return updated
 
 
