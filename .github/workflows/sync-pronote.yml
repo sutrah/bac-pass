@@ -2,9 +2,10 @@ name: Sync Pronote
 
 on:
   schedule:
-    # 06h00 et 17h00 UTC = 08h00 et 19h00 heure de Paris en hiver (09h/20h en été,
-    # le cron ne suit pas le changement d'heure -- décalage d'1h acceptable ici).
-    - cron: '0 6,17 * * *'
+    # Toutes les heures de 7h à 22h (heure de Paris en hiver ; 8h-23h en été, le cron
+    # ne suit pas le changement d'heure). Minute 23 pour éviter l'embouteillage de :00.
+    # Un commit n'est créé que si les données Pronote ont changé.
+    - cron: '23 6-21 * * *'
   workflow_dispatch: {}
 
 permissions:
@@ -21,7 +22,7 @@ jobs:
           python-version: '3.11'
 
       - name: Installer pronotepy
-        run: pip install pronotepy
+        run: pip install 'pronotepy==2.15.7'
 
       - name: Récupérer les moyennes depuis Pronote
         env:
@@ -36,7 +37,7 @@ jobs:
         run: |
           git config user.name "sync-pronote-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add dashboard.html
+          git add dashboard.html pronote.json
           if git diff --cached --quiet; then
             echo "Rien de nouveau."
           else
