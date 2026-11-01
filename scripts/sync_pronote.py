@@ -137,8 +137,34 @@ def sync_dashboard(averages: dict) -> list[str]:
     if unmatched:
         print("Libellés Pronote sans correspondance dans le dashboard :")
         for name in unmatched:
-            print(f"  - {name!r} ({averages[normalize(name)]:.2f}/20)")
+            print(f"  - {name!r}")
     return updated
+
+
+def print_diagnostic(client: "pronotepy.Client") -> None:
+    """Liste les périodes et les matières de l'année en cours (noms seulement, pas de notes,
+    car les logs Actions d'un dépôt public sont publics). Pronote n'expose que l'année
+    scolaire en cours : les moyennes de 1ère n'y sont plus accessibles."""
+    from datetime import date, timedelta
+
+    print("=== Diagnostic ===")
+    print("Périodes : " + ", ".join(p.name for p in client.periods))
+    subjects = set()
+    for period in client.periods:
+        try:
+            subjects.update(a.subject.name for a in period.averages)
+        except Exception:  # noqa: BLE001
+            pass
+    try:
+        today = date.today()
+        lessons = client.lessons(today, today + timedelta(days=21))
+        subjects.update(l.subject.name for l in lessons if l.subject)
+    except Exception as exc:  # noqa: BLE001
+        print(f"Emploi du temps illisible ({type(exc).__name__}: {exc})")
+    print("Matières de l'année (bulletins + emploi du temps sur 3 semaines) :")
+    for name in sorted(subjects):
+        print(f"  - {name}")
+    print("=== Fin du diagnostic ===")
 
 
 def main() -> int:
@@ -187,6 +213,9 @@ def main() -> int:
                     break
         client.set_child(chosen)
         print(f"Enfant sélectionné : {chosen.name}")
+
+    if os.environ.get("PRONOTE_DIAG") == "true":
+        print_diagnostic(client)
 
     averages = fetch_averages(client)
     if not averages:

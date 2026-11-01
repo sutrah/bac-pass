@@ -28,6 +28,8 @@ jobs:
           PRONOTE_URL: ${{ secrets.PRONOTE_URL }}
           PRONOTE_USERNAME: ${{ secrets.PRONOTE_USERNAME }}
           PRONOTE_PASSWORD: ${{ secrets.PRONOTE_PASSWORD }}
+          # Lancement manuel : affiche aussi la liste des matières (noms seulement).
+          PRONOTE_DIAG: ${{ github.event_name == 'workflow_dispatch' }}
         run: python3 scripts/sync_pronote.py
 
       - name: Publier les changements
