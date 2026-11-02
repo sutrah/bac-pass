@@ -1,5 +1,5 @@
 {
- "mis_a_jour": "2026-11-02T16:14:19+00:00",
+ "mis_a_jour": "2026-11-02T23:36:47+00:00",
  "decoupage": "Semestre",
  "periode_en_cours": "Semestre 1",
  "periodes": [
@@ -126,13 +126,13 @@
    "date": "2026-11-02",
    "matiere": "ENSEIGN.SCIENTIFIQUE",
    "texte": "DS prévu le 14/10 reporté au 02/11 (après les vacances) pour cause de grève",
-   "fait": false
+   "fait": true
   },
   {
    "date": "2026-11-02",
    "matiere": "PHILOSOPHIE",
    "texte": "Pour la rentrée : - Lire la méthodologie de la dissertation (document en PJ et sur Pearltrees) - Lire les exemples 1 et 2 du travail qui sera demandé en classe : introduction rédigée + plan expliqué (",
-   "fait": false
+   "fait": true
   },
   {
    "date": "2026-11-02",
@@ -144,13 +144,13 @@
    "date": "2026-11-02",
    "matiere": "THEATRE",
    "texte": "M'envoyer une analyse de spectacle au choix (entre les trois spectacles qui auront été vus: DUB, Ivanov et 1, 2, 3 Poquelin) au plus tard le vendredi 20 novembre ou me la rendre en cours.",
-   "fait": false
+   "fait": true
   },
   {
    "date": "2026-11-02",
    "matiere": "THEATRE",
    "texte": "M'envoyer une analyse de spectacle au choix (entre les trois spectacles qui auront été vus: DUB, Ivanov et 1, 2, 3 Poquelin) au plus tard le vendredi 20 novembre ou me la rendre en cours.",
-   "fait": false
+   "fait": true
   },
   {
    "date": "2026-11-03",
@@ -180,19 +180,19 @@
    "date": "2026-11-03",
    "matiere": "THEATRE",
    "texte": "Bonjour à toutes et à tous. J'espère que vous avez passé de bonnes vacances et que celles-ci vous auront permis de vous reposer un peu. Si à cette date-là le blocus est levé, j'aurai besoin de vous vo",
-   "fait": false
+   "fait": true
   },
   {
    "date": "2026-11-03",
    "matiere": "THEATRE",
    "texte": "Bonjour à toutes et à tous. J'espère que vous avez passé de bonnes vacances et que celles-ci vous auront permis de vous reposer un peu. Si à cette date-là le blocus est levé, j'aurai besoin de vous vo",
-   "fait": false
+   "fait": true
   },
   {
    "date": "2026-11-03",
    "matiere": "THEATRE",
    "texte": "M'envoyer une analyse de spectacle au choix (entre les trois spectacles qui auront été vus: DUB, Ivanov et 1, 2, 3 Poquelin) au plus tard le vendredi 20 novembre ou me la rendre en cours.",
-   "fait": false
+   "fait": true
   },
   {
    "date": "2026-11-05",
