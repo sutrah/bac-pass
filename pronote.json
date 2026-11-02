@@ -1,5 +1,5 @@
 {
- "mis_a_jour": "2026-11-01T15:40:52+00:00",
+ "mis_a_jour": "2026-11-02T16:14:19+00:00",
  "decoupage": "Semestre",
  "periode_en_cours": "Semestre 1",
  "periodes": [
@@ -207,17 +207,26 @@
    "fait": false
   }
  ],
- "controles": [],
+ "controles": [
+  {
+   "date": "2026-11-02T12:00",
+   "matiere": "ENSEIGN.SCIENTIFIQUE"
+  }
+ ],
  "cours_annules": [
   {
    "date": "2026-11-05T14:00",
    "matiere": "HISTOIRE-GEOGRAPHIE"
+  },
+  {
+   "date": "2026-11-09T11:00",
+   "matiere": "ENSEIGN.SCIENTIFIQUE"
   }
  ],
  "vie_scolaire": {
   "absences": 6,
   "absences_non_justifiees": 0,
   "heures_absence": 36.0,
-  "retards": 1
+  "retards": 2
  }
 }
