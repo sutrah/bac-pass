@@ -1,5 +1,5 @@
 {
- "mis_a_jour": "2026-11-03T21:05:53+00:00",
+ "mis_a_jour": "2026-11-04T01:28:26+00:00",
  "decoupage": "Semestre",
  "periode_en_cours": "Semestre 1",
  "periodes": [
@@ -122,48 +122,6 @@
  ],
  "bac_blanc": {},
  "devoirs": [
-  {
-   "date": "2026-11-03",
-   "matiere": "CHINOIS LV2",
-   "texte": "correction HSK les 2 feuilles",
-   "fait": false
-  },
-  {
-   "date": "2026-11-03",
-   "matiere": "CHINOIS LV2",
-   "texte": "apprendre les 2 feuilles de vocabulaires HSK, si possible savoir les écrire pour ceux qu'ils peuvent",
-   "fait": false
-  },
-  {
-   "date": "2026-11-03",
-   "matiere": "PHYSIQUE-CHIMIE",
-   "texte": "à l'aide des documents placés sur ELEA .. -1- se mettre à jour sur les trois chapitres étudiés (vérifier en particulier que l'on sait résoudre un exercice sur un titrage pHmétrique ou conductimétrique",
-   "fait": true
-  },
-  {
-   "date": "2026-11-03",
-   "matiere": "SCIENCES VIE & TERRE",
-   "texte": "Analyse des documents ci-joints",
-   "fait": false
-  },
-  {
-   "date": "2026-11-03",
-   "matiere": "THEATRE",
-   "texte": "Bonjour à toutes et à tous. J'espère que vous avez passé de bonnes vacances et que celles-ci vous auront permis de vous reposer un peu. Si à cette date-là le blocus est levé, j'aurai besoin de vous vo",
-   "fait": true
-  },
-  {
-   "date": "2026-11-03",
-   "matiere": "THEATRE",
-   "texte": "Bonjour à toutes et à tous. J'espère que vous avez passé de bonnes vacances et que celles-ci vous auront permis de vous reposer un peu. Si à cette date-là le blocus est levé, j'aurai besoin de vous vo",
-   "fait": true
-  },
-  {
-   "date": "2026-11-03",
-   "matiere": "THEATRE",
-   "texte": "M'envoyer une analyse de spectacle au choix (entre les trois spectacles qui auront été vus: DUB, Ivanov et 1, 2, 3 Poquelin) au plus tard le vendredi 20 novembre ou me la rendre en cours.",
-   "fait": true
-  },
   {
    "date": "2026-11-04",
    "matiere": "CHINOIS LV2",
