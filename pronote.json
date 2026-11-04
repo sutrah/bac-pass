@@ -1,5 +1,5 @@
 {
- "mis_a_jour": "2026-11-04T01:28:26+00:00",
+ "mis_a_jour": "2026-11-04T14:42:06+00:00",
  "decoupage": "Semestre",
  "periode_en_cours": "Semestre 1",
  "periodes": [
@@ -150,6 +150,24 @@
    "date": "2026-11-06",
    "matiere": "THEATRE",
    "texte": "Commencer à apprendre le texte, comme Clarence vous l'a montré, et si possible, bien avancer dans cet apprentissage pour le vendredi 6 novembre.",
+   "fait": false
+  },
+  {
+   "date": "2026-11-10",
+   "matiere": "PHILOSOPHIE",
+   "texte": "Réviser les notions \"La conscience\" et \"L'inconscient\" ainsi que la méthodologie de la dissertation + les deux exemples d'introduction rédigée et de plan expliqué en vue du DS.",
+   "fait": false
+  },
+  {
+   "date": "2026-11-17",
+   "matiere": "PHILOSOPHIE",
+   "texte": "Contrôle sur cours sur trois notions : la conscience, l'inconscient et le temps (cours sur Pearltrees).",
+   "fait": false
+  },
+  {
+   "date": "2026-11-18",
+   "matiere": "ENS. MORAL & CIVIQUE",
+   "texte": "travail final à rendre sous forme imprimée de préférence. Vous pouvez imprimer au CDI. Si vous n'avez pas d'imprimante, possibilité de le rendre sous format électronique.",
    "fait": false
   }
  ],
