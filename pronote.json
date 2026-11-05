@@ -1,5 +1,5 @@
 {
- "mis_a_jour": "2026-11-05T14:47:14+00:00",
+ "mis_a_jour": "2026-11-05T21:29:27+00:00",
  "decoupage": "Semestre",
  "periode_en_cours": "Semestre 1",
  "periodes": [
@@ -182,9 +182,9 @@
   }
  ],
  "vie_scolaire": {
-  "absences": 8,
-  "absences_non_justifiees": 2,
-  "heures_absence": 39.0,
+  "absences": 7,
+  "absences_non_justifiees": 1,
+  "heures_absence": 40.0,
   "retards": 2
  }
 }
