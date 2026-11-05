@@ -1,5 +1,5 @@
 {
- "mis_a_jour": "2026-11-05T01:32:03+00:00",
+ "mis_a_jour": "2026-11-05T14:47:14+00:00",
  "decoupage": "Semestre",
  "periode_en_cours": "Semestre 1",
  "periodes": [
@@ -173,14 +173,18 @@
    "matiere": "HISTOIRE-GEOGRAPHIE"
   },
   {
+   "date": "2026-11-05T16:00",
+   "matiere": "PHYSIQUE-CHIMIE"
+  },
+  {
    "date": "2026-11-09T11:00",
    "matiere": "ENSEIGN.SCIENTIFIQUE"
   }
  ],
  "vie_scolaire": {
-  "absences": 6,
-  "absences_non_justifiees": 0,
-  "heures_absence": 36.0,
+  "absences": 8,
+  "absences_non_justifiees": 2,
+  "heures_absence": 39.0,
   "retards": 2
  }
 }
