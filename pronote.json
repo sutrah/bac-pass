@@ -1,5 +1,5 @@
 {
- "mis_a_jour": "2026-11-04T14:42:06+00:00",
+ "mis_a_jour": "2026-11-05T01:32:03+00:00",
  "decoupage": "Semestre",
  "periode_en_cours": "Semestre 1",
  "periodes": [
@@ -51,6 +51,7 @@
   "ENS. MORAL & CIVIQUE",
   "ENSEIGN.SCIENTIFIQUE",
   "HISTOIRE-GEOGRAPHIE",
+  "Matière non désignée",
   "PHILOSOPHIE",
   "PHYSIQUE-CHIMIE",
   "SCIENCES VIE & TERRE",
@@ -123,12 +124,6 @@
  "bac_blanc": {},
  "devoirs": [
   {
-   "date": "2026-11-04",
-   "matiere": "CHINOIS LV2",
-   "texte": "p124 examen oral",
-   "fait": false
-  },
-  {
    "date": "2026-11-05",
    "matiere": "THEATRE",
    "texte": "Troisième spectacle le jeudi 5 novembre à 19 h au Grand Théâtre du Quartz: 1, 2, 3 Poquelin (Molière / TG Stan). Durée annoncée: 2 h. Etre sur place à 18 h 20: rendez-vous dans le hall, à l'intérieur ",
@@ -173,10 +168,6 @@
  ],
  "controles": [],
  "cours_annules": [
-  {
-   "date": "2026-11-04T10:00",
-   "matiere": "ENS. MORAL & CIVIQUE"
-  },
   {
    "date": "2026-11-05T14:00",
    "matiere": "HISTOIRE-GEOGRAPHIE"
