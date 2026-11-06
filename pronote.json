@@ -1,5 +1,5 @@
 {
- "mis_a_jour": "2026-11-05T21:29:27+00:00",
+ "mis_a_jour": "2026-11-06T14:24:53+00:00",
  "decoupage": "Semestre",
  "periode_en_cours": "Semestre 1",
  "periodes": [
@@ -124,12 +124,6 @@
  "bac_blanc": {},
  "devoirs": [
   {
-   "date": "2026-11-05",
-   "matiere": "THEATRE",
-   "texte": "Troisième spectacle le jeudi 5 novembre à 19 h au Grand Théâtre du Quartz: 1, 2, 3 Poquelin (Molière / TG Stan). Durée annoncée: 2 h. Etre sur place à 18 h 20: rendez-vous dans le hall, à l'intérieur ",
-   "fait": false
-  },
-  {
    "date": "2026-11-06",
    "matiere": "PHYSIQUE-CHIMIE",
    "texte": "Relire sur ELEA dans CH4 DISTANCIEL le document CH4 Partie II et III PROF distanciel , et en particulier la fin du document sur les diagrammes d e distribution et de prédominance puis faire les exerci",
@@ -164,18 +158,22 @@
    "matiere": "ENS. MORAL & CIVIQUE",
    "texte": "travail final à rendre sous forme imprimée de préférence. Vous pouvez imprimer au CDI. Si vous n'avez pas d'imprimante, possibilité de le rendre sous format électronique.",
    "fait": false
+  },
+  {
+   "date": "2026-11-20",
+   "matiere": "THEATRE",
+   "texte": "Quatrième spectacle (payé par la Coopérative du lycée), au Mac Orlan à Lambézellec: Laboratoire 22, de Nathan Jousni, le VENDREDI 20 NOVEMBRE à 14 h, avec les enseignants d'HGGSP, à destination de TOU",
+   "fait": false
+  },
+  {
+   "date": "2026-11-20",
+   "matiere": "THEATRE",
+   "texte": "M'envoyer une analyse de spectacle au choix au plus tard le vendredi 20 novembre ou me la rendre en cours.",
+   "fait": false
   }
  ],
  "controles": [],
  "cours_annules": [
-  {
-   "date": "2026-11-05T14:00",
-   "matiere": "HISTOIRE-GEOGRAPHIE"
-  },
-  {
-   "date": "2026-11-05T16:00",
-   "matiere": "PHYSIQUE-CHIMIE"
-  },
   {
    "date": "2026-11-09T11:00",
    "matiere": "ENSEIGN.SCIENTIFIQUE"
