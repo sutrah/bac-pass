@@ -1,5 +1,5 @@
 {
- "mis_a_jour": "2026-11-07T18:05:41+00:00",
+ "mis_a_jour": "2026-11-07T21:59:05+00:00",
  "decoupage": "Semestre",
  "periode_en_cours": "Semestre 1",
  "periodes": [
@@ -124,6 +124,12 @@
  "bac_blanc": {},
  "devoirs": [
   {
+   "date": "2026-11-09",
+   "matiere": "THEATRE",
+   "texte": "Bonsoir à toutes et à tous. J'ai mis dans les ressources pédagogiques de pronote un document sur la nature et les ressorts du comique ainsi que le compte-rendu du travail à la table commencé vendredi.",
+   "fait": false
+  },
+  {
    "date": "2026-11-10",
    "matiere": "PHILOSOPHIE",
    "texte": "Réviser les notions \"La conscience\" et \"L'inconscient\" ainsi que la méthodologie de la dissertation + les deux exemples d'introduction rédigée et de plan expliqué en vue du DS.",
@@ -133,6 +139,12 @@
    "date": "2026-11-13",
    "matiere": "THEATRE",
    "texte": "Continuer à apprendre le texte et le savoir pour le vendredi 27 novembre",
+   "fait": false
+  },
+  {
+   "date": "2026-11-13",
+   "matiere": "THEATRE",
+   "texte": "Bonsoir à toutes et à tous. J'ai mis dans les ressources pédagogiques de pronote un document sur la nature et les ressorts du comique ainsi que le compte-rendu du travail à la table commencé vendredi.",
    "fait": false
   },
   {
