@@ -1,5 +1,5 @@
 {
- "mis_a_jour": "2026-11-06T14:24:53+00:00",
+ "mis_a_jour": "2026-11-07T00:58:32+00:00",
  "decoupage": "Semestre",
  "periode_en_cours": "Semestre 1",
  "periodes": [
@@ -124,27 +124,15 @@
  "bac_blanc": {},
  "devoirs": [
   {
-   "date": "2026-11-06",
-   "matiere": "PHYSIQUE-CHIMIE",
-   "texte": "Relire sur ELEA dans CH4 DISTANCIEL le document CH4 Partie II et III PROF distanciel , et en particulier la fin du document sur les diagrammes d e distribution et de prédominance puis faire les exerci",
-   "fait": false
-  },
-  {
-   "date": "2026-11-06",
-   "matiere": "PHYSIQUE-CHIMIE",
-   "texte": "Apporter la blouse",
-   "fait": false
-  },
-  {
-   "date": "2026-11-06",
-   "matiere": "THEATRE",
-   "texte": "Commencer à apprendre le texte, comme Clarence vous l'a montré, et si possible, bien avancer dans cet apprentissage pour le vendredi 6 novembre.",
-   "fait": false
-  },
-  {
    "date": "2026-11-10",
    "matiere": "PHILOSOPHIE",
    "texte": "Réviser les notions \"La conscience\" et \"L'inconscient\" ainsi que la méthodologie de la dissertation + les deux exemples d'introduction rédigée et de plan expliqué en vue du DS.",
+   "fait": false
+  },
+  {
+   "date": "2026-11-13",
+   "matiere": "THEATRE",
+   "texte": "Continuer à apprendre le texte et le savoir pour le vendredi 27 novembre",
    "fait": false
   },
   {
@@ -169,6 +157,12 @@
    "date": "2026-11-20",
    "matiere": "THEATRE",
    "texte": "M'envoyer une analyse de spectacle au choix au plus tard le vendredi 20 novembre ou me la rendre en cours.",
+   "fait": false
+  },
+  {
+   "date": "2026-11-20",
+   "matiere": "THEATRE",
+   "texte": "Continuer à apprendre le texte et le savoir pour le vendredi 27 novembre",
    "fait": false
   }
  ],
