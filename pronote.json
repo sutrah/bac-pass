@@ -1,5 +1,5 @@
 {
- "mis_a_jour": "2026-11-08T13:37:40+00:00",
+ "mis_a_jour": "2026-11-09T16:37:08+00:00",
  "decoupage": "Semestre",
  "periode_en_cours": "Semestre 1",
  "periodes": [
@@ -7,6 +7,18 @@
   "Semestre 2"
  ],
  "matieres": {
+  "CHINOIS LV2 > expression orale": {
+   "periodes": {
+    "Semestre 1": {
+     "eleve": 15.0,
+     "classe": 18.82,
+     "min": 15.0,
+     "max": 20.0
+    }
+   },
+   "nb_notes": 1,
+   "annuelle": 15.0
+  },
   "HISTOIRE-GEOGRAPHIE": {
    "periodes": {
     "Semestre 1": {
@@ -47,6 +59,7 @@
  "matieres_suivies": [
   "ANGLAIS LV1",
   "CHINOIS LV2",
+  "CHINOIS LV2 > expression orale",
   "ED.PHYSIQUE & SPORT.",
   "ENS. MORAL & CIVIQUE",
   "ENSEIGN.SCIENTIFIQUE",
@@ -56,15 +69,27 @@
   "PHYSIQUE-CHIMIE",
   "SCIENCES VIE & TERRE",
   "THEATRE",
+  "VIE DE CLASSE",
   "intervention extéreiure"
  ],
  "moyenne_generale": {
   "Semestre 1": {
-   "eleve": 11.03,
-   "classe": 14.27
+   "eleve": 12.03,
+   "classe": 14.63
   }
  },
  "notes_recentes": [
+  {
+   "date": "2026-11-04",
+   "matiere": "CHINOIS LV2 > expression orale",
+   "note": 7.5,
+   "brut": null,
+   "sur": 10.0,
+   "coeff": 1.0,
+   "classe": 9.41,
+   "min": 7.5,
+   "max": 10.0
+  },
   {
    "date": "2026-10-02",
    "matiere": "PHYSIQUE-CHIMIE",
@@ -142,6 +167,12 @@
    "fait": false
   },
   {
+   "date": "2026-11-12",
+   "matiere": "SCIENCES VIE & TERRE",
+   "texte": "Apporter la blouse",
+   "fait": false
+  },
+  {
    "date": "2026-11-13",
    "matiere": "THEATRE",
    "texte": "Continuer à apprendre le texte et le savoir pour le vendredi 27 novembre",
@@ -189,12 +220,20 @@
   {
    "date": "2026-11-09T11:00",
    "matiere": "ENSEIGN.SCIENTIFIQUE"
+  },
+  {
+   "date": "2026-11-09T14:00",
+   "matiere": "ED.PHYSIQUE & SPORT."
+  },
+  {
+   "date": "2026-11-16T14:00",
+   "matiere": "ED.PHYSIQUE & SPORT."
   }
  ],
  "vie_scolaire": {
-  "absences": 7,
-  "absences_non_justifiees": 1,
-  "heures_absence": 40.0,
+  "absences": 8,
+  "absences_non_justifiees": 2,
+  "heures_absence": 45.0,
   "retards": 2
  }
 }
