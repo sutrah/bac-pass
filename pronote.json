@@ -1,5 +1,5 @@
 {
- "mis_a_jour": "2026-11-09T16:37:08+00:00",
+ "mis_a_jour": "2026-11-10T00:44:17+00:00",
  "decoupage": "Semestre",
  "periode_en_cours": "Semestre 1",
  "periodes": [
@@ -149,18 +149,6 @@
  "bac_blanc": {},
  "devoirs": [
   {
-   "date": "2026-11-09",
-   "matiere": "THEATRE",
-   "texte": "Bonsoir à toutes et à tous. J'ai mis dans les ressources pédagogiques de pronote un document sur la nature et les ressorts du comique ainsi que le compte-rendu du travail à la table commencé vendredi.",
-   "fait": false
-  },
-  {
-   "date": "2026-11-09",
-   "matiere": "THEATRE",
-   "texte": "Un message de Pascale Gouletquer à destination des élèves qui n'ont pas encore communiqué leurs mensurations. Bonjour. Cela fait déjà un moment que je vous ai demandé de m'envoyer vos mensurations (ta",
-   "fait": false
-  },
-  {
    "date": "2026-11-10",
    "matiere": "PHILOSOPHIE",
    "texte": "Réviser les notions \"La conscience\" et \"L'inconscient\" ainsi que la méthodologie de la dissertation + les deux exemples d'introduction rédigée et de plan expliqué en vue du DS.",
@@ -182,6 +170,12 @@
    "date": "2026-11-13",
    "matiere": "THEATRE",
    "texte": "Bonsoir à toutes et à tous. J'ai mis dans les ressources pédagogiques de pronote un document sur la nature et les ressorts du comique ainsi que le compte-rendu du travail à la table commencé vendredi.",
+   "fait": false
+  },
+  {
+   "date": "2026-11-13",
+   "matiere": "THEATRE",
+   "texte": "Première intervention de Delphine Thisselin: prévoir une tenue confortable.",
    "fait": false
   },
   {
@@ -218,16 +212,12 @@
  "controles": [],
  "cours_annules": [
   {
-   "date": "2026-11-09T11:00",
-   "matiere": "ENSEIGN.SCIENTIFIQUE"
-  },
-  {
-   "date": "2026-11-09T14:00",
-   "matiere": "ED.PHYSIQUE & SPORT."
-  },
-  {
    "date": "2026-11-16T14:00",
    "matiere": "ED.PHYSIQUE & SPORT."
+  },
+  {
+   "date": "2026-11-23T11:00",
+   "matiere": "ENSEIGN.SCIENTIFIQUE"
   }
  ],
  "vie_scolaire": {
