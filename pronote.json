@@ -1,5 +1,5 @@
 {
- "mis_a_jour": "2026-11-10T15:02:01+00:00",
+ "mis_a_jour": "2026-11-10T21:21:10+00:00",
  "decoupage": "Semestre",
  "periode_en_cours": "Semestre 1",
  "periodes": [
@@ -150,12 +150,6 @@
  "devoirs": [
   {
    "date": "2026-11-10",
-   "matiere": "PHILOSOPHIE",
-   "texte": "Réviser les notions \"La conscience\" et \"L'inconscient\" ainsi que la méthodologie de la dissertation + les deux exemples d'introduction rédigée et de plan expliqué en vue du DS.",
-   "fait": false
-  },
-  {
-   "date": "2026-11-10",
    "matiere": "PHYSIQUE-CHIMIE",
    "texte": "Relire sur ELEA dans CH4 DISTANCIEL le document CH4 Partie II et III PROF distanciel , et en particulier la fin du document sur les diagrammes d e distribution et de prédominance puis faire les exerci",
    "fait": false
@@ -170,6 +164,12 @@
    "date": "2026-11-12",
    "matiere": "HISTOIRE-GEOGRAPHIE",
    "texte": "montrez la violence des pogroms de novembre 1938 et évoquez le bilan ( destructions, victimes, popforcée à l'exil et envoi en camps ) : à l'aide 10 minutues de la vidéo indiquée en dessous ( voir entr",
+   "fait": false
+  },
+  {
+   "date": "2026-11-12",
+   "matiere": "PHYSIQUE-CHIMIE",
+   "texte": "Sur ELEA, dans le chapitre 4 DISTANCIEL : lire la partie iV du cours PROF ; Apprendre les définitions en rouge ; Faire les exercices 48 et 49 p 226 ; Pour réviser la partie titrage , faire l'exercice ",
    "fait": false
   },
   {
@@ -197,9 +197,15 @@
    "fait": false
   },
   {
-   "date": "2026-11-17",
+   "date": "2026-11-16",
    "matiere": "PHILOSOPHIE",
    "texte": "Contrôle sur cours sur trois notions : la conscience, l'inconscient et le temps (cours sur Pearltrees).",
+   "fait": false
+  },
+  {
+   "date": "2026-11-17",
+   "matiere": "PHILOSOPHIE",
+   "texte": "Réviser les notions \"La conscience\" et \"L'inconscient\" ainsi que la méthodologie de la dissertation + les deux exemples d'introduction rédigée et de plan expliqué en vue du DS.",
    "fait": false
   },
   {
