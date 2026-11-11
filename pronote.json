@@ -1,5 +1,5 @@
 {
- "mis_a_jour": "2026-11-10T21:21:10+00:00",
+ "mis_a_jour": "2026-11-11T01:18:36+00:00",
  "decoupage": "Semestre",
  "periode_en_cours": "Semestre 1",
  "periodes": [
@@ -148,12 +148,6 @@
  ],
  "bac_blanc": {},
  "devoirs": [
-  {
-   "date": "2026-11-10",
-   "matiere": "PHYSIQUE-CHIMIE",
-   "texte": "Relire sur ELEA dans CH4 DISTANCIEL le document CH4 Partie II et III PROF distanciel , et en particulier la fin du document sur les diagrammes d e distribution et de prédominance puis faire les exerci",
-   "fait": false
-  },
   {
    "date": "2026-11-12",
    "matiere": "HISTOIRE-GEOGRAPHIE",
