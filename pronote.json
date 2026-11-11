@@ -1,5 +1,5 @@
 {
- "mis_a_jour": "2026-11-11T01:18:36+00:00",
+ "mis_a_jour": "2026-11-11T22:02:05+00:00",
  "decoupage": "Semestre",
  "periode_en_cours": "Semestre 1",
  "periodes": [
@@ -191,6 +191,12 @@
    "fait": false
   },
   {
+   "date": "2026-11-13",
+   "matiere": "THEATRE",
+   "texte": "Si vous avez chez vous de vieux draps blancs ou beige, de préférence en coton, dont vous n'avez plus besoin, pourriez-vous les rapporter en cours? Garance pourra les utiliser pour faire les tuniques d",
+   "fait": false
+  },
+  {
    "date": "2026-11-16",
    "matiere": "PHILOSOPHIE",
    "texte": "Contrôle sur cours sur trois notions : la conscience, l'inconscient et le temps (cours sur Pearltrees).",
@@ -224,6 +230,12 @@
    "date": "2026-11-20",
    "matiere": "THEATRE",
    "texte": "Continuer à apprendre le texte et le savoir pour le vendredi 27 novembre",
+   "fait": false
+  },
+  {
+   "date": "2026-11-20",
+   "matiere": "THEATRE",
+   "texte": "Avoir lu avant le spectacle Laboratoire 22 le document d'information que j'ai mis dans les Ressources pédagogiques.",
    "fait": false
   },
   {
