@@ -1,5 +1,5 @@
 {
- "mis_a_jour": "2026-11-12T15:25:52+00:00",
+ "mis_a_jour": "2026-11-13T14:42:44+00:00",
  "decoupage": "Semestre",
  "periode_en_cours": "Semestre 1",
  "periodes": [
@@ -75,7 +75,7 @@
  "moyenne_generale": {
   "Semestre 1": {
    "eleve": 12.03,
-   "classe": 14.6
+   "classe": 14.61
   }
  },
  "notes_recentes": [
@@ -149,30 +149,6 @@
  "bac_blanc": {},
  "devoirs": [
   {
-   "date": "2026-11-12",
-   "matiere": "HISTOIRE-GEOGRAPHIE",
-   "texte": "q1, q2 et q.4 p.71",
-   "fait": false
-  },
-  {
-   "date": "2026-11-12",
-   "matiere": "HISTOIRE-GEOGRAPHIE",
-   "texte": "montrez la violence des pogroms de novembre 1938 et évoquez le bilan ( destructions, victimes, popforcée à l'exil et envoi en camps ) : à l'aide 10 minutues de la vidéo indiquée en dessous ( voir entr",
-   "fait": false
-  },
-  {
-   "date": "2026-11-12",
-   "matiere": "PHYSIQUE-CHIMIE",
-   "texte": "Sur ELEA, dans le chapitre 4 DISTANCIEL : lire la partie iV du cours PROF ; Apprendre les définitions en rouge ; Faire les exercices 48 et 49 p 226 ; Pour réviser la partie titrage , faire l'exercice ",
-   "fait": false
-  },
-  {
-   "date": "2026-11-12",
-   "matiere": "SCIENCES VIE & TERRE",
-   "texte": "Apporter la blouse",
-   "fait": false
-  },
-  {
    "date": "2026-11-13",
    "matiere": "THEATRE",
    "texte": "Continuer à apprendre le texte et le savoir pour le vendredi 27 novembre",
@@ -215,15 +191,15 @@
    "fait": false
   },
   {
-   "date": "2026-11-18",
-   "matiere": "ENS. MORAL & CIVIQUE",
-   "texte": "travail final à rendre sous forme imprimée de préférence. Vous pouvez imprimer au CDI. Si vous n'avez pas d'imprimante, possibilité de le rendre sous format électronique.",
+   "date": "2026-11-17",
+   "matiere": "PHYSIQUE-CHIMIE",
+   "texte": "Pour travailler sur les titrages en relation avec le chapitre 4DISTANCIEL Exercices n° 55 p 229 (type bac ) et 58 p 224 (type bac ); Travailler en autonomie l'exercice 26 p 221 (entièrement corrigé)",
    "fait": false
   },
   {
-   "date": "2026-11-19",
-   "matiere": "HISTOIRE-GEOGRAPHIE",
-   "texte": "évaluation",
+   "date": "2026-11-18",
+   "matiere": "ENS. MORAL & CIVIQUE",
+   "texte": "travail final à rendre sous forme imprimée de préférence. Vous pouvez imprimer au CDI. Si vous n'avez pas d'imprimante, possibilité de le rendre sous format électronique.",
    "fait": false
   },
   {
@@ -252,8 +228,26 @@
   },
   {
    "date": "2026-11-24",
+   "matiere": "HISTOIRE-GEOGRAPHIE",
+   "texte": "évaluation",
+   "fait": false
+  },
+  {
+   "date": "2026-11-24",
    "matiere": "SCIENCES VIE & TERRE",
    "texte": "Réaliser une carte mentale regroupant les notions importante sur la domestication à partir des exemples proposés dans le dossier documentaire",
+   "fait": false
+  },
+  {
+   "date": "2026-11-27",
+   "matiere": "THEATRE",
+   "texte": "Bien connaître tout votre texte.",
+   "fait": false
+  },
+  {
+   "date": "2026-11-27",
+   "matiere": "THEATRE",
+   "texte": "Bien connaître tout votre texte.",
    "fait": false
   }
  ],
