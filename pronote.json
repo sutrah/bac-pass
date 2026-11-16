@@ -1,5 +1,5 @@
 {
- "mis_a_jour": "2026-11-15T19:49:50+00:00",
+ "mis_a_jour": "2026-11-16T16:02:40+00:00",
  "decoupage": "Semestre",
  "periode_en_cours": "Semestre 1",
  "periodes": [
@@ -7,6 +7,18 @@
   "Semestre 2"
  ],
  "matieres": {
+  "ANGLAIS LV1 > expression écrite": {
+   "periodes": {
+    "Semestre 1": {
+     "eleve": 16.0,
+     "classe": 17.19,
+     "min": 15.0,
+     "max": 19.0
+    }
+   },
+   "nb_notes": 1,
+   "annuelle": 16.0
+  },
   "CHINOIS LV2 > expression orale": {
    "periodes": {
     "Semestre 1": {
@@ -58,6 +70,7 @@
  },
  "matieres_suivies": [
   "ANGLAIS LV1",
+  "ANGLAIS LV1 > expression écrite",
   "CHINOIS LV2",
   "CHINOIS LV2 > expression orale",
   "ED.PHYSIQUE & SPORT.",
@@ -74,8 +87,8 @@
  ],
  "moyenne_generale": {
   "Semestre 1": {
-   "eleve": 12.03,
-   "classe": 14.64
+   "eleve": 12.82,
+   "classe": 15.17
   }
  },
  "notes_recentes": [
@@ -133,6 +146,17 @@
    "classe": 7.42,
    "min": 4.0,
    "max": 10.0
+  },
+  {
+   "date": "2026-09-15",
+   "matiere": "ANGLAIS LV1 > expression écrite",
+   "note": 16.0,
+   "brut": null,
+   "sur": 20.0,
+   "coeff": 0.5,
+   "classe": 17.19,
+   "min": 15.0,
+   "max": 19.0
   },
   {
    "date": "2026-09-11",
@@ -203,6 +227,12 @@
    "fait": false
   },
   {
+   "date": "2026-11-23",
+   "matiere": "ENSEIGN.SCIENTIFIQUE",
+   "texte": "apporter pour la séance d'orientation du 23 ou du 26 novembre la carte mentale de présentation (cf PJ) pour le professeur référent.",
+   "fait": false
+  },
+  {
    "date": "2026-11-24",
    "matiere": "HISTOIRE-GEOGRAPHIE",
    "texte": "évaluation",
@@ -227,11 +257,40 @@
    "fait": false
   }
  ],
- "controles": [],
+ "controles": [
+  {
+   "date": "2026-11-16T12:00",
+   "matiere": "ENSEIGN.SCIENTIFIQUE"
+  },
+  {
+   "date": "2026-11-16T16:00",
+   "matiere": "PHILOSOPHIE"
+  },
+  {
+   "date": "2026-11-19T16:00",
+   "matiere": "PHYSIQUE-CHIMIE"
+  }
+ ],
  "cours_annules": [
   {
    "date": "2026-11-16T14:00",
    "matiere": "ED.PHYSIQUE & SPORT."
+  },
+  {
+   "date": "2026-11-20T14:00",
+   "matiere": "ANGLAIS LV1"
+  },
+  {
+   "date": "2026-11-20T15:00",
+   "matiere": "THEATRE"
+  },
+  {
+   "date": "2026-11-20T16:00",
+   "matiere": "THEATRE"
+  },
+  {
+   "date": "2026-11-20T17:00",
+   "matiere": "THEATRE"
   },
   {
    "date": "2026-11-23T11:00",
@@ -239,9 +298,9 @@
   }
  ],
  "vie_scolaire": {
-  "absences": 8,
-  "absences_non_justifiees": 2,
-  "heures_absence": 45.0,
+  "absences": 9,
+  "absences_non_justifiees": 3,
+  "heures_absence": 46.0,
   "retards": 2
  }
 }
