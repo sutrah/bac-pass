@@ -25,19 +25,16 @@ jobs:
         with:
           ref: main  # après un sync : la version que le bot vient de pousser
 
-      - name: Déployer dashboard.html et pronote.json sur le FTP OVH
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-        with:
-          server: ftp.cluster026.hosting.ovh.net
-          protocol: ftps
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          server-dir: /games/bac-pass/
-          local-dir: ./
-          # N'envoie que ce qui compose le site -- pas le dépôt Git entier.
-          exclude: |
-            **/.git*
-            **/.git*/**
-            **/.github/**
-            **/scripts/**
-            **/*.md
+      # SFTP (port 22) : le serveur OVH refuse le FTPS explicite ("500 This security scheme
+      # is not implemented"), ce qui faisait échouer tous les déploiements. Mêmes identifiants.
+      - name: Déployer dashboard.html et pronote.json sur l'hébergement OVH (SFTP)
+        env:
+          SSHPASS: ${{ secrets.FTP_PASSWORD }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+        run: |
+          HOST=ftp.cluster026.hosting.ovh.net
+          command -v sshpass >/dev/null || sudo apt-get install -y -q sshpass
+          mkdir -p ~/.ssh && ssh-keyscan -T 20 "$HOST" >> ~/.ssh/known_hosts
+          printf 'put dashboard.html\nput pronote.json\nls -l\n' |
+            sshpass -e sftp -o PreferredAuthentications=password -o PubkeyAuthentication=no \
+              -b - "$FTP_USERNAME@$HOST:games/bac-pass"
