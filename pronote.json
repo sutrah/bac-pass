@@ -1,5 +1,5 @@
 {
- "mis_a_jour": "2026-11-17T00:17:51+00:00",
+ "mis_a_jour": "2026-11-17T16:13:50+00:00",
  "decoupage": "Semestre",
  "periode_en_cours": "Semestre 1",
  "periodes": [
@@ -77,6 +77,7 @@
   "ENS. MORAL & CIVIQUE",
   "ENSEIGN.SCIENTIFIQUE",
   "HISTOIRE-GEOGRAPHIE",
+  "Hors établissement",
   "Matière non désignée",
   "PHILOSOPHIE",
   "PHYSIQUE-CHIMIE",
@@ -88,7 +89,7 @@
  "moyenne_generale": {
   "Semestre 1": {
    "eleve": 12.82,
-   "classe": 15.17
+   "classe": 15.15
   }
  },
  "notes_recentes": [
@@ -192,8 +193,26 @@
   },
   {
    "date": "2026-11-18",
+   "matiere": "CHINOIS LV2",
+   "texte": "contrôle oral sur le dialogue (avec les 9 images)",
+   "fait": false
+  },
+  {
+   "date": "2026-11-18",
    "matiere": "ENS. MORAL & CIVIQUE",
    "texte": "travail final à rendre sous forme imprimée de préférence. Vous pouvez imprimer au CDI. Si vous n'avez pas d'imprimante, possibilité de le rendre sous format électronique.",
+   "fait": false
+  },
+  {
+   "date": "2026-11-19",
+   "matiere": "PHYSIQUE-CHIMIE",
+   "texte": "Réviser CH3 et CH4 Distanciel en vue du DS de 1h .",
+   "fait": false
+  },
+  {
+   "date": "2026-11-19",
+   "matiere": "PHYSIQUE-CHIMIE",
+   "texte": "Pour les absents du mardi 17/11 : Sur ELEA Chapitre 4 lire le cours PROF jusqu'à la page 5; consulter le document Méthode de détermination graphique de la vitesse et de l'accélération ; Faire l'applic",
    "fait": false
   },
   {
@@ -234,6 +253,12 @@
   },
   {
    "date": "2026-11-24",
+   "matiere": "PHYSIQUE-CHIMIE",
+   "texte": "Pour travailler le chapitre 4 : faire les exercices 24;27 et 30 p 304-305; En autonomie :Ex 19 p 301 (résolu) + Ex 44 p 309",
+   "fait": false
+  },
+  {
+   "date": "2026-11-24",
    "matiere": "SCIENCES VIE & TERRE",
    "texte": "Réaliser une carte mentale regroupant les notions importante sur la domestication à partir des exemples proposés dans le dossier documentaire",
    "fait": false
@@ -253,25 +278,17 @@
  ],
  "controles": [
   {
+   "date": "2026-11-17T10:00",
+   "matiere": "PHILOSOPHIE"
+  },
+  {
    "date": "2026-11-19T16:00",
    "matiere": "PHYSIQUE-CHIMIE"
   }
  ],
  "cours_annules": [
   {
-   "date": "2026-11-20T14:00",
-   "matiere": "ANGLAIS LV1"
-  },
-  {
-   "date": "2026-11-20T15:00",
-   "matiere": "THEATRE"
-  },
-  {
    "date": "2026-11-20T16:00",
-   "matiere": "THEATRE"
-  },
-  {
-   "date": "2026-11-20T17:00",
    "matiere": "THEATRE"
   },
   {
@@ -280,9 +297,9 @@
   }
  ],
  "vie_scolaire": {
-  "absences": 9,
-  "absences_non_justifiees": 3,
-  "heures_absence": 46.0,
+  "absences": 10,
+  "absences_non_justifiees": 0,
+  "heures_absence": 54.0,
   "retards": 2
  }
 }
