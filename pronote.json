@@ -1,5 +1,5 @@
 {
- "mis_a_jour": "2026-11-16T16:02:40+00:00",
+ "mis_a_jour": "2026-11-17T00:17:51+00:00",
  "decoupage": "Semestre",
  "periode_en_cours": "Semestre 1",
  "periodes": [
@@ -173,12 +173,6 @@
  "bac_blanc": {},
  "devoirs": [
   {
-   "date": "2026-11-16",
-   "matiere": "PHILOSOPHIE",
-   "texte": "Contrôle sur cours sur trois notions : la conscience, l'inconscient et le temps (cours sur Pearltrees).",
-   "fait": false
-  },
-  {
    "date": "2026-11-17",
    "matiere": "HISTOIRE-GEOGRAPHIE",
    "texte": "manuel de géographie à avoir",
@@ -259,23 +253,11 @@
  ],
  "controles": [
   {
-   "date": "2026-11-16T12:00",
-   "matiere": "ENSEIGN.SCIENTIFIQUE"
-  },
-  {
-   "date": "2026-11-16T16:00",
-   "matiere": "PHILOSOPHIE"
-  },
-  {
    "date": "2026-11-19T16:00",
    "matiere": "PHYSIQUE-CHIMIE"
   }
  ],
  "cours_annules": [
-  {
-   "date": "2026-11-16T14:00",
-   "matiere": "ED.PHYSIQUE & SPORT."
-  },
   {
    "date": "2026-11-20T14:00",
    "matiere": "ANGLAIS LV1"
