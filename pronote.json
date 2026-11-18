@@ -1,5 +1,5 @@
 {
- "mis_a_jour": "2026-11-17T23:33:46+00:00",
+ "mis_a_jour": "2026-11-18T15:49:07+00:00",
  "decoupage": "Semestre",
  "periode_en_cours": "Semestre 1",
  "periodes": [
@@ -89,7 +89,7 @@
  "moyenne_generale": {
   "Semestre 1": {
    "eleve": 12.82,
-   "classe": 15.15
+   "classe": 15.13
   }
  },
  "notes_recentes": [
@@ -174,24 +174,6 @@
  "bac_blanc": {},
  "devoirs": [
   {
-   "date": "2026-11-17",
-   "matiere": "HISTOIRE-GEOGRAPHIE",
-   "texte": "manuel de géographie à avoir",
-   "fait": false
-  },
-  {
-   "date": "2026-11-17",
-   "matiere": "PHILOSOPHIE",
-   "texte": "Réviser les notions \"La conscience\" et \"L'inconscient\" ainsi que la méthodologie de la dissertation + les deux exemples d'introduction rédigée et de plan expliqué en vue du DS.",
-   "fait": false
-  },
-  {
-   "date": "2026-11-17",
-   "matiere": "PHYSIQUE-CHIMIE",
-   "texte": "Pour travailler sur les titrages en relation avec le chapitre 4DISTANCIEL Exercices n° 55 p 229 (type bac ) et 58 p 224 (type bac ); Travailler en autonomie l'exercice 26 p 221 (entièrement corrigé)",
-   "fait": false
-  },
-  {
    "date": "2026-11-18",
    "matiere": "CHINOIS LV2",
    "texte": "contrôle oral sur le dialogue (avec les 9 images)",
@@ -247,6 +229,12 @@
   },
   {
    "date": "2026-11-24",
+   "matiere": "CHINOIS LV2",
+   "texte": "contrôle oral",
+   "fait": false
+  },
+  {
+   "date": "2026-11-24",
    "matiere": "HISTOIRE-GEOGRAPHIE",
    "texte": "évaluation",
    "fait": false
@@ -277,10 +265,6 @@
   }
  ],
  "controles": [
-  {
-   "date": "2026-11-17T10:00",
-   "matiere": "PHILOSOPHIE"
-  },
   {
    "date": "2026-11-19T16:00",
    "matiere": "PHYSIQUE-CHIMIE"
