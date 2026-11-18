@@ -297,6 +297,15 @@ def main() -> int:
     report_labels(data)
 
     annual = {normalize(name): m["annuelle"] for name, m in data["matieres"].items()}
+    # Sous-matières ("ANGLAIS LV1 > expression écrite") : la matière vaut la moyenne de ses
+    # sous-matières notées, sauf si Pronote donne déjà une moyenne pour la matière elle-même.
+    subs: dict[str, list[float]] = {}
+    for name, m in data["matieres"].items():
+        if ">" in name and m["annuelle"] is not None:
+            subs.setdefault(normalize(name.split(">")[0]), []).append(m["annuelle"])
+    for parent, vals in subs.items():
+        if annual.get(parent) is None:
+            annual[parent] = r2(sum(vals) / len(vals))
     updated = sync_dashboard(annual)
     changed = write_json(data)
     print("pronote.json mis à jour." if changed else "pronote.json : aucun changement.")
