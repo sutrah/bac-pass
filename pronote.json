@@ -1,5 +1,5 @@
 {
- "mis_a_jour": "2026-11-19T15:53:24+00:00",
+ "mis_a_jour": "2026-11-19T23:06:21+00:00",
  "decoupage": "Semestre",
  "periode_en_cours": "Semestre 1",
  "periodes": [
@@ -183,6 +183,12 @@
    "date": "2026-11-19",
    "matiere": "PHYSIQUE-CHIMIE",
    "texte": "Pour les absents du mardi 17/11 : Sur ELEA Chapitre 4 lire le cours PROF jusqu'à la page 5; consulter le document Méthode de détermination graphique de la vitesse et de l'accélération ; Faire l'applic",
+   "fait": false
+  },
+  {
+   "date": "2026-11-20",
+   "matiere": "PHYSIQUE-CHIMIE",
+   "texte": "Pour s'entraîner sur le CH4 Cinématique , faire les exercices 24-27-30 p 304-305 (exercices très simples) ; Travailler le 19 p 301 (résolu ) puis faire le 44 p 309",
    "fait": false
   },
   {
