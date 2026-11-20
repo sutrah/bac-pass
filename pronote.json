@@ -1,5 +1,5 @@
 {
- "mis_a_jour": "2026-11-19T23:06:21+00:00",
+ "mis_a_jour": "2026-11-20T15:36:37+00:00",
  "decoupage": "Semestre",
  "periode_en_cours": "Semestre 1",
  "periodes": [
@@ -35,12 +35,12 @@
    "periodes": {
     "Semestre 1": {
      "eleve": 15.0,
-     "classe": 14.25,
+     "classe": 14.26,
      "min": 8.0,
      "max": 20.0
     }
    },
-   "nb_notes": 1,
+   "nb_notes": 2,
    "annuelle": 15.0
   },
   "PHYSIQUE-CHIMIE": {
@@ -83,8 +83,7 @@
   "PHYSIQUE-CHIMIE",
   "SCIENCES VIE & TERRE",
   "THEATRE",
-  "VIE DE CLASSE",
-  "intervention extéreiure"
+  "VIE DE CLASSE"
  ],
  "moyenne_generale": {
   "Semestre 1": {
@@ -93,6 +92,17 @@
   }
  },
  "notes_recentes": [
+  {
+   "date": "2026-11-17",
+   "matiere": "HISTOIRE-GEOGRAPHIE",
+   "note": null,
+   "brut": "Absent",
+   "sur": 5.0,
+   "coeff": 0.5,
+   "classe": 5.0,
+   "min": 5.0,
+   "max": 5.0
+  },
   {
    "date": "2026-11-04",
    "matiere": "CHINOIS LV2 > expression orale",
@@ -174,24 +184,6 @@
  "bac_blanc": {},
  "devoirs": [
   {
-   "date": "2026-11-19",
-   "matiere": "PHYSIQUE-CHIMIE",
-   "texte": "Réviser CH3 et CH4 Distanciel en vue du DS de 1h .",
-   "fait": false
-  },
-  {
-   "date": "2026-11-19",
-   "matiere": "PHYSIQUE-CHIMIE",
-   "texte": "Pour les absents du mardi 17/11 : Sur ELEA Chapitre 4 lire le cours PROF jusqu'à la page 5; consulter le document Méthode de détermination graphique de la vitesse et de l'accélération ; Faire l'applic",
-   "fait": false
-  },
-  {
-   "date": "2026-11-20",
-   "matiere": "PHYSIQUE-CHIMIE",
-   "texte": "Pour s'entraîner sur le CH4 Cinématique , faire les exercices 24-27-30 p 304-305 (exercices très simples) ; Travailler le 19 p 301 (résolu ) puis faire le 44 p 309",
-   "fait": false
-  },
-  {
    "date": "2026-11-20",
    "matiere": "THEATRE",
    "texte": "Quatrième spectacle (payé par la Coopérative du lycée), au Mac Orlan à Lambézellec: Laboratoire 22, de Nathan Jousni, le VENDREDI 20 NOVEMBRE à 14 h, avec les enseignants d'HGGSP, à destination de TOU",
@@ -241,6 +233,12 @@
   },
   {
    "date": "2026-11-24",
+   "matiere": "PHYSIQUE-CHIMIE",
+   "texte": "Pour s'entraîner sur le CH4 Cinématique , faire les exercices 24-27-30 p 304-305 (exercices très simples) ; Travailler le 19 p 301 (résolu ) puis faire le 44 p 309; résoudre les Applications 6 et 7 en",
+   "fait": false
+  },
+  {
+   "date": "2026-11-24",
    "matiere": "SCIENCES VIE & TERRE",
    "texte": "Réaliser une carte mentale regroupant les notions importante sur la domestication à partir des exemples proposés dans le dossier documentaire",
    "fait": false
@@ -258,12 +256,7 @@
    "fait": false
   }
  ],
- "controles": [
-  {
-   "date": "2026-11-19T16:00",
-   "matiere": "PHYSIQUE-CHIMIE"
-  }
- ],
+ "controles": [],
  "cours_annules": [
   {
    "date": "2026-11-20T16:00",
@@ -272,12 +265,16 @@
   {
    "date": "2026-11-23T11:00",
    "matiere": "ENSEIGN.SCIENTIFIQUE"
+  },
+  {
+   "date": "2026-11-30T14:00",
+   "matiere": "ED.PHYSIQUE & SPORT."
   }
  ],
  "vie_scolaire": {
-  "absences": 10,
-  "absences_non_justifiees": 0,
-  "heures_absence": 55.0,
+  "absences": 11,
+  "absences_non_justifiees": 1,
+  "heures_absence": 57.0,
   "retards": 2
  }
 }
