@@ -1,5 +1,5 @@
 {
- "mis_a_jour": "2026-11-21T14:47:14+00:00",
+ "mis_a_jour": "2026-11-21T20:55:51+00:00",
  "decoupage": "Semestre",
  "periode_en_cours": "Semestre 1",
  "periodes": [
@@ -88,7 +88,7 @@
  "moyenne_generale": {
   "Semestre 1": {
    "eleve": 12.82,
-   "classe": 15.13
+   "classe": 15.14
   }
  },
  "notes_recentes": [
