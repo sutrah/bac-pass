@@ -1,5 +1,5 @@
 {
- "mis_a_jour": "2026-11-20T15:36:37+00:00",
+ "mis_a_jour": "2026-11-21T14:47:14+00:00",
  "decoupage": "Semestre",
  "periode_en_cours": "Semestre 1",
  "periodes": [
@@ -184,30 +184,6 @@
  "bac_blanc": {},
  "devoirs": [
   {
-   "date": "2026-11-20",
-   "matiere": "THEATRE",
-   "texte": "Quatrième spectacle (payé par la Coopérative du lycée), au Mac Orlan à Lambézellec: Laboratoire 22, de Nathan Jousni, le VENDREDI 20 NOVEMBRE à 14 h, avec les enseignants d'HGGSP, à destination de TOU",
-   "fait": false
-  },
-  {
-   "date": "2026-11-20",
-   "matiere": "THEATRE",
-   "texte": "M'envoyer une analyse de spectacle au choix au plus tard le vendredi 20 novembre ou me la rendre en cours.",
-   "fait": false
-  },
-  {
-   "date": "2026-11-20",
-   "matiere": "THEATRE",
-   "texte": "Continuer à apprendre le texte et le savoir pour le vendredi 27 novembre",
-   "fait": false
-  },
-  {
-   "date": "2026-11-20",
-   "matiere": "THEATRE",
-   "texte": "Avoir lu avant le spectacle Laboratoire 22 le document d'information que j'ai mis dans les Ressources pédagogiques.",
-   "fait": false
-  },
-  {
    "date": "2026-11-23",
    "matiere": "ENSEIGN.SCIENTIFIQUE",
    "texte": "apporter pour la séance d'orientation du 23 ou du 26 novembre la carte mentale de présentation (cf PJ) pour le professeur référent.",
@@ -258,10 +234,6 @@
  ],
  "controles": [],
  "cours_annules": [
-  {
-   "date": "2026-11-20T16:00",
-   "matiere": "THEATRE"
-  },
   {
    "date": "2026-11-23T11:00",
    "matiere": "ENSEIGN.SCIENTIFIQUE"
