@@ -1,5 +1,5 @@
 {
- "mis_a_jour": "2026-11-21T20:55:51+00:00",
+ "mis_a_jour": "2026-11-23T18:27:28+00:00",
  "decoupage": "Semestre",
  "periode_en_cours": "Semestre 1",
  "periodes": [
@@ -220,6 +220,18 @@
    "fait": false
   },
   {
+   "date": "2026-11-25",
+   "matiere": "ENSEIGN.SCIENTIFIQUE",
+   "texte": "Rappel: recopier le cours du chapitre 03 fournis sur Pronote avant les vacances jusqu'à \"II Mécanique Quantique \" et répondre aux questions Q1 Q2a et Q2b du cours",
+   "fait": false
+  },
+  {
+   "date": "2026-11-26",
+   "matiere": "SCIENCES VIE & TERRE",
+   "texte": "Apporter la blouse",
+   "fait": false
+  },
+  {
    "date": "2026-11-27",
    "matiere": "THEATRE",
    "texte": "Bien connaître tout votre texte.",
@@ -237,6 +249,10 @@
   {
    "date": "2026-11-23T11:00",
    "matiere": "ENSEIGN.SCIENTIFIQUE"
+  },
+  {
+   "date": "2026-11-23T14:00",
+   "matiere": "ED.PHYSIQUE & SPORT."
   },
   {
    "date": "2026-11-30T14:00",
