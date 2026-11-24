@@ -1,5 +1,5 @@
 {
- "mis_a_jour": "2026-11-24T04:19:49+00:00",
+ "mis_a_jour": "2026-11-24T17:55:38+00:00",
  "decoupage": "Semestre",
  "periode_en_cours": "Semestre 1",
  "periodes": [
@@ -88,7 +88,7 @@
  "moyenne_generale": {
   "Semestre 1": {
    "eleve": 12.82,
-   "classe": 15.14
+   "classe": 15.17
   }
  },
  "notes_recentes": [
@@ -215,6 +215,12 @@
   },
   {
    "date": "2026-11-25",
+   "matiere": "CHINOIS LV2",
+   "texte": "réviser les vocabulaires HSK ( les 2 feuilles)",
+   "fait": false
+  },
+  {
+   "date": "2026-11-25",
    "matiere": "ENSEIGN.SCIENTIFIQUE",
    "texte": "Rappel: recopier le cours du chapitre 03 fournis sur Pronote avant les vacances jusqu'à \"II Mécanique Quantique \" et répondre aux questions Q1 Q2a et Q2b du cours",
    "fait": false
@@ -253,6 +259,6 @@
   "absences": 11,
   "absences_non_justifiees": 1,
   "heures_absence": 57.0,
-  "retards": 2
+  "retards": 3
  }
 }
