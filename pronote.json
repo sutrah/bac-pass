@@ -1,5 +1,5 @@
 {
- "mis_a_jour": "2026-11-25T02:35:32+00:00",
+ "mis_a_jour": "2026-11-25T17:23:35+00:00",
  "decoupage": "Semestre",
  "periode_en_cours": "Semestre 1",
  "periodes": [
@@ -88,7 +88,7 @@
  "moyenne_generale": {
   "Semestre 1": {
    "eleve": 12.82,
-   "classe": 15.17
+   "classe": 15.0
   }
  },
  "notes_recentes": [
@@ -212,6 +212,18 @@
    "matiere": "THEATRE",
    "texte": "Bien connaître tout votre texte.",
    "fait": false
+  },
+  {
+   "date": "2026-12-01",
+   "matiere": "CHINOIS LV2",
+   "texte": "p137 décrire l'image avec 5 phrases en chinois, écrivez sur le cahier",
+   "fait": false
+  },
+  {
+   "date": "2026-12-01",
+   "matiere": "CHINOIS LV2",
+   "texte": "les comparaisons, chaque comparaison, écrire une phrase",
+   "fait": false
   }
  ],
  "controles": [],
@@ -226,9 +238,9 @@
   }
  ],
  "vie_scolaire": {
-  "absences": 11,
+  "absences": 12,
   "absences_non_justifiees": 1,
-  "heures_absence": 57.0,
-  "retards": 3
+  "heures_absence": 59.0,
+  "retards": 4
  }
 }
