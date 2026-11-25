@@ -1,5 +1,5 @@
 {
- "mis_a_jour": "2026-11-24T17:55:38+00:00",
+ "mis_a_jour": "2026-11-25T02:35:32+00:00",
  "decoupage": "Semestre",
  "periode_en_cours": "Semestre 1",
  "periodes": [
@@ -183,36 +183,6 @@
  ],
  "bac_blanc": {},
  "devoirs": [
-  {
-   "date": "2026-11-24",
-   "matiere": "CHINOIS LV2",
-   "texte": "contrôle oral",
-   "fait": false
-  },
-  {
-   "date": "2026-11-24",
-   "matiere": "HISTOIRE-GEOGRAPHIE",
-   "texte": "évaluation",
-   "fait": false
-  },
-  {
-   "date": "2026-11-24",
-   "matiere": "PHYSIQUE-CHIMIE",
-   "texte": "Pour travailler le chapitre 4 : faire les exercices 24;27 et 30 p 304-305; En autonomie :Ex 19 p 301 (résolu) + Ex 44 p 309",
-   "fait": false
-  },
-  {
-   "date": "2026-11-24",
-   "matiere": "PHYSIQUE-CHIMIE",
-   "texte": "Pour s'entraîner sur le CH4 Cinématique , faire les exercices 24-27-30 p 304-305 (exercices très simples) ; Travailler le 19 p 301 (résolu ) puis faire le 44 p 309; résoudre les Applications 6 et 7 en",
-   "fait": false
-  },
-  {
-   "date": "2026-11-24",
-   "matiere": "SCIENCES VIE & TERRE",
-   "texte": "Réaliser une carte mentale regroupant les notions importante sur la domestication à partir des exemples proposés dans le dossier documentaire",
-   "fait": false
-  },
   {
    "date": "2026-11-25",
    "matiere": "CHINOIS LV2",
