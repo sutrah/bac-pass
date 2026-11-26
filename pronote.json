@@ -1,5 +1,5 @@
 {
- "mis_a_jour": "2026-11-26T01:50:07+00:00",
+ "mis_a_jour": "2026-11-26T17:04:09+00:00",
  "decoupage": "Semestre",
  "periode_en_cours": "Semestre 1",
  "periodes": [
@@ -46,14 +46,14 @@
   "PHYSIQUE-CHIMIE": {
    "periodes": {
     "Semestre 1": {
-     "eleve": 8.1,
-     "classe": 13.74,
-     "min": 8.1,
-     "max": 19.6
+     "eleve": 7.07,
+     "classe": 12.81,
+     "min": 7.07,
+     "max": 19.0
     }
    },
-   "nb_notes": 3,
-   "annuelle": 8.1
+   "nb_notes": 4,
+   "annuelle": 7.07
   },
   "SCIENCES VIE & TERRE": {
    "periodes": {
@@ -87,11 +87,22 @@
  ],
  "moyenne_generale": {
   "Semestre 1": {
-   "eleve": 12.82,
+   "eleve": 12.61,
    "classe": 14.96
   }
  },
  "notes_recentes": [
+  {
+   "date": "2026-11-19",
+   "matiere": "PHYSIQUE-CHIMIE",
+   "note": 2.25,
+   "brut": null,
+   "sur": 10.0,
+   "coeff": 1.0,
+   "classe": 4.85,
+   "min": 2.25,
+   "max": 8.75
+  },
   {
    "date": "2026-11-17",
    "matiere": "HISTOIRE-GEOGRAPHIE",
@@ -211,6 +222,12 @@
    "date": "2026-12-01",
    "matiere": "CHINOIS LV2",
    "texte": "les comparaisons, chaque comparaison, écrire une phrase",
+   "fait": false
+  },
+  {
+   "date": "2026-12-01",
+   "matiere": "PHYSIQUE-CHIMIE",
+   "texte": "Pour travailler la deuxième loi de NEWTON :Exercices n°33;45;48 p 332",
    "fait": false
   }
  ],
