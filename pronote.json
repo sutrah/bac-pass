@@ -1,5 +1,5 @@
 {
- "mis_a_jour": "2026-11-26T17:04:09+00:00",
+ "mis_a_jour": "2026-11-27T01:02:12+00:00",
  "decoupage": "Semestre",
  "periode_en_cours": "Semestre 1",
  "periodes": [
@@ -195,12 +195,6 @@
  "bac_blanc": {},
  "devoirs": [
   {
-   "date": "2026-11-26",
-   "matiere": "SCIENCES VIE & TERRE",
-   "texte": "Apporter la blouse",
-   "fait": false
-  },
-  {
    "date": "2026-11-27",
    "matiere": "THEATRE",
    "texte": "Bien connaître tout votre texte.",
@@ -240,6 +234,10 @@
   {
    "date": "2026-12-07T11:00",
    "matiere": "ENSEIGN.SCIENTIFIQUE"
+  },
+  {
+   "date": "2026-12-10T14:00",
+   "matiere": "HISTOIRE-GEOGRAPHIE"
   }
  ],
  "vie_scolaire": {
