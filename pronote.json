@@ -1,5 +1,5 @@
 {
- "mis_a_jour": "2026-11-27T01:02:12+00:00",
+ "mis_a_jour": "2026-11-27T16:49:09+00:00",
  "decoupage": "Semestre",
  "periode_en_cours": "Semestre 1",
  "periodes": [
@@ -221,7 +221,31 @@
   {
    "date": "2026-12-01",
    "matiere": "PHYSIQUE-CHIMIE",
-   "texte": "Pour travailler la deuxième loi de NEWTON :Exercices n°33;45;48 p 332",
+   "texte": "Pour travailler le chapitre 5 et la deuxième loi de NEWTON :Exercices n°33;45;48 p 332",
+   "fait": false
+  },
+  {
+   "date": "2026-12-01",
+   "matiere": "PHYSIQUE-CHIMIE",
+   "texte": "Pour travailler sur le chapitre 5bis (Mouvement dans le champ de pesanteur )Travailler l' exercice résolu 20 p 360 , puis faire le 30 p 363",
+   "fait": false
+  },
+  {
+   "date": "2026-12-01",
+   "matiere": "SCIENCES VIE & TERRE",
+   "texte": "Révision chapitres 2 et 3 pour devoir type 1",
+   "fait": false
+  },
+  {
+   "date": "2026-12-09",
+   "matiere": "Matière non désignée",
+   "texte": "Révision pour QCM",
+   "fait": false
+  },
+  {
+   "date": "2026-12-09",
+   "matiere": "Matière non désignée",
+   "texte": "Révision pour QCM",
    "fait": false
   }
  ],
