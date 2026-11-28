@@ -1,5 +1,5 @@
 {
- "mis_a_jour": "2026-11-27T16:49:09+00:00",
+ "mis_a_jour": "2026-11-28T00:34:51+00:00",
  "decoupage": "Semestre",
  "periode_en_cours": "Semestre 1",
  "periodes": [
@@ -88,7 +88,7 @@
  "moyenne_generale": {
   "Semestre 1": {
    "eleve": 12.61,
-   "classe": 14.96
+   "classe": 14.93
   }
  },
  "notes_recentes": [
@@ -194,18 +194,6 @@
  ],
  "bac_blanc": {},
  "devoirs": [
-  {
-   "date": "2026-11-27",
-   "matiere": "THEATRE",
-   "texte": "Bien connaître tout votre texte.",
-   "fait": false
-  },
-  {
-   "date": "2026-11-27",
-   "matiere": "THEATRE",
-   "texte": "Bien connaître tout votre texte.",
-   "fait": false
-  },
   {
    "date": "2026-12-01",
    "matiere": "CHINOIS LV2",
